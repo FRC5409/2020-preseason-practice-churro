@@ -15,16 +15,15 @@ public class Drive extends Command {
 
     @Override
     protected void initialize() {
-        Robot.drivetrain.setVelocity(0, 0);
+        Robot.drivetrain.updateDrive(0, 0);
     }
 
     @Override
     protected void execute() {
         XboxController joystick = Robot.oi.getJoystick(JoystickType.MAIN);
-        final double axis_left  = joystick.getRawAxis(2);
-        final double axis_right = joystick.getRawAxis(4);
-
-        Robot.drivetrain.setVelocity(axis_left, axis_right);
+        final double axis_vel   = joystick.getRawAxis(3) - joystick.getRawAxis(2);
+        final double axis_rot   = joystick.getRawAxis(0);
+        Robot.drivetrain.updateDrive(axis_vel, axis_rot); //Have to flip params for some reason...
     }
 
     @Override
@@ -34,11 +33,11 @@ public class Drive extends Command {
 
     @Override
     protected void end() {
-        Robot.drivetrain.setVelocity(0, 0);
+        Robot.drivetrain.updateDrive(0, 0);
     }
 
     @Override
     protected void interrupted() {
-        Robot.drivetrain.setVelocity(0, 0);
+        Robot.drivetrain.updateDrive(0, 0);
     }
 }
