@@ -95,7 +95,7 @@ Children:
           default: '0'
           name: Channel A Channel (Digital)
           validators: &id004 [DigitalChannel]
-          value: '0'
+          value: '2'
         Distance Per Pulse: !!robotbuilder.data.properties.DoubleProperty {default: 1,
           name: Distance Per Pulse, validators: null, value: 1.0}
         PID Source: !!robotbuilder.data.properties.ChoicesProperty
@@ -119,7 +119,7 @@ Children:
           default: '0'
           name: Channel B Channel (Digital)
           validators: &id008 [DigitalChannel]
-          value: '1'
+          value: '3'
       Base: Quadrature Encoder
       Name: s_E4t_360_left_Quadrature Encoder
     - Children: []
@@ -129,7 +129,7 @@ Children:
           default: '0'
           name: Channel A Channel (Digital)
           validators: *id004
-          value: '2'
+          value: '4'
         Distance Per Pulse: !!robotbuilder.data.properties.DoubleProperty {default: 1,
           name: Distance Per Pulse, validators: null, value: 1.0}
         PID Source: !!robotbuilder.data.properties.ChoicesProperty
@@ -151,7 +151,7 @@ Children:
           default: '0'
           name: Channel B Channel (Digital)
           validators: *id008
-          value: '3'
+          value: '5'
       Base: Quadrature Encoder
       Name: s_E4t_360_right_Quadrature Encoder
     Properties:
@@ -222,9 +222,9 @@ Properties:
     name: Export Subsystems, validators: null, value: true}
   Simulation World File: !!robotbuilder.data.properties.StringProperty {default: /usr/share/frcsim/worlds/GearsBotDemo.world,
     name: Simulation World File, validators: null, value: /usr/share/frcsim/worlds/GearsBotDemo.world}
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\GWS-Student-15\',
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Haseeb\',
     extension: null, folder: true, name: Wiring file location, validators: null, value: 'C:\Users\GWS-Student-15\'}
-  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\GWS-Student-15\FRCProjects',
+  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Haseeb\FRCProjects',
     extension: null, folder: true, name: Export Directory, validators: null, value: 'C:\Users\GWS-Student-15\FRCProjects'}
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Autonomous Command}
