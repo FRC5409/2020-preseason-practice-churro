@@ -138,7 +138,7 @@ Children:
         validators: null
         value: []
     Base: Subsystem
-    Name: Subsystem 1
+    Name: Drivetrain
   Properties: {}
   Base: Subsystems
   Name: Subsystems
@@ -159,7 +159,7 @@ Children:
       Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Run When Disabled, validators: null, value: false}
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: None}
+        name: Requires, type: Subsystem, validators: null, value: Drivetrain}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
         default: []
         name: Parameter presets
@@ -190,10 +190,12 @@ Properties:
     name: Export Subsystems, validators: null, value: true}
   Simulation World File: !!robotbuilder.data.properties.StringProperty {default: /usr/share/frcsim/worlds/GearsBotDemo.world,
     name: Simulation World File, validators: null, value: /usr/share/frcsim/worlds/GearsBotDemo.world}
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\GWS-Student-16\',
-    extension: null, folder: true, name: Wiring file location, validators: null, value: 'C:\Users\GWS-Student-16\'}
-  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\GWS-Student-16\FRCProjects',
-    extension: null, folder: true, name: Export Directory, validators: null, value: 'C:\Users\GWS-Student-16\FRCProjects'}
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Adam
+      mohamed\', extension: null, folder: true, name: Wiring file location, validators: null,
+    value: 'C:\Users\GWS-Student-16\'}
+  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Adam
+      mohamed\FRCProjects', extension: null, folder: true, name: Export Directory,
+    validators: null, value: 'C:\Users\Adam mohamed\Documents\GitHub\2020-preseason-practice-churro-everyone-join-this'}
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Autonomous Command}
 Base: Robot
