@@ -1,12 +1,8 @@
 package org.usfirst.frc5409.Testrobot;
 
-import org.usfirst.frc5409.Testrobot.commands.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Joystick;
+import org.usfirst.frc5409.Testrobot.util.JoystickType;
 import edu.wpi.first.wpilibj.XboxController;
 
-import org.usfirst.frc5409.Testrobot.subsystems.*;
-import org.usfirst.frc5409.Testrobot.util.JoystickType;
 
 public class OI {
     private final XboxController main_joystick;
