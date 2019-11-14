@@ -114,7 +114,7 @@ public class Drivetrain extends Subsystem {
                 left_motor_output = maxInput;
                 right_motor_output = speed_X - rotation_Z;
             }
-        }
+        }   
     
         synchronized(m_this_mutex) {
             m_wheel_velocity_L = left_motor_output;
