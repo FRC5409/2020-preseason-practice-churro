@@ -2,6 +2,7 @@ package org.usfirst.frc5409.Testrobot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+import org.usfirst.frc5409.Testrobot.limelight.CamTrackMatrix;
 import org.usfirst.frc5409.Testrobot.limelight.lltype.CameraMode;
 import org.usfirst.frc5409.Testrobot.limelight.lltype.LedMode;
 import org.usfirst.frc5409.Testrobot.limelight.lltype.PipelineIndex;
@@ -16,6 +17,7 @@ public class Limelight extends Subsystem {
     private NetworkTableEntry    m_data_entry_led_mode;
     private NetworkTableEntry    m_data_entry_cam_mode;
     private NetworkTableEntry    m_data_entry_pipeline;
+    private NetworkTableEntry    m_data_entry_cam_track;
 
     private LedMode              m_local_led_mode;
     private CameraMode           m_local_cam_mode;
@@ -25,15 +27,16 @@ public class Limelight extends Subsystem {
 
     public Limelight() {
         // Might need to wait for table creation, maybe add a listener for the table
-        m_limelight_data      = NetworkTableInstance.getDefault().getTable("limelight");
+        m_limelight_data = NetworkTableInstance.getDefault().getTable("limelight");
 
-        m_local_led_mode      = LedMode.LED_OFF;
-        m_local_cam_mode      = CameraMode.MODE_DRIVER;
-        m_local_pipeline      = PipelineIndex.PIPELINE_0;
+        m_local_led_mode = LedMode.LED_OFF;
+        m_local_cam_mode = CameraMode.MODE_DRIVER;
+        m_local_pipeline = PipelineIndex.PIPELINE_0;
 
-        m_data_entry_cam_mode = m_limelight_data.getEntry("camMode");
-        m_data_entry_led_mode = m_limelight_data.getEntry("ledMode");
-        m_data_entry_pipeline = m_limelight_data.getEntry("pipeline");
+        m_data_entry_cam_mode  = m_limelight_data.getEntry("camMode");
+        m_data_entry_led_mode  = m_limelight_data.getEntry("ledMode");
+        m_data_entry_pipeline  = m_limelight_data.getEntry("pipeline");
+        m_data_entry_cam_track = m_limelight_data.getEntry("camtran");
 
         // Maybe create a watchdog system in case of limelight malfunction (i.e disconnection)
     }
@@ -117,5 +120,16 @@ public class Limelight extends Subsystem {
                 m_data_entry_cam_mode.forceSetDouble(m_local_pipeline.get());
         }
         return m_local_pipeline;
+    }
+
+    public CamTrackMatrix getCameraTrack() {
+        double[] raw_cam_matrix = new double[6];
+
+        synchronized(m_this_mutex) {
+            raw_cam_matrix = m_data_entry_cam_track.getDoubleArray(raw_cam_matrix);
+        }
+
+        return new CamTrackMatrix(raw_cam_matrix[0], raw_cam_matrix[1], raw_cam_matrix[2],
+                                  raw_cam_matrix[3], raw_cam_matrix[4], raw_cam_matrix[5]);
     }
 }
