@@ -26,19 +26,20 @@ public class Limelight extends Subsystem {
     private Object               m_this_mutex;
 
     public Limelight() {
+        // Maybe create a watchdog system in case of limelight malfunction (i.e disconnection)
         // Might need to wait for table creation, maybe add a listener for the table
-        m_limelight_data = NetworkTableInstance.getDefault().getTable("limelight");
-
-        m_local_led_mode = LedMode.LED_OFF;
-        m_local_cam_mode = CameraMode.MODE_DRIVER;
-        m_local_pipeline = PipelineIndex.PIPELINE_0;
+        m_limelight_data       = NetworkTableInstance.getDefault().getTable("limelight");
 
         m_data_entry_cam_mode  = m_limelight_data.getEntry("camMode");
         m_data_entry_led_mode  = m_limelight_data.getEntry("ledMode");
         m_data_entry_pipeline  = m_limelight_data.getEntry("pipeline");
         m_data_entry_cam_track = m_limelight_data.getEntry("camtran");
 
-        // Maybe create a watchdog system in case of limelight malfunction (i.e disconnection)
+        m_local_led_mode       = LedMode.LED_OFF;
+        m_local_cam_mode       = CameraMode.MODE_DRIVER;
+        m_local_pipeline       = PipelineIndex.PIPELINE_0;
+
+        m_this_mutex           = new Object();
     }
     
     @Override
@@ -93,7 +94,7 @@ public class Limelight extends Subsystem {
         }
 
         synchronized(m_this_mutex) {
-            // if (m_local_led_mode.get() != real_led_mode) //Is this check redundant?
+            if (m_local_led_mode.get() != real_led_mode) //Is this check redundant?
                 m_data_entry_led_mode.forceSetDouble(m_local_led_mode.get());
         }
         return m_local_led_mode;
