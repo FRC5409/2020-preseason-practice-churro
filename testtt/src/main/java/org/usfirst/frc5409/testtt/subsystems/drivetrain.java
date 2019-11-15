@@ -94,6 +94,17 @@ public class drivetrain extends Subsystem {
         // setDefaultCommand(new MySpecialCommand());
     }
 
+    public void setLeftMotors(double speed)
+    {
+        motorLeft1.set(controlMode.PercentOutput, -speed);
+        motorLeft1.set(controlMode.PercentOutput, -speed);
+    }
+
+    public void setLeftMotors(double speed)
+    {
+        motorRight1.set(controlMode.PercentOutput, speed);
+        motorRight1.set(controlMode.PercentOutput, speed);
+    }
     @Override
     public void periodic() {
         // Put code here to be run every loop
