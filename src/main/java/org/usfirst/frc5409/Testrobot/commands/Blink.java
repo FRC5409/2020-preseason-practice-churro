@@ -5,6 +5,7 @@ import org.usfirst.frc5409.Testrobot.Robot;
 import org.usfirst.frc5409.Testrobot.limelight.lltype;
 
 public class Blink extends Command {
+    public static long c_blink_period_ms = 1000;
 
     public Blink() {
         super("Blink");
@@ -19,12 +20,9 @@ public class Blink extends Command {
     @Override
     protected void execute() {
         Robot.limelight.setLedMode(lltype.LedMode.LED_ON);
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep();
         Robot.limelight.setLedMode(lltype.LedMode.LED_OFF);
+        sleep();
     }
 
     @Override
@@ -40,5 +38,13 @@ public class Blink extends Command {
     @Override
     protected void interrupted() {
 
+    }
+
+    private void sleep() {
+        try {
+            Thread.sleep(c_blink_period_ms);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
