@@ -12,4 +12,16 @@ public class Vector2 {
         this.x = x;
         this.y = y;
     }
+
+    public double dot(Vector2 other) {
+        return (x*other.x + y*other.y);
+    }
+
+    public double dotn(Vector2 other) {
+        return (x*other.x + y*other.y)/(magnitude()*other.magnitude());
+    }
+
+    public double magnitude() {
+        return Math.sqrt(x*x + y*y);
+    }
 }
