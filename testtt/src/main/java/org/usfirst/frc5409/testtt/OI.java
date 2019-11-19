@@ -14,6 +14,8 @@ package org.usfirst.frc5409.testtt;
 import org.usfirst.frc5409.testtt.commands.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
+
 import org.usfirst.frc5409.testtt.subsystems.*;
 
 
@@ -22,6 +24,13 @@ import org.usfirst.frc5409.testtt.subsystems.*;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+    int num;
+    XboxController driverController=new XboxController(num);
+    
+public double GetDriverRawAxis(int axis)
+{
+    return driverController.getRawAxis(axis);
+}
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
     // You create one by telling it which joystick it's on and which button
