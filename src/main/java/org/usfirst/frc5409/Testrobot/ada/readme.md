@@ -17,3 +17,7 @@ landmark to base position off of. Due to the fact that it
 accumulates large ammounts of error over large distances, you
 can only be "blind" for short periods of time, after which
 a landmark position is detected and position is adjusted.
+
+UNAlgo - Unammed Algorithim
+Don't have a name for this algorithim yet, currently in
+progress. TBD
