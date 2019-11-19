@@ -14,9 +14,10 @@ import edu.wpi.first.wpilibj.command.Command;
 public class TankDrive extends Command {
   public TankDrive() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.driveTrain);
+   requires(Robot.driveTrain);
   }
-
+   
+  int leftStickAxis=1;
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
@@ -25,7 +26,7 @@ public class TankDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
+    double leftStickY= Robot.oi.GetDriverRawAxis( leftStickAxis);
   }
 
   // Make this return true when this Command no longer needs to run execute()
