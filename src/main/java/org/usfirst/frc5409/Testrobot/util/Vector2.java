@@ -30,7 +30,7 @@ public class Vector2 {
     }
 
     public double distance(Vector2 other) {
-        return Math.sqrt(Math.pow(x-other.x, 2) + Math.pow(y-other.y, 2));
+        return Math.sqrt((x-other.x)*(x-other.x) + (y-other.y)*(y-other.y));
     }
 
     public Vector2 add(Vector2 other) {
