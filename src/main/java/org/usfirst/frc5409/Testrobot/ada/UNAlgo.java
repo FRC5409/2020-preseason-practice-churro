@@ -52,8 +52,6 @@ public class UNAlgo {
                 
                 Gp = computePo(T, O, nT);
                 dg = computeD(T, O, Gp);
-                
-                System.out.printf("Gp: (%f, %f)\n", Gp.x, Gp.y);
                 break assignBest;
             }
             
@@ -70,10 +68,6 @@ public class UNAlgo {
                 Gp = Po;
                 dg = d_o;
             }
-            
-            System.out.printf("Pi: (%f, %f)\n", Pi.x, Pi.y);
-            System.out.printf("Po: (%f, %f)\n", Po.x, Po.y);
-            System.out.printf("Gp: (%f, %f)\n", Gp.x, Gp.y);
             break assignBest; //This might not even be necessary
         }
 
