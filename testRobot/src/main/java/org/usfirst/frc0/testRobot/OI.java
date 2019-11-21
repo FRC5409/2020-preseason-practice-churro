@@ -51,10 +51,14 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 
-    // port where xbox controller is connected
-    int controllerPort = 0;
+    // ----- CHANGE THESE WHEN FIND OUT -----
+    int controllerPort = 0;     // xbox controller port
+    public int leftStickAxis = 1, 
+                        rightStickAxis = 5;      // find these out later
+
     XboxController driverController = new XboxController(controllerPort);
 
+    // gives the position of the joystick
     public double GetDriverRawAxis(int axis) {
         return driverController.getRawAxis(axis);
     }
