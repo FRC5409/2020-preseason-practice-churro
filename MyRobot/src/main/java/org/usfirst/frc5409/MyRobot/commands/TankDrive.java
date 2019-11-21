@@ -16,8 +16,10 @@ public class TankDrive extends Command {
     // Use requires() here to declare subsystem dependencies
    requires(Robot.driveTrain);
   }
-   
-  int leftStickAxis=1;
+  public static final int LEFT_STICK_Y_Axis=1;
+  public static final int RIGHT_STICK_Y_Axis=5;
+  public static final double SPEED_MULTIPLIER=1.0;
+
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
@@ -26,7 +28,15 @@ public class TankDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double leftStickY= Robot.oi.GetDriverRawAxis( leftStickAxis);
+    //Gets position of left Stick Y axis
+    double leftStickY= Robot.oi.GetDriverRawAxis( LEFT_STICK_Y_Axis );
+    //Gets position of Right Stick Y axis
+    double rightStickY= Robot.oi.GetDriverRawAxis( RIGHT_STICK_Y_Axis);
+
+    //set speed relative to joystick position
+    Robot.driveTrain.setLeftMotor(leftStickY*SPEED_MULTIPLIER);
+    Robot.driveTrain.setRightMotor(rightStickY*SPEED_MULTIPLIER);
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -38,11 +48,15 @@ public class TankDrive extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    //stops motors 
+    Robot.driveTrain.setLeftMotor(0);
+    Robot.driveTrain.setRightMotor(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    this.end();
   }
 }

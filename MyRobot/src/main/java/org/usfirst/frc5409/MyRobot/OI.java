@@ -23,9 +23,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class OI {
 
-    int port=0;
+    public static final int port=0;
     XboxController driverController=new XboxController(port);
     public double GetDriverRawAxis(int axis){
+       //returns a value between -1 and 1
        return driverController.getRawAxis(axis);
     }
     //// CREATING BUTTONS
