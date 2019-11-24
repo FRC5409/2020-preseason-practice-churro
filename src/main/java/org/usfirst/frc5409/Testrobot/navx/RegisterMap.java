@@ -1,19 +1,9 @@
 package org.usfirst.frc5409.Testrobot.navx;
 
 public final class RegisterMap {
-    private static final class regs {
-        public regs(byte rx, byte ex) {
-            this.rx = rx;
-            this.nx = (byte) (ex-rx);
-        }
-        public final byte rx; //Starting register
-        public final byte nx; //Num of registers
+    private static Regs r(int rx, int ex) {
+        return new Regs((byte) rx, (byte) ex);
     }
-
-    private static regs r(int rx, int ex) {
-        return new regs((byte) rx, (byte) ex);
-    }
-
 
 
     public static final byte REG_WHOAMI          = 0x00; //Who Am I (0x32)
@@ -28,16 +18,16 @@ public final class RegisterMap {
     public static final byte REG_SENSOR_STATUS   = 0x10; //Sensor Status, see BoardStatus.SENSOR 
 
                                                          //Yaw, Pitch, Roll, Heading data
-    public static final regs REGS_YPRH_DATA      = r(0x16, 0x1D); 
+    public static final Regs REGS_YPRH_DATA      = r(0x16, 0x1D); 
                                                          //Quaternion (W,X,Y,Z) data
-    public static final regs REGS_QWXYZ_DATA     = r(0x2A, 0x31); 
+    public static final Regs REGS_QWXYZ_DATA     = r(0x2A, 0x31); 
                                                          //Calibrated Gyro (X,Y,Z) data
-    public static final regs REGS_GXYZ_DATA      = r(0x34, 0x39);
+    public static final Regs REGS_GXYZ_DATA      = r(0x34, 0x39);
 
     public static final byte REG_INTEGRATION_CTL = 0x56; //Integration Control
 
                                                          //Integrated Velocity (X,Y,Z)
-    public static final regs REGS_IVXYZ          = r(0x58, 0x63); 
+    public static final Regs REGS_IVXYZ          = r(0x58, 0x63); 
                                                          //Integrated Displacement (X,Y,Z)
-    public static final regs REGS_IDXYZ          = r(0x64, 0x6F); 
+    public static final Regs REGS_IDXYZ          = r(0x64, 0x6F); 
 }
