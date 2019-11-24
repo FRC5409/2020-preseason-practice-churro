@@ -4,10 +4,10 @@ public final class RegisterMap {
     private static final class regs {
         public regs(byte rx, byte ex) {
             this.rx = rx;
-            this.ex = ex;
+            this.nx = ex - rx;
         }
         public final byte rx; //Starting register
-        public final byte ex; //Ending register
+        public final int  nx; //Number of registers
     }
 
     private static regs r(int rx, int ex) {
