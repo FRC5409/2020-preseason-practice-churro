@@ -19,7 +19,7 @@ public final class RegisterMap {
 
                                                          //Yaw, Pitch, Roll, Heading data
     public static final Regs REGS_YPRH_DATA      = r(0x16, 0x1D); 
-                                                         //Quaternion (W,X,Y,Z) data
+                                                         //Gyro Quaternion (W,X,Y,Z) data
     public static final Regs REGS_QWXYZ_DATA     = r(0x2A, 0x31); 
                                                          //Calibrated Gyro (X,Y,Z) data
     public static final Regs REGS_GXYZ_DATA      = r(0x34, 0x39);

@@ -44,7 +44,7 @@ public class SPICom {
     public ComResult write(byte reg, byte value) {
         if (reg > com_address_space)
             return ComResult.NOADDRESS;
-
+        
         ComResult res = ComResult.SUCCESS;
         byte data[] = new byte[com_req_len];
             data[0] = (byte) (reg & com_write_flag);

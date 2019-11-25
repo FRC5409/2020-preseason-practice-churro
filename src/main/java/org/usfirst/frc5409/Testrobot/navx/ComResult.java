@@ -5,7 +5,6 @@ public enum ComResult {
     FAILED(false),
     BADCRC(false),
     NOADDRESS(false);
-    
 
     private ComResult(boolean bool) {
         this.bool = bool;
