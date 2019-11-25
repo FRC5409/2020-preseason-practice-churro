@@ -61,13 +61,13 @@ public class UNAlgo {
             }
         }
 
-        nG.x = O.x-Gp.x;
-        nG.y = O.y-Gp.y;
+        nG.x = O.x - Gp.x;
+        nG.y = O.y - Gp.y;
         
         //normalize
         final double m = Math.sqrt(nG.x*nG.x + nG.y*nG.y);
-        nG.x /= m;
-        nG.y /= m;
+            nG.x /= m;
+            nG.y /= m;
 
         //Calculate motor output modifiers
         final double mr = clamp(Math.acos(clamp(nO.x*nG.x + nO.y*nG.y)) * kR * fl);
@@ -77,11 +77,14 @@ public class UNAlgo {
         final double Rr = md + mr;
         final double Rl = md - mr;
 
-        double s = 1;
+        //Scale if needed
+        final double s;
         if (Rr > mo || Rr < -mo) 
             s = Math.abs(Rr);
         else if (Rl > mo || Rl < -mo)
             s = Math.abs(Rl);
+        else
+            return new double[] {Rl, Rr};
 
         return new double[] {Rl/s, Rr/s};
     }
@@ -100,12 +103,12 @@ public class UNAlgo {
     }
 
     private Vector2 computePi(Vector2 T, Vector2 nT, Vector2 O, Vector2 nO) {
-        final double c1 = nT.y*T.x - nT.x*T.y;
-        final double c2 = nO.y*O.x - nO.x*O.y;
         final double w  = nT.y*nO.x - nT.x*nO.y;
-
         if (w == 0)
             return null;
+
+        final double c1 = nT.y*T.x - nT.x*T.y;
+        final double c2 = nO.y*O.x - nO.x*O.y;
 
         return new Vector2((-nT.x*c2 + nO.x*c1)/w, (nO.y*c1 - nT.y*c2)/w);
     }
