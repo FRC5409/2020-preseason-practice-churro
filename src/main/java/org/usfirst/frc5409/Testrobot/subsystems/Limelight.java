@@ -3,9 +3,7 @@ package org.usfirst.frc5409.Testrobot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import org.usfirst.frc5409.Testrobot.limelight.CamTrackMatrix;
-import org.usfirst.frc5409.Testrobot.limelight.lltype.CameraMode;
-import org.usfirst.frc5409.Testrobot.limelight.lltype.LedMode;
-import org.usfirst.frc5409.Testrobot.limelight.lltype.PipelineIndex;
+import org.usfirst.frc5409.Testrobot.limelight.lltype.*;
 
 import org.usfirst.frc5409.Testrobot.commands.*;
 
