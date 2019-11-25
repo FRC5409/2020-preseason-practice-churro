@@ -64,7 +64,7 @@ public class SPICom {
         if (reg > com_address_space)
             return ComResult.NOADDRESS;
         
-        ComResult res = ComResult.SUCCESS;
+        ComResult result = ComResult.SUCCESS;
         byte data[] = new byte[com_req_len];
             data[0] = (byte) (reg & com_write_flag);
             data[1] = value;
@@ -72,13 +72,13 @@ public class SPICom {
         
         synchronized(m_this_lock) {
             if (m_spi_com.write(data, com_req_len) != com_req_len) {
-                res = ComResult.FAILED;
+                result = ComResult.FAILED;
                 m_successive_err_count++;
             } else
                 m_successive_err_count = 0;
         }
 
-        return res;
+        return result;
     }
 
     /**
@@ -96,7 +96,7 @@ public class SPICom {
         if ((short)reg + (short)numReg > com_address_space_s) //Convert to short to prevent an overflow
             return ComResult.NOADDRESS;                       //Might remove since conv. is probably costly
 
-        ComResult res = ComResult.SUCCESS;
+        ComResult result = ComResult.SUCCESS;
         byte data[] = new byte[com_req_len];
             data[0] = reg;
             data[1] = numReg;
@@ -107,7 +107,7 @@ public class SPICom {
         synchronized(m_this_lock) {
             comAttempt: {
                 if (m_spi_com.write(out, com_req_len) != com_req_len) {
-                    res = ComResult.FAILED;
+                    result = ComResult.FAILED;
                     m_successive_err_count++;
                     break comAttempt; //Communication failed
                 }
@@ -115,20 +115,20 @@ public class SPICom {
                 Timer.delay(0.0002); //200 microsecond wait period
 
                 if (m_spi_com.read(true, out, out.length) != out.length) {
-                    res = ComResult.FAILED;
+                    result = ComResult.FAILED;
                     m_successive_err_count++;
                     break comAttempt; //Communication failed
                 }
 
                 if (getCRC(out, out.length) != 0) {
-                    res = ComResult.BADCRC; //Communication succeded, but got bad data
+                    result = ComResult.BADCRC; //Communication succeded, but got bad data
                     m_successive_err_count++;
                 } else
                     m_successive_err_count = 0; //Communication succeded
             }
         }
 
-        return res;
+        return result;
     }
 
     /**
@@ -143,9 +143,9 @@ public class SPICom {
      */
     public ComResult read(byte reg, byte out) {
         byte _out[] = new byte[1];
-        ComResult res = read(reg, (byte) 1, _out);
+        ComResult result = read(reg, (byte) 1, _out);
         out = _out[0];
-        return res;
+        return result;
     }
 
     /**
