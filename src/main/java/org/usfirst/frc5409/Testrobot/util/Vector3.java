@@ -14,13 +14,5 @@ public class Vector3 {
         this.y = y;
         this.z = z;
     }
-
-    public Vector3 cross(Vector3 other) {
-        return new Vector3(//This probably ain't right
-            y*other.z - other.y*z,
-            other.x*z - x*other.z,
-            x*other.y - other.x*y
-        );
-    }
 }
 
