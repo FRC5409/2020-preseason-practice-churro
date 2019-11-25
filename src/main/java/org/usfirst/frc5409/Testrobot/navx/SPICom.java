@@ -101,8 +101,11 @@ public class SPICom {
         return res;
     }
 
-    public ComResult read(byte reg, byte out[]) {
-        return read(reg, (byte) 1, out);
+    public ComResult read(byte reg, byte out) {
+        byte _out[] = new byte[1];
+        ComResult res = read(reg, (byte) 1, _out);
+        out = _out[0];
+        return res;
     }
 
     public ComResult read(Regs regs, byte out[]) {
