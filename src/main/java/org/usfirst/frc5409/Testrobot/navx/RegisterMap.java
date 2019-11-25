@@ -1,10 +1,15 @@
 package org.usfirst.frc5409.Testrobot.navx;
 
+/**
+ * Register Map of NavX.
+ * 
+ * Some addresses are missing in this implementation, visit this link for complete list.
+ * {@link https://pdocs.kauailabs.com/navx-mxp/advanced/register-protocol/} 
+ */
 public final class RegisterMap {
     private static Regs r(int rx, int ex) {
         return new Regs((byte) rx, (byte) ex);
     }
-
 
     public static final byte REG_WHOAMI          = 0x00; //Who Am I (0x32)
     public static final byte REG_BOARD_REV       = 0x01; //Board Revision

@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.Timer;
 
+/**
+ * SPI Communication class for NavX.
+ */
 public class SPICom {
     static {
         com_crc7_table = buildCRCLookupTable();
@@ -25,11 +28,17 @@ public class SPICom {
     private static final short com_address_space_s =  0x6F; //Ensure Memoization
     private static final byte  com_crc7_table[];            //Memoization for crc calcs
 
+    /**
+     * Construct SPI Com Class.
+     */
     public SPICom() {
         m_successive_err_count = 0;
         m_this_lock = new Object();
     }
 
+    /**
+     * Initialize Communication with NavX.
+     */
     public boolean init() {
         m_spi_com = new SPI(Port.kMXP);
             m_spi_com.setMSBFirst();
@@ -41,6 +50,16 @@ public class SPICom {
         return true;
     }
 
+    /**
+     * Write data to NavX at specified register.
+     * 
+     * @param reg   Register location
+     * @param value Write value
+     * 
+     * @return Communication Result.
+     * 
+     * @see ComResult
+     */
     public ComResult write(byte reg, byte value) {
         if (reg > com_address_space)
             return ComResult.NOADDRESS;
@@ -62,6 +81,17 @@ public class SPICom {
         return res;
     }
 
+    /**
+     * Read data from NavX from specified registers.
+     * 
+     * @param reg    Register location
+     * @param numReg Subsequent registers to read
+     * @param out    Data out
+     * 
+     * @return Communication Result.
+     * 
+     * @see ComResult
+     */
     public ComResult read(byte reg, byte numReg, byte out[]) {
         if ((short)reg + (short)numReg > com_address_space_s) //Convert to short to prevent an overflow
             return ComResult.NOADDRESS;                       //Might remove since conv. is probably costly
@@ -101,6 +131,16 @@ public class SPICom {
         return res;
     }
 
+    /**
+     * Read byte of data from NavX at specified register.
+     * 
+     * @param reg Register location
+     * @param out Byte out
+     * 
+     * @return Communication Result.
+     * 
+     * @see ComResult
+     */
     public ComResult read(byte reg, byte out) {
         byte _out[] = new byte[1];
         ComResult res = read(reg, (byte) 1, _out);
@@ -108,24 +148,45 @@ public class SPICom {
         return res;
     }
 
+    /**
+     * Read data from NavX at specified registers.
+     * 
+     * @param regs Registers
+     * @param out  Data out
+     * 
+     * @return Communication Result.
+     * 
+     * @see ComResult
+     */
     public ComResult read(Regs regs, byte out[]) {
         return read(regs.rx, regs.nx, out);
     }
 
-
-
-    //Credit to Kaui Labs for CRC implementation, translated from c++. TODO: credit this better
-    private static byte getCRC(byte message[], int len) {
+    /**
+     * Generate CRC from data. (Cyclic Redundancy Check)
+     * Credit to Kaui labs for CRC implementation
+     * 
+     * @param data Byte Data 
+     * @param len Length of data
+     * 
+     * @return CRC-7 byte
+     */
+    private static byte getCRC(byte data[], int len) {
         byte crc = 0;
         
         for (int i = 0; i < len; i++) {
-            crc ^= message[i];
+            crc ^= data[i];
             crc = com_crc7_table[crc];
         }
         return crc;
     }
 
-    //Credit to Kaui Labs for CRC implementation
+    /**
+     * Generate CRC lookup tables for faster computation. (Cyclic Redundancy Check)
+     * Credit to Kaui labs for CRC implementation
+     * 
+     * @return CRC-7 memoization table
+     */
     private static byte[] buildCRCLookupTable() {
         byte table[] = new byte[256];
         byte crc;

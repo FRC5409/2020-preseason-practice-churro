@@ -1,5 +1,8 @@
 package org.usfirst.frc5409.Testrobot.navx;
 
+/**
+ * Intergration Control flags
+ */
 public final class IntegrationControl {
     public static final byte INT_CTL_RESET_VEL_X  = 0x01;
     public static final byte INT_CTL_RESET_VEL_Y  = 0x02;
