@@ -25,8 +25,8 @@ public class UNAlgo {
     }
 
     public double[] compute(Vector2 T, Vector2 nT, Vector2 O, Vector2 nO) {
-        Vector2 nG = new Vector2();
         Vector2 Gp; //Gets initialized later      
+        Vector2 nG = new Vector2();
         double  dg;
 
         if (is_first_iter) {
@@ -34,41 +34,31 @@ public class UNAlgo {
             fl = sgn((O.y-T.y)*nT.x - (O.x-T.x)*nT.y);
         }
 
-        //Code block for determining Gp, logic is heavily condensed.
-        //Will explain l8r
-        assignBest: {
-            Vector2 Pi = computePi(T, nT, O, nO);
-            assignPo: { 
-                checkPi: {
-                    if (Pi == null) //No intersection
-                        break checkPi;
-                    else {
-                        final double dot = (Pi.x-O.x)*nO.x + (Pi.y-O.y)*nO.y;
-                        if (dot < 0) //Behind Ray
-                            break checkPi;
-                    }
-                    break assignPo;
-                }
-                
+        Vector2 Pi = computePi(T, nT, O, nO);
+
+        //Determine which optimization to use
+        if (Pi == null) {
+            Gp = computePo(T, O, nT);
+            dg = computeD(T, O, Gp);
+        } else {
+            final double dot = (Pi.x-O.x)*nO.x + (Pi.y-O.y)*nO.y;
+            if (dot < 0) {
                 Gp = computePo(T, O, nT);
                 dg = computeD(T, O, Gp);
-                break assignBest;
-            }
-            
-            Vector2 Po = computePo(T, O, nT);
-
-            double d_i = computeD(T, O, Pi);
-            double d_o = computeD(T, O, Po);
-
-            //Figure out which optimization is the best and use it;
-            if (d_i < d_o) {
-                Gp = Pi;
-                dg = d_i;
             } else {
-                Gp = Po;
-                dg = d_o;
+                Vector2 Po = computePo(T, O, nT);
+
+                double d_i = computeD(T, O, Pi);
+                double d_o = computeD(T, O, Po);
+
+                if (d_i < d_o) { //Whichever one has shorter distances
+                    Gp = Pi;
+                    dg = d_i;
+                } else {
+                    Gp = Po;
+                    dg = d_o;
+                }
             }
-            break assignBest; //This might not even be necessary
         }
 
         nG.x = O.x-Gp.x;
