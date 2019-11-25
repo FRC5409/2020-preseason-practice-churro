@@ -1,15 +1,18 @@
 package org.usfirst.frc5409.Testrobot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.networktables.*;
 
 import org.usfirst.frc5409.Testrobot.limelight.CamTrackMatrix;
 import org.usfirst.frc5409.Testrobot.limelight.lltype.*;
-
 import org.usfirst.frc5409.Testrobot.commands.*;
 
-
-import edu.wpi.first.networktables.*;
-
+/**
+ * Limelight subsystem.
+ * 
+ * Facilitates the control of limelight
+ * hardware.
+ */
 public class Limelight extends Subsystem {
     private NetworkTable         m_limelight_data;
     private NetworkTableEntry    m_data_entry_led_mode;
@@ -23,9 +26,11 @@ public class Limelight extends Subsystem {
 
     private Object               m_this_mutex;
 
+    /**
+     * Construct subsystem and initialize limeight communication
+     */
     public Limelight() {
         // Maybe create a watchdog system in case of limelight malfunction (i.e disconnection)
-        // Might need to wait for table creation, maybe add a listener for the table
         m_limelight_data       = NetworkTableInstance.getDefault().getTable("limelight");
 
         m_data_entry_cam_mode  = m_limelight_data.getEntry("camMode");
@@ -52,6 +57,13 @@ public class Limelight extends Subsystem {
     public void periodic() {
     }
 
+    /**
+     * Set Camera Mode on limelight
+     * 
+     * @param camera_mode Camera Mode
+     * 
+     * @see CameraMode
+     */
     public void setCameraMode(CameraMode camera_mode) {
         final double camera_mode_byte = camera_mode.get();
 
@@ -61,6 +73,13 @@ public class Limelight extends Subsystem {
         }
     }
 
+    /**
+     * Get current Camera Mode on limelight
+     * 
+     * @return Current Camera Mode
+     * 
+     * @see CameraMode
+     */
     public CameraMode getCameraMode() {
         final double real_camera_mode = m_data_entry_cam_mode.getDouble(-1);
 
@@ -75,6 +94,13 @@ public class Limelight extends Subsystem {
         return m_local_cam_mode;
     }
 
+    /**
+     * Set Led Mode on limelight
+     * 
+     * @param led_mode Led Mode
+     * 
+     * @see LedMode
+     */
     public void setLedMode(LedMode led_mode) {
         final double led_mode_byte = led_mode.get();
 
@@ -84,6 +110,13 @@ public class Limelight extends Subsystem {
         }
     }
 
+    /**
+     * Get current Led Mode on limelight
+     * 
+     * @return Current Led Mode
+     * 
+     * @see LedMode
+     */
     public LedMode getLedMode() {
         final double real_led_mode = m_data_entry_led_mode.getDouble(-1);
 
@@ -98,6 +131,13 @@ public class Limelight extends Subsystem {
         return m_local_led_mode;
     }
 
+    /**
+     * Set Pipeline Index on limelight
+     * 
+     * @param pipeline_index Pipeline Index
+     * 
+     * @see PipelineIndex
+     */
     public void setPipelineIndex(PipelineIndex pipeline_index) {
         final double pipeline_index_byte = pipeline_index.get();
 
@@ -107,6 +147,13 @@ public class Limelight extends Subsystem {
         }
     }
 
+    /**
+     * Get current Pipeline Index on limelight
+     * 
+     * @return Current Pipeline Index
+     * 
+     * @see PipelineIndex
+     */
     public PipelineIndex getPipelineIndex() {
         final double real_pipeline_index = m_data_entry_pipeline.getDouble(-1);
 
@@ -121,6 +168,11 @@ public class Limelight extends Subsystem {
         return m_local_pipeline;
     }
 
+    /**
+     * Get current Camera Track from PNP Pipeline.
+     * 
+     * @return Camera Tracking Matrix
+     */
     public CamTrackMatrix getCameraTrack() {
         double[] raw_cam_matrix = new double[6];
 

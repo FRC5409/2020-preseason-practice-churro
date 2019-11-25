@@ -1,5 +1,8 @@
 package org.usfirst.frc5409.Testrobot.limelight.lltype;
 
+/**
+ * Pipeline Index on Limelight.
+ */
 public enum PipelineIndex {
     PIPELINE_0  (0),
     PIPELINE_1  (1),
@@ -20,5 +23,8 @@ public enum PipelineIndex {
         return value;
     }
 
+    /**
+     * Internal pipeline index.
+     */
     private final double value;
 }

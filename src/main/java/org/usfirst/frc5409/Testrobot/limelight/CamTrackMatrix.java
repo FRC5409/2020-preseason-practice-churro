@@ -1,35 +1,67 @@
 package org.usfirst.frc5409.Testrobot.limelight;
 
-import org.usfirst.frc5409.Testrobot.util.Vector2;
-import org.usfirst.frc5409.Testrobot.util.Vector3;
-
+/**
+ * Camera PNP Tracking Matrix
+ */
 public final class CamTrackMatrix {
-    public double x, y, z;
-    public double yaw, pitch, roll;
-
+    /**
+     * Construct blank tracking matrix.
+     */
     public CamTrackMatrix() {
         x     = 0;
         y     = 0;
         z     = 0;
         yaw   = 0;
         roll  = 0;
-        pitch = 0;
+        ptch = 0;
     }
 
-    public CamTrackMatrix(double x, double y, double z, double yaw, double pitch, double roll) {
-        this.x     = x;
-        this.y     = y;
-        this.z     = z;
-        this.yaw   = yaw;
-        this.roll  = roll;
-        this.pitch = pitch;
+    /**
+     * Construct tracking matrix with tracking data.
+     * 
+     * @param x    X position
+     * @param y    Y position
+     * @param z    Z position
+     * @param yaw  Yaw orientation
+     * @param ptch Pitch orientation
+     * @param roll Roll orientation
+     */
+    public CamTrackMatrix(double x, double y, double z, double yaw, double ptch, double roll) {
+        this.x    = x;
+        this.y    = y;
+        this.z    = z;
+        this.yaw  = yaw;
+        this.roll = roll;
+        this.ptch = ptch;
     }
 
-    public Vector3 getVectPos() {
-        return new Vector3(x, y, z);
-    }
+    /**
+     * X position
+     */
+    public double x;
 
-    public Vector2 getVectNormal() {
-        return new Vector2(0,0 ); //Implement this later
-    }
+    /**
+     * Y position
+     */
+    public double y;
+
+    /**
+     * Z position
+     */
+    public double z;
+
+    /**
+     * Yaw orientation
+     */
+    public double yaw;
+
+    /**
+     * Pitch orientation
+     */
+    public double ptch;
+
+    /**
+     * Roll orientation
+     */
+    public double roll;
 }
