@@ -31,6 +31,21 @@ final class Conv {
     }
 
     /**
+     * Decode Signed Short. (16-bit)
+     * 
+     * @param data Raw byte data
+     * @param i Index offset
+     * 
+     * @return Signed short
+     */
+    public static short decodeSignedShort(byte data[], int i) {
+        return (short) ( 
+            (data[i    ] << 8) | 
+            (data[i + 1] << 0)
+        );
+    }
+
+    /**
      * Decode Unsigned Short. (16-bit)
      * 
      * @param data Raw byte data
