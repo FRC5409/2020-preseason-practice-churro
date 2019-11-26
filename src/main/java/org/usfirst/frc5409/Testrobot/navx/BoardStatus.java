@@ -37,7 +37,8 @@ public final class BoardStatus {
         public static final byte IMU_CAL_COMPLETE	     = 0x02;
         public static final byte MAG_CAL_COMPLETE	     = 0x04;
         public static final byte BARO_CAL_COMPLETE       = 0x08;
-    }
+        public static final byte COMPLETE                = IMU_CAL_COMPLETE | MAG_CAL_COMPLETE | BARO_CAL_COMPLETE;
+    };
 
     /**
      * Self-Test Status
