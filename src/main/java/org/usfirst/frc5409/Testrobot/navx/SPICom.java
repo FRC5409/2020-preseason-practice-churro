@@ -50,11 +50,34 @@ public class SPICom {
             m_spi_com.setChipSelectActiveLow();
             m_spi_com.setSampleDataOnTrailingEdge();      
 
+        //NavX must have 12 secs of no motion at startup, TODO: integrate this into timing
         Timer.delay(0.0002); //200 microsecond wait period, Might not even need this
 
-        
-        m_is_initialized = true;
-        return true;
+        checkDevice: {
+            //Confirm that SPI device is in fact a NavX
+            if (!confirmWhoIAm())
+                break checkDevice;
+            
+            //Confirm that NavX went through initialization
+            if (!confirmDeviceInit())
+                break checkDevice; 
+            
+            //Confirm that NavX went through testing phase
+            if (!confirmTestStatus())
+                break checkDevice;
+
+            //Confirm that NavX went through calibration phase
+            if (!confirmCalStatus())
+                break checkDevice;
+
+            //Successfully established communication with NavX
+            m_is_initialized = true;
+            return true;
+        }
+
+        //Failed to establish communication with NavX. (Unidentified SPI device)
+        forceClose();
+        return false;
     }
 
     /**
@@ -188,20 +211,13 @@ public class SPICom {
 
         short who_am_i = -1;
         byte data = -1;
-        while (who_am_i != -1) {
+        while (err_count < com_lost_attempts) {
             ComResult res = read(RegisterMap.REG_WHOAMI, data);
             if (res.success) {
                 who_am_i = Conv.decodeUnsignedByte(data);
-                if (who_am_i == com_who_am_i)
-                    return true; //This SPI device is indeed a NavX
-                else
-                    return false; //This SPI Device is not a navX
-            } else {
+                return (who_am_i == com_who_am_i);
+            } else
                 err_count++;
-
-                if (err_count > com_lost_attempts)
-                    return false;
-            }
         }
 
         return false;
@@ -210,28 +226,53 @@ public class SPICom {
     private boolean confirmDeviceInit() {
         int err_count = 0;
 
-        short who_am_i = -1;
-        byte data = -1;
-        while (who_am_i != -1) {
-            ComResult res = read(RegisterMap.REG_WHOAMI, data);
+        byte op_status = -1;
+        while (err_count < com_lost_attempts) {
+            ComResult res = read(RegisterMap.REG_OP_STATUS, op_status);
             if (res.success) {
-                who_am_i = Conv.decodeUnsignedByte(data);
-                if (who_am_i == com_who_am_i)
-                    return true; //This SPI device is indeed a NavX
-                else
-                    return false; //This SPI Device is not a navX
-            } else {
+                switch(op_status) {
+                    case BoardStatus.OP.INITIALIZING:            continue;
+                    case BoardStatus.OP.SELFTEST_IN_PROGRESS:    continue;
+                    case BoardStatus.OP.ERROR:                   return false;
+                    case BoardStatus.OP.IMU_AUTOCAL_IN_PROGRESS: continue;
+                    case BoardStatus.OP.NORMAL:                  return true;
+                }
+            } else
                 err_count++;
-
-                if (err_count > com_lost_attempts)
-                    return false;
-            }
         }
 
         return false;
     }
 
+    private boolean confirmTestStatus() {
+        int err_count = 0;
 
+        byte test_status = -1;
+        while (err_count < com_lost_attempts) {
+            ComResult res = read(RegisterMap.REG_SELFTEST_STATUS, test_status);
+            if (res.success) {
+                if (test_status == BoardStatus.SELFTEST.COMPLETE)
+                    return true;
+            } else
+                err_count++;
+        }
+        return false;
+    }
+
+    private boolean confirmCalStatus() {
+        int err_count = 0;
+
+        byte cal_status = -1;
+        while (err_count < com_lost_attempts) {
+            ComResult res = read(RegisterMap.REG_CAL_STATUS, cal_status);
+            if (res.success) {
+                if (cal_status == BoardStatus.CAL.COMPLETE);
+                    return true;
+            } else
+                err_count++;
+        }
+        return false;
+    }
 
     /**
      * Generate CRC from data. (Cyclic Redundancy Check)
