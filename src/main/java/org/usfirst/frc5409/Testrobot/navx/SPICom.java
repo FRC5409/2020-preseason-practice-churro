@@ -15,6 +15,7 @@ public class SPICom {
     private SPI                m_spi_com;
     private Object             m_this_lock;
     private int                m_successive_err_count;
+    private boolean            m_is_initialized;
 
     //Modifiable constants
     private static final int   com_clock_hz        = 500000; //[500,000 - 4,000,000]
@@ -22,17 +23,19 @@ public class SPICom {
 
     //No-touchy constants
     private static final byte  com_req_len         = 3;
+    private static final byte  com_who_am_i        =  0x32; 
     private static final byte  com_crc7_poly       = -0x6F; //0x91 in signed form
     private static final byte  com_write_flag      = -0x80; //Could be incorrect
     private static final byte  com_address_space   =  0x6F;
     private static final short com_address_space_s =  0x6F; //Ensure Memoization
     private static final byte  com_crc7_table[];            //Memoization for crc calcs
-
+    
     /**
      * Construct SPI Com Class.
      */
     public SPICom() {
         m_successive_err_count = 0;
+        m_is_initialized = false;
         m_this_lock = new Object();
     }
 
@@ -47,6 +50,10 @@ public class SPICom {
             m_spi_com.setChipSelectActiveLow();
             m_spi_com.setSampleDataOnTrailingEdge();      
 
+        Timer.delay(0.0002); //200 microsecond wait period, Might not even need this
+
+        
+        m_is_initialized = true;
         return true;
     }
 
@@ -61,6 +68,9 @@ public class SPICom {
      * @see ComResult
      */
     public ComResult write(byte reg, byte value) {
+        if (!m_is_initialized)
+            return ComResult.NOCONNECTION;
+
         if (reg > com_address_space)
             return ComResult.NOADDRESS;
         
@@ -93,6 +103,9 @@ public class SPICom {
      * @see ComResult
      */
     public ComResult read(byte reg, byte numReg, byte out[]) {
+        if (!m_is_initialized)
+            return ComResult.NOCONNECTION;
+
         if ((short)reg + (short)numReg > com_address_space_s) //Convert to short to prevent an overflow
             return ComResult.NOADDRESS;                       //Might remove since conv. is probably costly
 
@@ -161,6 +174,64 @@ public class SPICom {
     public ComResult read(Regs regs, byte out[]) {
         return read(regs.rx, regs.nx, out);
     }
+
+    /**
+     * Forces communication with spi device to close;
+     */
+    private void forceClose() {
+        m_spi_com.close();
+        m_is_initialized = false;
+    }
+
+    private boolean confirmWhoIAm() {
+        int err_count = 0;
+
+        short who_am_i = -1;
+        byte data = -1;
+        while (who_am_i != -1) {
+            ComResult res = read(RegisterMap.REG_WHOAMI, data);
+            if (res.success) {
+                who_am_i = Conv.decodeUnsignedByte(data);
+                if (who_am_i == com_who_am_i)
+                    return true; //This SPI device is indeed a NavX
+                else
+                    return false; //This SPI Device is not a navX
+            } else {
+                err_count++;
+
+                if (err_count > com_lost_attempts)
+                    return false;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean confirmDeviceInit() {
+        int err_count = 0;
+
+        short who_am_i = -1;
+        byte data = -1;
+        while (who_am_i != -1) {
+            ComResult res = read(RegisterMap.REG_WHOAMI, data);
+            if (res.success) {
+                who_am_i = Conv.decodeUnsignedByte(data);
+                if (who_am_i == com_who_am_i)
+                    return true; //This SPI device is indeed a NavX
+                else
+                    return false; //This SPI Device is not a navX
+            } else {
+                err_count++;
+
+                if (err_count > com_lost_attempts)
+                    return false;
+            }
+        }
+
+        return false;
+    }
+
+
 
     /**
      * Generate CRC from data. (Cyclic Redundancy Check)

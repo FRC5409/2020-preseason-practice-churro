@@ -7,18 +7,27 @@ package org.usfirst.frc5409.Testrobot.navx;
  */
 final class Conv {
     /**
-     * Decode Signed Short. (16-bit)
+     * Decode Unsigned Byte. (8-bit)
      * 
      * @param data Raw byte data
      * @param i Index offset
      * 
-     * @return Signed short
+     * @return Unsigned Byte
      */
-    public static short decodeSignedShort(byte data[], int i) { 
-        return (short) ( 
-            (data[i    ] << 8) | 
-            (data[i + 1] << 0)
-        );
+    public static short decodeUnsignedByte(byte data[], int i) { 
+        return (short) (data[i]);
+    }
+
+    /**
+     * Decode Unsigned Byte. (8-bit)
+     * 
+     * @param data Raw byte
+     * @param i Index offset
+     * 
+     * @return Unsigned Byte
+     */
+    public static short decodeUnsignedByte(byte data) { //Test this
+        return (short) (data);
     }
 
     /**

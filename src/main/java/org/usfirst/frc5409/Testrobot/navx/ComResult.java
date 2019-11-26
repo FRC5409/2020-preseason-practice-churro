@@ -29,15 +29,21 @@ public enum ComResult {
      * Communication Failure due to
      * bad register address.
      */
-    NOADDRESS(false);
+    NOADDRESS(false),
+    
+    /**
+     * Communication with NavX is
+     * nonexsistent.
+     */
+    NOCONNECTION(false);
 
     private ComResult(boolean bool) {
-        this.bool = bool;
+        this.success = bool;
     }
 
     /**
      * Boolean result.
      * Whether communication succeeded or not.
      */
-    public final boolean bool;
+    public final boolean success;
 }
