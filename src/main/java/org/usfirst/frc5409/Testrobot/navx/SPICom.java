@@ -67,7 +67,7 @@ public class SPICom {
                 break checkDevice;
 
             //Confirm that NavX went through calibration phase
-            if (!confirmCalStatus())
+            if (!confirmCalStatus())//TODO: see which comes first, Calibration or testing
                 break checkDevice;
 
             //Successfully established communication with NavX
@@ -206,6 +206,12 @@ public class SPICom {
         m_is_initialized = false;
     }
 
+    /**
+     * Confirm WhoAmI of SPI Device.
+     * Checks to see whether the device is actually the NavX.
+     * 
+     * @return Result of test
+     */
     private boolean confirmWhoIAm() {
         int err_count = 0;
 
@@ -223,6 +229,11 @@ public class SPICom {
         return false;
     }
 
+    /**
+     * Confirm that NavX went through initialization.
+     * 
+     * @return Result of test
+     */
     private boolean confirmDeviceInit() {
         int err_count = 0;
 
@@ -244,6 +255,11 @@ public class SPICom {
         return false;
     }
 
+    /**
+     * Confirm that NavX went through it's testing phase.
+     * 
+     * @return Result of test
+     */
     private boolean confirmTestStatus() {
         int err_count = 0;
 
@@ -259,6 +275,11 @@ public class SPICom {
         return false;
     }
 
+    /**
+     * Confirm that NavX went through it's calibration phase.
+     * 
+     * @return Result of test
+     */
     private boolean confirmCalStatus() {
         int err_count = 0;
 
