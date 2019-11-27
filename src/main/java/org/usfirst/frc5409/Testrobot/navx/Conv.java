@@ -1,11 +1,16 @@
 package org.usfirst.frc5409.Testrobot.navx;
 
 /**
- * Raw data conversion functions.
- * THESE FUNCTIONS NEED TO BE TESTED
+ * Raw data conversion functions for bytes
+ * recieved from NavX via SPIcom.
+ * SOME FUNCTIONS NEED TESTING.
  * [Raw bytes] -> [Java type]
  */
 final class Conv {
+    private static short sxFF = (short) 0xFF;
+    private static int   ixFF = (int)   0xFF;
+    private static long  lxFF = (long)  0xFF;
+
     /**
      * Decode Unsigned Byte. (8-bit)
      * 
@@ -15,19 +20,18 @@ final class Conv {
      * @return Unsigned Byte
      */
     public static short decodeUnsignedByte(byte data[], int i) { 
-        return (short) (data[i]);
+        return (short) (data[i] & sxFF);
     }
 
     /**
      * Decode Unsigned Byte. (8-bit)
      * 
      * @param data Raw byte
-     * @param i Index offset
      * 
-     * @return Unsigned Byte
+     * @return Unsigned Byte (short)
      */
-    public static short decodeUnsignedByte(byte data) { //Test this
-        return (short) (data);
+    public static short decodeUnsignedByte(byte data) {
+        return (short) (data & sxFF);
     }
 
     /**
@@ -40,8 +44,8 @@ final class Conv {
      */
     public static short decodeSignedShort(byte data[], int i) {
         return (short) ( 
-            (data[i    ] << 8) | 
-            (data[i + 1] << 0)
+            ( data[i + 0]         << 8 ) |
+            ((data[i + 1] & sxFF)      )   
         );
     }
 
@@ -51,12 +55,12 @@ final class Conv {
      * @param data Raw byte data
      * @param i Index offset
      * 
-     * @return Unsigned short
+     * @return Unsigned short (int)
      */
-    public static int decodeUnsignedShort(byte data[], int i) { //Test this
+    public static int decodeUnsignedShort(byte data[], int i) {
         return (int) ( 
-            (data[i    ] << 8) | 
-            (data[i + 1] << 0)
+            ((data[i + 0] & ixFF) << 8 ) |
+            ((data[i + 1] & ixFF)      )   
         );
     }
 
@@ -70,10 +74,10 @@ final class Conv {
      */
     public static int decodeSignedInt(byte data[], int i) {
         return (int) ( 
-            (data[i + 0] << 24) |
-            (data[i + 1] << 16) |
-            (data[i + 2] << 8 ) |
-            (data[i + 3] << 0 )
+            ( data[i + 0]         << 24) |
+            ((data[i + 1] & ixFF) << 16) |
+            ((data[i + 2] & ixFF) << 8 ) |
+            ((data[i + 3] & ixFF)      )
         );
     }
 
@@ -85,15 +89,14 @@ final class Conv {
      * 
      * @return Unsigned Integer
      */
-    public static long decodeUnsignedInt(byte data[], int i) { //Test this
-        return (int) ( 
-            (data[i + 0] << 24) |
-            (data[i + 1] << 16) |
-            (data[i + 2] << 8 ) |
-            (data[i + 3] << 0 )
+    public static long decodeUnsignedInt(byte data[], int i) {
+        return (long) ( 
+            ((data[i + 0] & lxFF) << 24) |
+            ((data[i + 1] & lxFF) << 16) |
+            ((data[i + 2] & lxFF) << 8 ) |
+            ((data[i + 3] & lxFF)      )
         );
     }
-
     /**
      * Decode Signed Hundredths. (-327.68 to 327.67)
      * 
