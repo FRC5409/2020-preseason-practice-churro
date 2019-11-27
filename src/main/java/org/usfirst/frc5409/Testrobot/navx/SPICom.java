@@ -24,8 +24,8 @@ public class SPICom {
     //No-touchy constants
     private static final byte  com_req_len         = 3;
     private static final byte  com_who_am_i        =  0x32; 
-    private static final byte  com_crc7_poly       = -0x6F; //0x91 in signed form
-    private static final byte  com_write_flag      = -0x80; //Could be incorrect
+    private static final byte  com_crc7_poly       = (byte)(0x91); //0x91 in signed form
+    private static final byte  com_write_flag      = (byte)(0x80); //Could be incorrect
     private static final byte  com_address_space   =  0x6F;
     private static final short com_address_space_s =  0x6F; //Ensure Memoization
     private static final byte  com_crc7_table[];            //Memoization for crc calcs
@@ -54,6 +54,9 @@ public class SPICom {
         Timer.delay(0.0002); //200 microsecond wait period, Might not even need this
 
         checkDevice: {
+            //Temporarily Fake initialization to fool read/write blocks
+            m_is_initialized = true;
+
             //Confirm that SPI device is in fact a NavX
             if (!confirmWhoIAm())
                 break checkDevice;
@@ -99,7 +102,7 @@ public class SPICom {
         
         ComResult result = ComResult.SUCCESS;
         byte data[] = new byte[com_req_len];
-            data[0] = (byte) (reg & com_write_flag);
+            data[0] = (byte) (reg | com_write_flag);
             data[1] = value;
             data[2] = getCRC(data, 2);
         
@@ -133,16 +136,17 @@ public class SPICom {
             return ComResult.NOADDRESS;                       //Might remove since conv. is probably costly
 
         ComResult result = ComResult.SUCCESS;
-        byte data[] = new byte[com_req_len];
-            data[0] = reg;
-            data[1] = numReg;
-            data[2] = getCRC(data, 2);
+        byte data_out[] = new byte[com_req_len];
+            data_out[0] = reg;
+            data_out[1] = numReg;
+            data_out[2] = getCRC(data_out, com_req_len-1);
 
             
-        out = new byte[numReg+1];
+        byte data_in[] = new byte[numReg+1];
         synchronized(m_this_lock) {
             comAttempt: {
-                if (m_spi_com.write(out, com_req_len) != com_req_len) {
+                int nnn = m_spi_com.write(data_out, com_req_len);
+                if (nnn != com_req_len) {
                     result = ComResult.FAILED;
                     m_successive_err_count++;
                     break comAttempt; //Communication failed
@@ -150,13 +154,14 @@ public class SPICom {
                     
                 Timer.delay(0.0002); //200 microsecond wait period
 
-                if (m_spi_com.read(true, out, out.length) != out.length) {
+                int nnnn = m_spi_com.read(true, data_in, data_in.length);
+                if (nnnn != data_in.length) {
                     result = ComResult.FAILED;
                     m_successive_err_count++;
                     break comAttempt; //Communication failed
                 }
 
-                if (getCRC(out, out.length) != 0) {
+                if (getCRC(data_in, numReg) != data_in[numReg]) {
                     result = ComResult.BADCRC; //Communication succeded, but got bad data
                     m_successive_err_count++;
                 } else
@@ -164,6 +169,7 @@ public class SPICom {
             }
         }
 
+        System.arraycopy(data_in, 0, out, 0, data_in.length-1);
         return result;
     }
 
@@ -305,13 +311,22 @@ public class SPICom {
      * @return CRC-7 byte
      */
     private static byte getCRC(byte data[], int len) {
-        byte crc = 0;
+        int crc = 0;
         
-        for (int i = 0; i < len; i++) {
+        /*for (int i = 0; i < len; i++) {
             crc ^= data[i];
-            crc = com_crc7_table[crc];
+            crc = com_crc7_table[127 - ((int) crc)];
+        }*/
+
+        for (int i = 0; i < len; i++) {
+            crc ^= (0x00ff & data[i]);
+            for (int j = 0; j < 8; j++) {
+                if ((crc & 0x0001) != 0)
+                    crc ^= com_crc7_poly;
+                crc >>= 1;
+            }
         }
-        return crc;
+        return (byte) crc;
     }
 
     /**

@@ -12,7 +12,8 @@ public class Blink extends Command {
 
     public Blink() {
         super("Blink");
-        requires(Robot.limelight);
+        //requires(Robot.limelight);
+        requires(Robot.navX);
     }
 
     @Override
@@ -21,10 +22,10 @@ public class Blink extends Command {
 
     @Override
     protected void execute() {
-        Robot.limelight.setLedMode(LedMode.LED_ON);
+        /*Robot.limelight.setLedMode(LedMode.LED_ON);
         sleep();
         Robot.limelight.setLedMode(LedMode.LED_OFF);
-        sleep();
+        sleep();*/
     }
 
     @Override

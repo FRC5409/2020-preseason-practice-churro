@@ -11,7 +11,7 @@ public class NavX extends Subsystem {
     /**
      * Initializes NavX Subsystem
      */
-    NavX() {
+    public NavX() {
         m_spi_com = new SPICom();
 
         //Initialize communication with NavX
