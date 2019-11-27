@@ -6,7 +6,7 @@ package org.usfirst.frc5409.Testrobot.navx.packet;
  */
 public class GXYZData {
     /**
-     * Construct GXYZ data container.
+     * Construct blank GXYZ data container.
      */
     GXYZData() {
         gx = 0;

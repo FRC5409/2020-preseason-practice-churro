@@ -6,7 +6,7 @@ package org.usfirst.frc5409.Testrobot.navx.packet;
  */
 public class QXYZWData {
     /**
-     * Construct QXYZW data container.
+     * Construct blank QXYZW data container.
      */
     QXYZWData() {
         qx = 0;

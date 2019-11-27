@@ -6,7 +6,7 @@ package org.usfirst.frc5409.Testrobot.navx.packet;
  */
 public class IDXYZData {
     /**
-     * Construct IDXYZ data container.
+     * Construct blank IDXYZ data container.
      */
     IDXYZData() {
         dx = 0;
