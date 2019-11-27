@@ -311,20 +311,11 @@ public class SPICom {
      * @return CRC-7 byte
      */
     private static byte getCRC(byte data[], int len) {
-        int crc = 0;
+         int crc = 0;
         
-        /*for (int i = 0; i < len; i++) {
-            crc ^= data[i];
-            crc = com_crc7_table[127 - ((int) crc)];
-        }*/
-
         for (int i = 0; i < len; i++) {
-            crc ^= (0x00ff & data[i]);
-            for (int j = 0; j < 8; j++) {
-                if ((crc & 0x0001) != 0)
-                    crc ^= com_crc7_poly;
-                crc >>= 1;
-            }
+            crc ^= data[i];
+            crc = com_crc7_table[crc & 0xFF];
         }
         return (byte) crc;
     }
@@ -337,16 +328,16 @@ public class SPICom {
      */
     private static byte[] buildCRCLookupTable() {
         byte table[] = new byte[256];
-        byte crc;
+        int crc;
 
         for (int i = 0; i < 256; i++ ) {
-            crc = (byte) i;
+            crc = i;
             for (int j = 0; j < 8; j++) {
                 if ((crc & 1) == 1)
                     crc ^= com_crc7_poly;
                 crc >>= 1;
             }
-            table[i] = crc;
+            table[i] = (byte) crc;
         }
         return table;
     }
