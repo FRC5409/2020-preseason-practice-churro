@@ -51,9 +51,12 @@ public class YPRHData {
     public double roll;
 
     /**
-     * Gyro Fused Heading
+     * Gyro Heading
      */
     public double head;
 
+    /**
+     * Gyro Fused Heading
+     */
     public double fhead;
 }
