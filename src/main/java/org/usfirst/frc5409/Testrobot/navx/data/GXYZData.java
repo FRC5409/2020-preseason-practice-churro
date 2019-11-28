@@ -37,7 +37,7 @@ public class GXYZData extends NavXData {
      * {@inheritDoc}
      */
     public static GXYZData fromRaw(byte raw_data[]) {
-        check(raw_data, m_raw_data_length);
+        check(raw_data, packet_length);
         return new GXYZData(
             cv.decodeSignedShort(raw_data, 0), // Calibrated Gyro X
             cv.decodeSignedShort(raw_data, 2), // Calibrated Gyro Y
@@ -63,5 +63,5 @@ public class GXYZData extends NavXData {
     /**
      * {@inheritDoc}
      */
-    private static final int m_raw_data_length = 6;
+    public static final int packet_length = 6;
 }
