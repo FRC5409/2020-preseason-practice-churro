@@ -45,11 +45,11 @@ public class YPRHData extends NavXData {
     public static YPRHData fromRaw(byte raw_data[]) {
         check(raw_data, packet_length);
         return new YPRHData(
-            cv.decodeUnsignedHundredths(raw_data, 0), // Gyro Yaw
-            cv.decodeUnsignedHundredths(raw_data, 2), // Gyro Pitch
-            cv.decodeUnsignedHundredths(raw_data, 4), // Gyro Roll
-            cv.decodeUnsignedHundredths(raw_data, 6), // Gyro Heading
-            cv.decodeUnsignedHundredths(raw_data, 8)  // Gyro Fused Heading
+            cv.decodeSignedHundredths(raw_data, 0), // Gyro Yaw
+            cv.decodeSignedHundredths(raw_data, 2), // Gyro Pitch
+            cv.decodeSignedHundredths(raw_data, 4), // Gyro Roll
+            cv.decodeSignedHundredths(raw_data, 6), // Gyro Heading
+            cv.decodeSignedHundredths(raw_data, 8)  // Gyro Fused Heading
         );
     }
 
