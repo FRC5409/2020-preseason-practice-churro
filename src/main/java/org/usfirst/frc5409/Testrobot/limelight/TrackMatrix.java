@@ -2,17 +2,19 @@ package org.usfirst.frc5409.Testrobot.limelight;
 
 /**
  * Camera PNP Tracking Matrix
+ * 
+ * @author Keith Davies
  */
-public final class CamTrackMatrix {
+public final class TrackMatrix {
     /**
      * Construct blank tracking matrix.
      */
-    public CamTrackMatrix() {
-        x     = 0;
-        y     = 0;
-        z     = 0;
-        yaw   = 0;
-        roll  = 0;
+    public TrackMatrix() {
+        x    = 0;
+        y    = 0;
+        z    = 0;
+        yaw  = 0;
+        roll = 0;
         ptch = 0;
     }
 
@@ -26,7 +28,7 @@ public final class CamTrackMatrix {
      * @param ptch Pitch orientation
      * @param roll Roll orientation
      */
-    public CamTrackMatrix(double x, double y, double z, double yaw, double ptch, double roll) {
+    public TrackMatrix(double x, double y, double z, double yaw, double ptch, double roll) {
         this.x    = x;
         this.y    = y;
         this.z    = z;
