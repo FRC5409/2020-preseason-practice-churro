@@ -25,7 +25,7 @@ public class NavX extends Subsystem {
         
         //Establish communication with NavX
         if (m_navx_com.init()) {
-            //success
+            System.out.println("NavX Connected");//success
         } else {
             //Failure
         }
