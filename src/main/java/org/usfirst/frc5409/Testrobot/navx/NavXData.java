@@ -1,6 +1,6 @@
 package org.usfirst.frc5409.Testrobot.navx;
 
-import org.usfirst.frc5409.Testrobot.navx.exception.BadRawDataException;
+import org.usfirst.frc5409.Testrobot.navx.exception.RawDataException;
 
 /**
  * Abstract class from which all NavX data containers must
@@ -37,9 +37,9 @@ public abstract class NavXData {
      * 
      * @throws BadRawDataException Thrown when data is invalid
      */
-    protected static void check(byte raw_data[], int expected_len) throws BadRawDataException {
+    protected static void check(byte raw_data[], int expected_len) throws RawDataException {
         if (raw_data.length != expected_len)
-            throw new BadRawDataException(String.format("Invalid Raw Data buffer length. Got \"%d\", expected \"%d\"", raw_data.length, expected_len));
+            throw new RawDataException(String.format("Invalid Raw Data buffer length. Got \"%d\", expected \"%d\"", raw_data.length, expected_len));
     }
     /**
      * Length of raw data buffer.

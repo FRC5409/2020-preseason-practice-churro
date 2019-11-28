@@ -10,25 +10,25 @@ import org.usfirst.frc5409.Testrobot.navx.NavXData;
  * 
  * @see NavXData
  */
-public final class BadRawDataException extends RuntimeException {
+public final class RawDataException extends RuntimeException {
     /**
      * {@inheritDoc}
      */
-    public BadRawDataException(String message) {
+    public RawDataException(String message) {
         super(message);
     }
     
     /**
      * {@inheritDoc}
      */
-    public BadRawDataException(String message, Throwable cause) {
+    public RawDataException(String message, Throwable cause) {
         super(message, cause);
     }
     
     /**
      * {@inheritDoc}
      */
-    public BadRawDataException(Throwable cause) {
+    public RawDataException(Throwable cause) {
         super(cause);
     }
     
