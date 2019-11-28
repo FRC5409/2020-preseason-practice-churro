@@ -36,7 +36,7 @@ public class IVXYZData extends NavXData {
      * {@inheritDoc}
      */
     public static IVXYZData fromRaw(byte raw_data[]) {
-        check(raw_data, m_raw_data_length);
+        check(raw_data, packet_length);
         return new IVXYZData(
             cv.decodeQ1616(raw_data, 0), // Integrated Velocity X
             cv.decodeQ1616(raw_data, 4), // Integrated Velocity Y
@@ -62,5 +62,5 @@ public class IVXYZData extends NavXData {
     /**
      * {@inheritDoc}
      */
-    private static final int m_raw_data_length = 12;
+    public static final int packet_length = 12;
 }

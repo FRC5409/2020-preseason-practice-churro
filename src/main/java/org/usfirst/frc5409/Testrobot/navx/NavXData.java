@@ -44,5 +44,5 @@ public abstract class NavXData {
     /**
      * Length of raw data buffer.
      */
-    protected static final int m_raw_data_length = -1;
+    public static final int packet_length = -1;
 }

@@ -3,7 +3,9 @@ package org.usfirst.frc5409.Testrobot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import org.usfirst.frc5409.Testrobot.navx.RegisterMap;
+import org.usfirst.frc5409.Testrobot.navx.IntgCtrl;
 import org.usfirst.frc5409.Testrobot.navx.NavXCom;
+import org.usfirst.frc5409.Testrobot.navx.data.*;
 
 /**
  * NavX subsystem.
@@ -27,6 +29,14 @@ public class NavX extends Subsystem {
         } else {
             //Failure
         }
+    }
+
+    public void zeroYaw() {
+        m_navx_com.write(RegisterMap.REG_INTG_CTRL, IntgCtrl.RESET_YAW);
+    }
+
+    public YPRHData getYPRH() {//TODO: UN-JANK THESE FUNCTIONS
+        return YPRHData.fromRaw();
     }
 
     @Override

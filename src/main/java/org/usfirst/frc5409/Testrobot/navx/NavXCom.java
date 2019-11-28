@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Timer;
 /**
  * SPI Communication class for NavX.
  */
-public class SPICom {
+public class NavXCom {
     static {
         com_crc7_table = buildCRCLookupTable();
     }
@@ -19,21 +19,22 @@ public class SPICom {
 
     //Modifiable constants
     private static final int   com_clock_hz        = 500000; //[500,000 - 4,000,000]
+    private static final int   com_board_hz        = 200; //[4 - 200]
     private static final int   com_lost_attempts   = 40; //Communication is considered lost after "x" successive errors
 
     //No-touchy constants
-    private static final byte  com_req_len         = 3;
+    private static final byte  com_req_len         =  0x03;
     private static final byte  com_who_am_i        =  0x32; 
-    private static final byte  com_crc7_poly       = (byte)(0x91); //0x91 in signed form
-    private static final byte  com_write_flag      = (byte)(0x80); //Could be incorrect
+    private static final byte  com_crc7_poly       = -0x6F; //0x91 in signed form
+    private static final byte  com_write_flag      = -0x80; //Could be incorrect
     private static final byte  com_address_space   =  0x6F;
     private static final short com_address_space_s =  0x6F; //Ensure Memoization
     private static final byte  com_crc7_table[];            //Memoization for crc calcs
     
     /**
-     * Construct SPI Com Class.
+     * Construct NavX Com Class.
      */
-    public SPICom() {
+    public NavXCom() {
         m_successive_err_count = 0;
         m_is_initialized = false;
         m_this_lock = new Object();
@@ -43,6 +44,9 @@ public class SPICom {
      * Initialize Communication with NavX.
      */
     public boolean init() {
+        if (m_is_initialized)
+            return true;
+
         m_spi_com = new SPI(Port.kMXP);
             m_spi_com.setMSBFirst();
             m_spi_com.setClockRate(com_clock_hz);
@@ -73,8 +77,10 @@ public class SPICom {
             if (!confirmCalStatus())//TODO: see which comes first, Calibration or testing
                 break checkDevice;
 
+            //Set NavX update rate
+            write(RegisterMap.REG_UPDATE_RATE, (byte)com_board_hz);
+
             //Successfully established communication with NavX
-            m_is_initialized = true;
             return true;
         }
 
@@ -225,10 +231,9 @@ public class SPICom {
         byte data = -1;
         while (err_count < com_lost_attempts) {
             ComResult res = read(RegisterMap.REG_WHOAMI, data);
-            if (res.success) {
-                who_am_i = Conv.decodeUnsignedByte(data);
+            if (res.success) 
                 return (who_am_i == com_who_am_i);
-            } else
+            else
                 err_count++;
         }
 

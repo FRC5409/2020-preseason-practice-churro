@@ -39,7 +39,7 @@ public class QXYZWData extends NavXData {
      * {@inheritDoc}
      */
     public static QXYZWData fromRaw(byte raw_data[]) {
-        check(raw_data, m_raw_data_length);
+        check(raw_data, packet_length);
         return new QXYZWData(
             cv.decodeSignedPiRadians(raw_data, 0), // Quaternion X
             cv.decodeSignedPiRadians(raw_data, 2), // Quaternion Y
@@ -71,5 +71,5 @@ public class QXYZWData extends NavXData {
     /**
      * {@inheritDoc}
      */
-    private static final int m_raw_data_length = 8;
+    public static final int packet_length = 8;
 }
