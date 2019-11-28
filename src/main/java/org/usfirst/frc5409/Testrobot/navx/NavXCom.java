@@ -189,10 +189,8 @@ public class NavXCom {
      * 
      * @see ComResult
      */
-    public ComResult read(byte reg, byte out) {
-        byte _out[] = new byte[1];
-        ComResult result = read(reg, (byte) 1, _out);
-        out = _out[0];
+    public ComResult read(byte reg, byte out[]) {
+        ComResult result = read(reg, (byte) 1, out);
         return result;
     }
 
@@ -227,12 +225,11 @@ public class NavXCom {
     private boolean confirmWhoIAm() {
         int err_count = 0;
 
-        short who_am_i = -1;
-        byte data = -1;
+        byte who_am_i[] = new byte[1];
         while (err_count < com_lost_attempts) {
-            ComResult res = read(RegisterMap.REG_WHOAMI, data);
+            ComResult res = read(RegisterMap.REG_WHOAMI, who_am_i);
             if (res.success) 
-                return (who_am_i == com_who_am_i);
+                return (who_am_i[0] == com_who_am_i);
             else
                 err_count++;
         }
@@ -248,11 +245,11 @@ public class NavXCom {
     private boolean confirmDeviceInit() {
         int err_count = 0;
 
-        byte op_status = -1;
+        byte op_status[] = new byte[1];
         while (err_count < com_lost_attempts) {
             ComResult res = read(RegisterMap.REG_OP_STATUS, op_status);
             if (res.success) {
-                switch(op_status) {
+                switch(op_status[0]) {
                     case BoardStatus.OP.INITIALIZING:            continue;
                     case BoardStatus.OP.SELFTEST_IN_PROGRESS:    continue;
                     case BoardStatus.OP.ERROR:                   return false;
@@ -274,11 +271,11 @@ public class NavXCom {
     private boolean confirmTestStatus() {
         int err_count = 0;
 
-        byte test_status = -1;
+        byte test_status[] = new byte[1];
         while (err_count < com_lost_attempts) {
             ComResult res = read(RegisterMap.REG_SELFTEST_STATUS, test_status);
             if (res.success) {
-                if (test_status == BoardStatus.SELFTEST.COMPLETE)
+                if ((test_status[0] & BoardStatus.SELFTEST.COMPLETE) != 0)
                     return true;
             } else
                 err_count++;
@@ -294,11 +291,11 @@ public class NavXCom {
     private boolean confirmCalStatus() {
         int err_count = 0;
 
-        byte cal_status = -1;
+        byte cal_status[] = new byte[1];
         while (err_count < com_lost_attempts) {
             ComResult res = read(RegisterMap.REG_CAL_STATUS, cal_status);
             if (res.success) {
-                if (cal_status == BoardStatus.CAL.COMPLETE);
+                if ((cal_status[0] & BoardStatus.CAL.COMPLETE) != 0);
                     return true;
             } else
                 err_count++;
@@ -316,13 +313,26 @@ public class NavXCom {
      * @return CRC-7 byte
      */
     private static byte getCRC(byte data[], int len) {
-         int crc = 0;
+        /*int crc = 0;
         
         for (int i = 0; i < len; i++) {
             crc ^= data[i];
             crc = com_crc7_table[crc & 0xFF];
         }
-        return (byte) crc;
+        return (byte) (crc & 0xFF);*/
+
+        int crc = 0;
+
+        for (int i = 0; i < len; i++) {
+            crc ^= (int)(0x00FF & data[i]);
+            for (int j = 0; j < 8; j++) {
+                if ((crc & 0x0001) != 0)
+                    crc ^= 0x0091;
+                crc >>= 1;
+            }
+        }
+
+        return (byte)crc;
     }
 
     /**
@@ -342,7 +352,7 @@ public class NavXCom {
                     crc ^= com_crc7_poly;
                 crc >>= 1;
             }
-            table[i] = (byte) crc;
+            table[i] = (byte) (crc & 0xFF);
         }
         return table;
     }
