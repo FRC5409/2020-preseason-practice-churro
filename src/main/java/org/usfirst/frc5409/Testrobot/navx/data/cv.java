@@ -90,10 +90,10 @@ final class cv { //SOME FUNCTIONS NEED TESTING.
      */
     public static long decodeUnsignedInt(byte data[], int i) {
         return (long) ( 
-            ((data[i + 0] & lxFF) << 24) |
-            ((data[i + 1] & lxFF) << 16) |
-            ((data[i + 2] & lxFF) << 8 ) |
-            ((data[i + 3] & lxFF)      )
+            ((data[i + 0] & lxFF) << 24L) |
+            ((data[i + 1] & lxFF) << 16L) |
+            ((data[i + 2] & lxFF) << 8L ) |
+            ((data[i + 3] & lxFF)       )
         );
     }
     /**
