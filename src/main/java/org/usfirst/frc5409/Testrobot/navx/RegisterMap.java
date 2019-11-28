@@ -3,7 +3,9 @@ package org.usfirst.frc5409.Testrobot.navx;
 /**
  * Register Map of NavX.
  * 
- * Some addresses are missing in this implementation, visit this link for complete list.
+ * @author Keith Davies
+ * 
+ * Some addresses are missing in this implementation, visit the link below for complete list.
  * {@link https://pdocs.kauailabs.com/navx-mxp/advanced/register-protocol/} 
  */
 public final class RegisterMap {
@@ -23,7 +25,7 @@ public final class RegisterMap {
     public static final byte REG_SENSOR_STATUS   = 0x10; //Sensor Status, see BoardStatus.SENSOR 
 
                                                          //Yaw, Pitch, Roll, Heading data
-    public static final Regs REGS_YPRH_DATA      = r(0x16, 0x1D); 
+    public static final Regs REGS_YPRH_DATA      = r(0x16, 0x1F); 
                                                          //Gyro Quaternion (W,X,Y,Z) data
     public static final Regs REGS_QWXYZ_DATA     = r(0x2A, 0x31); 
                                                          //Calibrated Gyro (X,Y,Z) data
