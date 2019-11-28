@@ -6,9 +6,9 @@ package org.usfirst.frc5409.Testrobot.navx.data;
  * @author Keith
  */
 final class cv { //SOME FUNCTIONS NEED TESTING.
-    private static short sxFF = (short) 0xFF;
+    private static int sxFF = (int) 0xFF;
     private static int   ixFF = (int)   0xFF;
-    private static long  lxFF = (long)  0xFF;
+    private static int  lxFF = (int)  0xFF;
 
     /**
      * Decode Unsigned Byte. (8-bit)
@@ -43,8 +43,8 @@ final class cv { //SOME FUNCTIONS NEED TESTING.
      */
     public static short decodeSignedShort(byte data[], int i) {
         return (short) ( 
-            ( data[i + 0]         << 8 ) |
-            ((data[i + 1] & sxFF)      )   
+            ((data[i + 0] & 0xFF)      ) |
+            ((data[i + 1]       ) << 8 )   
         );
     }
 
@@ -58,8 +58,8 @@ final class cv { //SOME FUNCTIONS NEED TESTING.
      */
     public static int decodeUnsignedShort(byte data[], int i) {
         return (int) ( 
-            ((data[i + 0] & ixFF) << 8 ) |
-            ((data[i + 1] & ixFF)      )   
+            ((data[i + 0] & 0xFF)      ) |
+            ((data[i + 1] & 0xFF) << 8 )   
         );
     }
 
@@ -73,10 +73,10 @@ final class cv { //SOME FUNCTIONS NEED TESTING.
      */
     public static int decodeSignedInt(byte data[], int i) {
         return (int) ( 
-            ( data[i + 0]         << 24) |
+            ((data[i + 0] & ixFF) << 8 ) |
             ((data[i + 1] & ixFF) << 16) |
-            ((data[i + 2] & ixFF) << 8 ) |
-            ((data[i + 3] & ixFF)      )
+            ((data[i + 2] & ixFF) << 24) |
+            ( data[i + 3]              )
         );
     }
 
@@ -90,10 +90,10 @@ final class cv { //SOME FUNCTIONS NEED TESTING.
      */
     public static long decodeUnsignedInt(byte data[], int i) {
         return (long) ( 
-            ((data[i + 0] & lxFF) << 24L) |
+            ((data[i + 0] & lxFF) << 8L ) |
             ((data[i + 1] & lxFF) << 16L) |
-            ((data[i + 2] & lxFF) << 8L ) |
-            ((data[i + 3] & lxFF)       )
+            ((data[i + 2] & lxFF) << 24L) |
+            ( data[i + 3]               )
         );
     }
     /**
