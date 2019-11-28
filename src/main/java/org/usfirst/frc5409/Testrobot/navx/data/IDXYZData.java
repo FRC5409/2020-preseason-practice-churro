@@ -36,9 +36,9 @@ public class IDXYZData extends NavXData {
     /**
      * {@inheritDoc}
      */
-    public static IVXYZData fromRaw(byte raw_data[]) {
+    public static IDXYZData fromRaw(byte raw_data[]) {
         check(raw_data, packet_length);
-        return new IVXYZData(
+        return new IDXYZData(
             cv.decodeQ1616(raw_data, 0), // Integrated Displacement X
             cv.decodeQ1616(raw_data, 4), // Integrated Displacement Y
             cv.decodeQ1616(raw_data, 8)  // Integrated Displacement Z
