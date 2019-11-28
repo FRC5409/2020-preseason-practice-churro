@@ -1,7 +1,9 @@
-package org.usfirst.frc5409.Testrobot.limelight.lltype;
+package org.usfirst.frc5409.Testrobot.limelight;
 
 /**
  * Camera Mode on Limelight.
+ * 
+ * @author Keith Davies
  */
 public enum CameraMode {
     /**

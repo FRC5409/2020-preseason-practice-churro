@@ -1,7 +1,9 @@
-package org.usfirst.frc5409.Testrobot.limelight.lltype;
+package org.usfirst.frc5409.Testrobot.limelight;
 
 /**
  * Pipeline Index on Limelight.
+ * 
+ * @author Keith Davies
  */
 public enum PipelineIndex {
     PIPELINE_0  (0),
