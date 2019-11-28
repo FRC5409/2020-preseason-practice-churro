@@ -31,7 +31,7 @@ public final class RegisterMap {
                                                          //Calibrated Gyro (X,Y,Z) data
     public static final Regs REGS_GXYZ_DATA      = r(0x34, 0x39);
 
-    public static final byte REG_INTEGRATION_CTL = 0x56; //Integration Control
+    public static final byte REG_INTG_CTRL       = 0x56; //Integration Control
 
                                                          //Integrated Velocity (X,Y,Z)
     public static final Regs REGS_IVXYZ          = r(0x58, 0x63); 
