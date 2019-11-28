@@ -1,12 +1,11 @@
-package org.usfirst.frc5409.Testrobot.navx;
+package org.usfirst.frc5409.Testrobot.navx.data;
 
 /**
- * Raw data conversion functions for bytes
- * recieved from NavX via SPIcom.
- * SOME FUNCTIONS NEED TESTING.
- * [Raw bytes] -> [Java type]
+ * Raw data conversion functions for NavX.
+ * 
+ * @author Keith
  */
-final class Conv {
+final class cv { //SOME FUNCTIONS NEED TESTING.
     private static short sxFF = (short) 0xFF;
     private static int   ixFF = (int)   0xFF;
     private static long  lxFF = (long)  0xFF;
@@ -103,7 +102,7 @@ final class Conv {
      * @param data Raw byte data
      * @param i Index offset
      * 
-     * @return Double floating-point Number
+     * @return Double floating-point number
      */
     public static double decodeSignedHundredths(byte data[], int i) {
         return (double) (decodeSignedShort(data, i)) / 100.0d;
@@ -115,7 +114,7 @@ final class Conv {
      * @param data Raw byte data
      * @param i Index offset
      * 
-     * @return Double floating-point Number
+     * @return Double floating-point number
      */
     public static double decodeUnsignedHundredths(byte data[], int i) {
         return (double) (decodeUnsignedShort(data, i)) / 100.0d;
@@ -127,7 +126,7 @@ final class Conv {
      * @param data Raw byte data
      * @param i Index offset
      * 
-     * @return Double floating-point Number
+     * @return Double floating-point number
      */
     public static double decodeSignedThousandths(byte data[], int i) {
         return (double) (decodeSignedShort(data, i)) / 1000.0d;
@@ -139,7 +138,7 @@ final class Conv {
      * @param data Raw byte data
      * @param i Index offset
      * 
-     * @return Double floating-point Number
+     * @return Double floating-point number
      */
     public static double decodeSignedPiRadians(byte data[], int i) {
         return (double) (decodeSignedShort(data, i)) / 16384.0d;
@@ -151,7 +150,7 @@ final class Conv {
      * @param data Raw byte data
      * @param i Index offset
      * 
-     * @return Double floating-point Number
+     * @return Double floating-point number
      */
     public static double decodeQ1616(byte data[], int i) {
         return (double) (decodeSignedInt(data, i)) / 65536.0d;
