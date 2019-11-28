@@ -11,3 +11,4 @@ public final class IntgCtrl {
     public static final byte RESET_DISP_Y = 0x10;
     public static final byte RESET_DISP_Z = 0x20;
     public static final byte RESET_YAW	  =-0x80;
+}
