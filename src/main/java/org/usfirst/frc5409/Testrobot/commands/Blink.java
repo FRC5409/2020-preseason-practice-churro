@@ -2,7 +2,7 @@ package org.usfirst.frc5409.Testrobot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc5409.Testrobot.Robot;
-import org.usfirst.frc5409.Testrobot.limelight.lltype.*;
+import org.usfirst.frc5409.Testrobot.limelight.*;
 
 public class Blink extends Command {
     public static long c_blink_period_ms = 1000;

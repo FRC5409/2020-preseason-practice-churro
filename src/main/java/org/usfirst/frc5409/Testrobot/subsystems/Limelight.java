@@ -3,15 +3,15 @@ package org.usfirst.frc5409.Testrobot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.networktables.*;
 
-import org.usfirst.frc5409.Testrobot.limelight.CamTrackMatrix;
-import org.usfirst.frc5409.Testrobot.limelight.lltype.*;
+import org.usfirst.frc5409.Testrobot.limelight.*;
 import org.usfirst.frc5409.Testrobot.commands.*;
 
 /**
  * Limelight subsystem.
  * 
- * Facilitates the control of limelight
- * hardware.
+ * Facilitates the control and access
+ * of limelight hardware through a software
+ * interface.
  */
 public class Limelight extends Subsystem {
     private NetworkTable         m_limelight_data;
@@ -173,14 +173,14 @@ public class Limelight extends Subsystem {
      * 
      * @return Camera Tracking Matrix
      */
-    public CamTrackMatrix getCameraTrack() {
+    public TrackMatrix getCameraTrack() {
         double[] raw_cam_matrix = new double[6];
 
         synchronized(m_this_mutex) {
             raw_cam_matrix = m_data_entry_cam_track.getDoubleArray(raw_cam_matrix);
         }
 
-        return new CamTrackMatrix(raw_cam_matrix[0], raw_cam_matrix[1], raw_cam_matrix[2],
+        return new TrackMatrix(raw_cam_matrix[0], raw_cam_matrix[1], raw_cam_matrix[2],
                                   raw_cam_matrix[3], raw_cam_matrix[4], raw_cam_matrix[5]);
     }
 }
