@@ -44,10 +44,10 @@ public final class BoardStatus {
      * Self-Test Status
      */
     public static final class SELFTEST {
-        public static final byte COMPLETE	             = -0x80; //I don't know if this is correct
         public static final byte GYRO_PASSED	         = 0x01;
         public static final byte ACCEL_PASSED	         = 0x02;
         public static final byte MAG_PASSED	             = 0x04;
         public static final byte BARO_PASSED	         = 0x08;
+        public static final byte COMPLETE	             =-0x80;
     }
 }
