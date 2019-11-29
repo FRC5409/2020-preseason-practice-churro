@@ -1,8 +1,11 @@
 package org.usfirst.frc5409.Testrobot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc5409.Testrobot.Robot;
 import org.usfirst.frc5409.Testrobot.limelight.*;
+import org.usfirst.frc5409.Testrobot.navx.data.*;
 import org.usfirst.frc5409.Testrobot.util.JoystickType;
 
 public class Blink extends Command {
@@ -11,6 +14,7 @@ public class Blink extends Command {
     public Blink() {
         super("Blink");
         requires(Robot.limelight);
+        requires(Robot.navX);
     }
 
     @Override
@@ -22,12 +26,25 @@ public class Blink extends Command {
     protected void execute() {
         boolean pressed = Robot.oi.getJoystick(JoystickType.MAIN).getAButtonPressed();
 
-        m_led_on = !m_led_on;
+        if (pressed)
+            m_led_on = !m_led_on;
 
         if (m_led_on)
             Robot.limelight.setLedMode(LedMode.LED_ON);
         else
             Robot.limelight.setLedMode(LedMode.LED_OFF);
+        
+        YPRHData yprh = Robot.navX.getYPRH();
+            SmartDashboard.putNumber("Yaw", yprh.yaw);
+            SmartDashboard.putNumber("Pitch", yprh.ptch);
+            SmartDashboard.putNumber("Roll", yprh.roll);
+            SmartDashboard.putNumber("Heading", yprh.head);
+            SmartDashboard.putNumber("Fused Heading", yprh.fhead);
+
+        IVXYZData ivxyz = Robot.navX.getIVXYZ();
+            SmartDashboard.putNumber("Velocity X", ivxyz.vx);
+            SmartDashboard.putNumber("Velocity Y", ivxyz.vy);
+            SmartDashboard.putNumber("Velocity", Math.sqrt(ivxyz.vx*ivxyz.vx + ivxyz.vy*ivxyz.vy));
     }
 
     @Override

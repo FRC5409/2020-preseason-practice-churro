@@ -73,10 +73,10 @@ final class cv { //SOME FUNCTIONS NEED TESTING.
      */
     public static int decodeSignedInt(byte data[], int i) {
         return (int) ( 
-            ((data[i + 0] & ixFF) << 8 ) |
-            ((data[i + 1] & ixFF) << 16) |
-            ((data[i + 2] & ixFF) << 24) |
-            ( data[i + 3]              )
+            ((data[i + 0] & ixFF)      ) |
+            ((data[i + 1] & ixFF) << 8 ) |
+            ((data[i + 2] & ixFF) << 16) |
+            ( data[i + 3]         << 24)
         );
     }
 
@@ -90,10 +90,10 @@ final class cv { //SOME FUNCTIONS NEED TESTING.
      */
     public static long decodeUnsignedInt(byte data[], int i) {
         return (long) ( 
-            ((data[i + 0] & lxFF) << 8L ) |
-            ((data[i + 1] & lxFF) << 16L) |
-            ((data[i + 2] & lxFF) << 24L) |
-            ( data[i + 3]               )
+            ((data[i + 0] & lxFF)       ) |
+            ((data[i + 1] & lxFF) << 8L ) |
+            ((data[i + 2] & lxFF) << 16L) |
+            ((data[i + 3] & lxFF) << 24L)
         );
     }
     /**
@@ -153,6 +153,6 @@ final class cv { //SOME FUNCTIONS NEED TESTING.
      * @return Double floating-point number
      */
     public static double decodeQ1616(byte data[], int i) {
-        return (double) (decodeSignedInt(data, i)) / 65536.0d;
+        return ((double) decodeSignedInt(data, i)) / 65536.0d;
     }
 }
