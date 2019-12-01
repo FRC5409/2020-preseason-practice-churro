@@ -19,6 +19,7 @@ public class Limelight extends Subsystem {
     private NetworkTableEntry    m_data_entry_cam_mode;
     private NetworkTableEntry    m_data_entry_pipeline;
     private NetworkTableEntry    m_data_entry_cam_track;
+    private NetworkTableEntry    m_data_entry_has_targets;
 
     private LedMode              m_local_led_mode;
     private CameraMode           m_local_cam_mode;
@@ -31,18 +32,19 @@ public class Limelight extends Subsystem {
      */
     public Limelight() {
         // Maybe create a watchdog system in case of limelight malfunction (i.e disconnection)
-        m_limelight_data       = NetworkTableInstance.getDefault().getTable("limelight");
+        m_limelight_data         = NetworkTableInstance.getDefault().getTable("limelight");
 
-        m_data_entry_cam_mode  = m_limelight_data.getEntry("camMode");
-        m_data_entry_led_mode  = m_limelight_data.getEntry("ledMode");
-        m_data_entry_pipeline  = m_limelight_data.getEntry("pipeline");
-        m_data_entry_cam_track = m_limelight_data.getEntry("camtran");
+        m_data_entry_cam_mode    = m_limelight_data.getEntry("camMode");
+        m_data_entry_led_mode    = m_limelight_data.getEntry("ledMode");
+        m_data_entry_pipeline    = m_limelight_data.getEntry("pipeline");
+        m_data_entry_cam_track   = m_limelight_data.getEntry("camtran");
+        m_data_entry_has_targets = m_limelight_data.getEntry("tv");
 
-        m_local_led_mode       = LedMode.LED_OFF;
-        m_local_cam_mode       = CameraMode.MODE_DRIVER;
-        m_local_pipeline       = PipelineIndex.PIPELINE_0;
+        m_local_led_mode         = LedMode.LED_OFF;
+        m_local_cam_mode         = CameraMode.MODE_DRIVER;
+        m_local_pipeline         = PipelineIndex.PIPELINE_0;
 
-        m_this_mutex           = new Object();
+        m_this_mutex = new Object();
     }
     
     @Override
@@ -182,5 +184,20 @@ public class Limelight extends Subsystem {
 
         return new TrackMatrix(raw_cam_matrix[0], raw_cam_matrix[1], raw_cam_matrix[2],
                                   raw_cam_matrix[3], raw_cam_matrix[4], raw_cam_matrix[5]);
+    }
+
+    /**
+     * Checks to see if the limelight is currently tracking any targets.
+     * 
+     * @return Whether or not the limelight is tracking a target.
+     */
+    public boolean hasTarget() {
+        boolean has_target;
+        
+        synchronized(m_this_mutex) {
+            has_target = m_data_entry_has_targets.getBoolean(false);
+        }
+
+        return has_target;
     }
 }
