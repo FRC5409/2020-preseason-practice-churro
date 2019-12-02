@@ -8,14 +8,16 @@ public class UNAlgo {
     public double  db;
     public double  mo;
     private double fl;
+    public double wd;
 
     private boolean is_first_iter;
 
-    public UNAlgo(double kD, double kR, double db, double mo) {
+    public UNAlgo(double kD, double kR, double db, double mo, double wd) {
         this.kD = kD;
         this.kR = kR;
         this.db = db;
         this.mo = mo;
+        this.wd = wd; //Wheel dist
 
         is_first_iter = true;
     }
@@ -29,15 +31,16 @@ public class UNAlgo {
         Vector2 nG = new Vector2();
         double  dg;
 
-        if (is_first_iter) {
-            is_first_iter = false;
-            fl = sgn((O.y-T.y)*nT.x - (O.x-T.x)*nT.y);
-        }
+        //if (is_first_iter) {
+        //    is_first_iter = false;
+        //    fl = sgn((O.y-T.y)*nT.x - (O.x-T.x)*nT.y);
+        //    
+        //}
 
         Vector2 Pi = computePi(T, nT, O, nO);
 
         //Determine which optimization to use
-        if (Pi == null) {
+        if (Pi == null || computeD(Pi, T) <= 1/kR) {
             Gp = computePo(T, O, nT);
             dg = computeD(T, O, Gp);
         } else {
@@ -61,21 +64,23 @@ public class UNAlgo {
             }
         }
 
-        nG.x = O.x - Gp.x;
-        nG.y = O.y - Gp.y;
-        
+        nG.x = Gp.x - O.x;
+        nG.y = Gp.y - O.y;
+
         //normalize
         final double m = Math.sqrt(nG.x*nG.x + nG.y*nG.y);
             nG.x /= m;
             nG.y /= m;
 
+        fl = sgn(nG.y*nO.x - nG.x*nO.y);
+
         //Calculate motor output modifiers
-        final double mr = clamp(Math.acos(clamp(nO.x*nG.x + nO.y*nG.y)) * kR * fl);
-        final double md = clamp(deadband(dg/2 * kD));
+        final double mr = wd * Math.acos(clamp(1,nO.x*nG.x + nO.y*nG.y)) * kR * fl * 0.5;
+        final double md = deadband(dg/2 * kD);
 
         //Calculate raw motor outputs
-        final double Rr = md + mr;
         final double Rl = md - mr;
+        final double Rr = md + mr;
 
         //Scale if needed
         final double s;
@@ -89,10 +94,14 @@ public class UNAlgo {
         return new double[] {Rl/s, Rr/s};
     }
 
-    public double computeD(Vector2 A, Vector2 B, Vector2 C) {
+    private double computeD(Vector2 A, Vector2 B, Vector2 C) {
         return Math.sqrt((A.x-C.x)*(A.x-C.x) + (A.y-C.y)*(A.y-C.y))
                 + Math.sqrt((B.x-C.x)*(B.x-C.x) + (B.y-C.y)*(B.y-C.y));
-    }       
+    }   
+    
+    private double computeD(Vector2 A, Vector2 B) {
+        return Math.sqrt((A.x-B.x)*(A.x-B.x) + (A.y-B.y)*(A.y-B.y));
+    }   
 
     private Vector2 computePo(Vector2 T, Vector2 O, Vector2 nT) {
         final double px = T.x - O.x;
@@ -120,10 +129,14 @@ public class UNAlgo {
     }
 
     private double clamp(double x) {
-        if (x > mo)
-            return mo;
-        else if (x < -mo)
-            return -mo;
+        return clamp(mo, x);
+    }
+
+    private double clamp(double m, double x) {
+        if (x > m)
+            return m;
+        else if (x < -m)
+            return -m;
         return x;
     }
 
