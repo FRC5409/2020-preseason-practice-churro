@@ -24,9 +24,10 @@ public class VisionTrak extends Command {
 
     @Override
     protected void initialize() {
-        SmartDashboard.putNumber("kD", 0);
-        SmartDashboard.putNumber("kR", 0);
-        SmartDashboard.putNumber("wd", 0);
+        //SmartDashboard.putNumber("kD", 0);
+        //SmartDashboard.putNumber("kR", 0);
+        //SmartDashboard.putNumber("wd", 0);
+        //SmartDashboard.putNumber("scale", 0);
 
         Robot.limelight.setLedMode(LedMode.LED_ON);
         Robot.drivetrain.reset();
@@ -36,12 +37,13 @@ public class VisionTrak extends Command {
     @Override
     protected void execute() {
         algo.kD = SmartDashboard.getNumber("kD", 0);
-        algo.kD = SmartDashboard.getNumber("kR", 0);
+        algo.kR = SmartDashboard.getNumber("kR", 0);
         algo.wd = SmartDashboard.getNumber("wd", 0);
+        double scale = SmartDashboard.getNumber("scale", 0);
 
-        if (Robot.limelight.hasTarget()) {
+        if (/*Robot.limelight.hasTarget()*/ true) {
             TrackMatrix tm = Robot.limelight.getCameraTrack();
-            double y_n = tm.yaw/180 * Math.PI; //Asuuming the rotation is not in radians
+            double y_n = tm.ptch/180 * Math.PI; //Asuuming the rotation is not in radians
 
             double mo[] = algo.compute(
                 new Vector2(0,0),
@@ -49,7 +51,11 @@ public class VisionTrak extends Command {
                 new Vector2(tm.x, tm.z),
                 new Vector2(Math.cos(y_n), Math.sin(y_n)));
 
-            Robot.drivetrain.tankDrive(mo[0], mo[1]);
+            Robot.drivetrain.tankDrive(mo[1]*scale, -mo[0]*scale);
+
+        SmartDashboard.putNumber("Rotation", tm.ptch);
+        SmartDashboard.putNumber("ML", mo[0]);
+        SmartDashboard.putNumber("MR", mo[1]);
         } else
             Robot.drivetrain.reset();
     }
