@@ -1,9 +1,13 @@
 package org.usfirst.frc5409.Testrobot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.*;
 
 import org.usfirst.frc5409.Testrobot.limelight.*;
+
+import java.awt.geom.Line2D.Double;
+
 import org.usfirst.frc5409.Testrobot.commands.*;
 
 /**
@@ -15,6 +19,7 @@ import org.usfirst.frc5409.Testrobot.commands.*;
  */
 public class Limelight extends Subsystem {
     private NetworkTable         m_limelight_data;
+    private NetworkTableEntry    m_data_entry_getpipe;
     private NetworkTableEntry    m_data_entry_led_mode;
     private NetworkTableEntry    m_data_entry_cam_mode;
     private NetworkTableEntry    m_data_entry_pipeline;
@@ -27,6 +32,8 @@ public class Limelight extends Subsystem {
 
     private Object               m_this_mutex;
 
+    private double[]             NO_TRACK = new double[6];
+
     /**
      * Construct subsystem and initialize limeight communication
      */
@@ -37,6 +44,7 @@ public class Limelight extends Subsystem {
         m_data_entry_cam_mode    = m_limelight_data.getEntry("camMode");
         m_data_entry_led_mode    = m_limelight_data.getEntry("ledMode");
         m_data_entry_pipeline    = m_limelight_data.getEntry("pipeline");
+        m_data_entry_getpipe     = m_limelight_data.getEntry("getpipe");
         m_data_entry_cam_track   = m_limelight_data.getEntry("camtran");
         m_data_entry_has_targets = m_limelight_data.getEntry("tv");
 
@@ -57,6 +65,11 @@ public class Limelight extends Subsystem {
     
     @Override
     public void periodic() {
+        double tx[] = m_limelight_data.getEntry("tcornx").getDoubleArray(new double[1]);
+        double ty[] = m_limelight_data.getEntry("tcorny").getDoubleArray(new double[1]);
+    
+        SmartDashboard.putNumberArray("tcornx", tx);
+        SmartDashboard.putNumberArray("tcorny", ty);
     }
 
     /**
@@ -141,10 +154,10 @@ public class Limelight extends Subsystem {
      * @see PipelineIndex
      */
     public void setPipelineIndex(PipelineIndex pipeline_index) {
-        final double pipeline_index_byte = pipeline_index.get();
+        final double pipeline_index_num = pipeline_index.get();
 
         synchronized(m_this_mutex) {
-            m_data_entry_pipeline.setDouble(pipeline_index_byte);
+            m_data_entry_pipeline.setDouble(pipeline_index_num);
             m_local_pipeline = pipeline_index;
         }
     }
@@ -157,7 +170,7 @@ public class Limelight extends Subsystem {
      * @see PipelineIndex
      */
     public PipelineIndex getPipelineIndex() {
-        final double real_pipeline_index = m_data_entry_pipeline.getDouble(-1);
+        final double real_pipeline_index = m_data_entry_getpipe.getDouble(-1);
 
         if (real_pipeline_index == -1) {
             //Do something here, this is probably an error
@@ -179,7 +192,16 @@ public class Limelight extends Subsystem {
         double[] raw_cam_matrix = new double[6];
 
         synchronized(m_this_mutex) {
-            raw_cam_matrix = m_data_entry_cam_track.getDoubleArray(raw_cam_matrix);
+            raw_cam_matrix = m_data_entry_cam_track.getDoubleArray(NO_TRACK);
+        }
+
+        checkTrack: {
+            for (int i=0; i<6; i++) {
+                if (raw_cam_matrix[i] != 0.0d)
+                    break checkTrack;
+            }
+
+            return null;//No tracking data recorded
         }
 
         return new TrackMatrix(raw_cam_matrix[0], raw_cam_matrix[1], raw_cam_matrix[2],
@@ -192,12 +214,12 @@ public class Limelight extends Subsystem {
      * @return Whether or not the limelight is tracking a target.
      */
     public boolean hasTarget() {
-        boolean has_target;
+        double has_target;
         
         synchronized(m_this_mutex) {
-            has_target = m_data_entry_has_targets.getBoolean(false);
+            has_target = m_data_entry_has_targets.getDouble(0);
         }
 
-        return has_target;
+        return has_target==1;
     }
 }

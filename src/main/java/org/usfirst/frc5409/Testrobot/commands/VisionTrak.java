@@ -1,11 +1,13 @@
 package org.usfirst.frc5409.Testrobot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc5409.Testrobot.Robot;
 import org.usfirst.frc5409.Testrobot.ada.UNAlgo;
 import org.usfirst.frc5409.Testrobot.limelight.LedMode;
+import org.usfirst.frc5409.Testrobot.limelight.PipelineIndex;
 import org.usfirst.frc5409.Testrobot.limelight.TrackMatrix;
 import org.usfirst.frc5409.Testrobot.util.JoystickType;
 import org.usfirst.frc5409.Testrobot.util.Vector2;
@@ -43,17 +45,29 @@ public class VisionTrak extends Command {
 
         if (/*Robot.limelight.hasTarget()*/ true) {
             TrackMatrix tm = Robot.limelight.getCameraTrack();
+
+            if (tm == null) {
+                Robot.drivetrain.reset();
+                if (Robot.limelight.getPipelineIndex() == PipelineIndex.PIPELINE_0)
+                    Robot.limelight.setPipelineIndex(PipelineIndex.PIPELINE_1);
+                else
+                    Robot.limelight.setPipelineIndex(PipelineIndex.PIPELINE_0);
+                Timer.delay(1.5);
+                return;
+            }
+
             double y_n = tm.ptch/180 * Math.PI; //Asuuming the rotation is not in radians
 
             double mo[] = algo.compute(
                 new Vector2(0,0),
                 new Vector2(0,-1),
                 new Vector2(tm.x, tm.z),
-                new Vector2(Math.cos(y_n), Math.sin(y_n)));
+                new Vector2(-Math.sin(y_n), Math.cos(y_n)));
 
-            Robot.drivetrain.tankDrive(mo[1]*scale, -mo[0]*scale);
+            Robot.drivetrain.tankDrive(mo[0]*scale, mo[1]*scale);
 
         SmartDashboard.putNumber("Rotation", tm.ptch);
+        SmartDashboard.putBoolean("targets", Robot.limelight.hasTarget());
         SmartDashboard.putNumber("ML", mo[0]);
         SmartDashboard.putNumber("MR", mo[1]);
         } else
