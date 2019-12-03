@@ -22,6 +22,11 @@ public class VisionTrak extends Command {
         requires(Robot.drivetrain);
         requires(Robot.limelight);
         requires(Robot.navX);
+        SmartDashboard.setDefaultNumber("kD", 0);
+        SmartDashboard.setDefaultNumber("kR", 0);
+        SmartDashboard.setDefaultNumber("wd", 0);
+        SmartDashboard.setDefaultNumber("scale", 1);
+        SmartDashboard.setDefaultNumber("Target Area", 20);
     }
 
     @Override
@@ -41,6 +46,7 @@ public class VisionTrak extends Command {
         algo.kD = SmartDashboard.getNumber("kD", 0);
         algo.kR = SmartDashboard.getNumber("kR", 0);
         algo.wd = SmartDashboard.getNumber("wd", 0);
+        double tarea = SmartDashboard.getNumber("Target Area", 20);
         double scale = SmartDashboard.getNumber("scale", 0);
 
         if (Robot.limelight.hasTarget()) {
@@ -72,9 +78,19 @@ public class VisionTrak extends Command {
         SmartDashboard.putNumber("MR", mo[1]);*/
 
         Vector2 target = Robot.limelight.getTarget();
+        double area = Robot.limelight.getTargetArea();
 
-        Robot.drivetrain.tankDrive( algo.kR*target.x, -algo.kR*target.xS);
-            
+        double kR = algo.kR*target.x;
+        double kD;
+        
+
+        kD = algo.kD*(tarea - area);
+
+        double s = Math.max(1, Math.max(Math.abs(kD+kR),Math.abs(kD-kR)));
+
+        Robot.drivetrain.tankDrive( (kD+kR)/s * scale, (kD-kR)/s * scale);
+        SmartDashboard.putNumber("Motor Left", (kD+kR)/s * scale);
+        SmartDashboard.putNumber("Motor Right", (kD-kR)/s * scale);
         } else
             Robot.drivetrain.reset();
     }

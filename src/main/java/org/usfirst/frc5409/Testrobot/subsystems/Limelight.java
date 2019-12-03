@@ -23,6 +23,7 @@ public class Limelight extends Subsystem {
 
     private NetworkTableEntry    m_data_entry_tx;
     private NetworkTableEntry    m_data_entry_ty;
+    private NetworkTableEntry    m_data_entry_ta;
     private NetworkTableEntry    m_data_entry_getpipe;
     private NetworkTableEntry    m_data_entry_led_mode;
     private NetworkTableEntry    m_data_entry_cam_mode;
@@ -47,6 +48,7 @@ public class Limelight extends Subsystem {
 
         m_data_entry_tx          = m_limelight_data.getEntry("tx");
         m_data_entry_ty          = m_limelight_data.getEntry("ty");
+        m_data_entry_ta          = m_limelight_data.getEntry("ta");
         m_data_entry_getpipe     = m_limelight_data.getEntry("getpipe");
         m_data_entry_cam_mode    = m_limelight_data.getEntry("camMode");
         m_data_entry_led_mode    = m_limelight_data.getEntry("ledMode");
@@ -228,6 +230,19 @@ public class Limelight extends Subsystem {
         }
         
         return target;
+    }
+
+    /**
+     * 
+     */
+    public double getTargetArea() {
+        double raw_cam_ta;
+
+        synchronized(m_this_mutex) {
+            raw_cam_ta = m_data_entry_ta.getDouble(0);
+        }
+
+        return raw_cam_ta;
     }
 
     /**
