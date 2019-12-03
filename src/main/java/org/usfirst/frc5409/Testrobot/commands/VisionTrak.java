@@ -43,8 +43,8 @@ public class VisionTrak extends Command {
         algo.wd = SmartDashboard.getNumber("wd", 0);
         double scale = SmartDashboard.getNumber("scale", 0);
 
-        if (/*Robot.limelight.hasTarget()*/ true) {
-            TrackMatrix tm = Robot.limelight.getCameraTrack();
+        if (Robot.limelight.hasTarget()) {
+            /*TrackMatrix tm = Robot.limelight.getCameraTrack();
 
             if (tm == null) {
                 Robot.drivetrain.reset();
@@ -69,7 +69,12 @@ public class VisionTrak extends Command {
         SmartDashboard.putNumber("Rotation", tm.ptch);
         SmartDashboard.putBoolean("targets", Robot.limelight.hasTarget());
         SmartDashboard.putNumber("ML", mo[0]);
-        SmartDashboard.putNumber("MR", mo[1]);
+        SmartDashboard.putNumber("MR", mo[1]);*/
+
+        Vector2 target = Robot.limelight.getTarget();
+
+        Robot.drivetrain.tankDrive( algo.kR*target.x, -algo.kR*target.xS);
+            
         } else
             Robot.drivetrain.reset();
     }

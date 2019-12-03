@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.*;
 
 import org.usfirst.frc5409.Testrobot.limelight.*;
+import org.usfirst.frc5409.Testrobot.util.Vector2;
 
 import java.awt.geom.Line2D.Double;
 
@@ -19,6 +20,9 @@ import org.usfirst.frc5409.Testrobot.commands.*;
  */
 public class Limelight extends Subsystem {
     private NetworkTable         m_limelight_data;
+
+    private NetworkTableEntry    m_data_entry_tx;
+    private NetworkTableEntry    m_data_entry_ty;
     private NetworkTableEntry    m_data_entry_getpipe;
     private NetworkTableEntry    m_data_entry_led_mode;
     private NetworkTableEntry    m_data_entry_cam_mode;
@@ -41,10 +45,12 @@ public class Limelight extends Subsystem {
         // Maybe create a watchdog system in case of limelight malfunction (i.e disconnection)
         m_limelight_data         = NetworkTableInstance.getDefault().getTable("limelight");
 
+        m_data_entry_tx          = m_limelight_data.getEntry("tx");
+        m_data_entry_ty          = m_limelight_data.getEntry("ty");
+        m_data_entry_getpipe     = m_limelight_data.getEntry("getpipe");
         m_data_entry_cam_mode    = m_limelight_data.getEntry("camMode");
         m_data_entry_led_mode    = m_limelight_data.getEntry("ledMode");
         m_data_entry_pipeline    = m_limelight_data.getEntry("pipeline");
-        m_data_entry_getpipe     = m_limelight_data.getEntry("getpipe");
         m_data_entry_cam_track   = m_limelight_data.getEntry("camtran");
         m_data_entry_has_targets = m_limelight_data.getEntry("tv");
 
@@ -206,6 +212,22 @@ public class Limelight extends Subsystem {
 
         return new TrackMatrix(raw_cam_matrix[0], raw_cam_matrix[1], raw_cam_matrix[2],
                                   raw_cam_matrix[3], raw_cam_matrix[4], raw_cam_matrix[5]);
+    }
+
+    /**
+     * Get current Tracking Target from Limelight Pipeline.
+     * 
+     * @return Limelight Pipeline
+     */
+    public Vector2 getTarget() {
+        Vector2 target = new Vector2();
+
+        synchronized(m_this_mutex) {
+            target.x = m_data_entry_tx.getDouble(target.x);
+            target.y = m_data_entry_tx.getDouble(target.y);
+        }
+        
+        return target;
     }
 
     /**
