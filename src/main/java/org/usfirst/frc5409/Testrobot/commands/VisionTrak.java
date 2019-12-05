@@ -104,9 +104,10 @@ public class VisionTrak extends Command {
         } else {
             if (tracking_state == 1) {//CHANGE THIS TO AN ENUM ASAP
                 sop_track.initiate();
+                Robot.navX.zeroYaw();
                 tracking_state = 2;
             } else if (tracking_state == 2) {
-                double kR = algo.kR*sop_track.track();
+                double kR = algo.kR*(sop_track.track() - Robot.navX.getYPRH().yaw);
                 double s = Math.max(1, Math.abs(kR));
 
                 Robot.drivetrain.tankDrive((kR)/s * scale, (-kR)/s * scale);
