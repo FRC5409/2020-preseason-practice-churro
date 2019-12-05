@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc5409.Testrobot.Robot;
 import org.usfirst.frc5409.Testrobot.ada.UNAlgo;
+import org.usfirst.frc5409.Testrobot.ada.blind.SOPTrack;
 import org.usfirst.frc5409.Testrobot.limelight.LedMode;
 import org.usfirst.frc5409.Testrobot.limelight.PipelineIndex;
 import org.usfirst.frc5409.Testrobot.limelight.TrackMatrix;
@@ -13,12 +14,15 @@ import org.usfirst.frc5409.Testrobot.util.JoystickType;
 import org.usfirst.frc5409.Testrobot.util.Vector2;
 
 public class VisionTrak extends Command {
+    SOPTrack sop_track;
     UNAlgo algo;
 
+    int tracking_state;
     public VisionTrak() {
         super("VisionTrak");
 
         algo = new UNAlgo(0, 0, 0, 1, 0);
+        sop_track = new SOPTrack();
         requires(Robot.drivetrain);
         requires(Robot.limelight);
         requires(Robot.navX);
@@ -27,6 +31,8 @@ public class VisionTrak extends Command {
         SmartDashboard.setDefaultNumber("wd", 0);
         SmartDashboard.setDefaultNumber("scale", 1);
         SmartDashboard.setDefaultNumber("Target Area", 20);
+
+        tracking_state = 0;
     }
 
     @Override
@@ -50,6 +56,10 @@ public class VisionTrak extends Command {
         double scale = SmartDashboard.getNumber("scale", 0);
 
         if (Robot.limelight.hasTarget()) {
+            if (tracking_state != 1) {
+                tracking_state = 1;
+                sop_track.deInitiate();
+            }
             /*TrackMatrix tm = Robot.limelight.getCameraTrack();
 
             if (tm == null) {
@@ -72,27 +82,38 @@ public class VisionTrak extends Command {
 
             Robot.drivetrain.tankDrive(mo[0]*scale, mo[1]*scale);
 
-        SmartDashboard.putNumber("Rotation", tm.ptch);
-        SmartDashboard.putBoolean("targets", Robot.limelight.hasTarget());
-        SmartDashboard.putNumber("ML", mo[0]);
-        SmartDashboard.putNumber("MR", mo[1]);*/
+            SmartDashboard.putNumber("Rotation", tm.ptch);
+            SmartDashboard.putBoolean("targets", Robot.limelight.hasTarget());
+            SmartDashboard.putNumber("ML", mo[0]);
+            SmartDashboard.putNumber("MR", mo[1]);*/
 
-        Vector2 target = Robot.limelight.getTarget();
-        double area = Robot.limelight.getTargetArea();
+            Vector2 target = Robot.limelight.getTarget();
+            double area = Robot.limelight.getTargetArea();
+            sop_track.feed(target.x);
+            double kR = algo.kR*target.x;
+            double kD;
+            
 
-        double kR = algo.kR*target.x;
-        double kD;
-        
+            kD = algo.kD*(tarea - area);
 
-        kD = algo.kD*(tarea - area);
+            double s = Math.max(1, Math.max(Math.abs(kD+kR),Math.abs(kD-kR)));
 
-        double s = Math.max(1, Math.max(Math.abs(kD+kR),Math.abs(kD-kR)));
+            Robot.drivetrain.tankDrive( (kD+kR)/s * scale, (kD-kR)/s * scale);
+            SmartDashboard.putNumber("Motor Left", (kD+kR)/s * scale);
+            SmartDashboard.putNumber("Motor Right", (kD-kR)/s * scale);
+        } else {
+            if (tracking_state == 1) {//CHANGE THIS TO AN ENUM ASAP
+                sop_track.initiate();
+                tracking_state = 2;
+            } else if (tracking_state == 2) {
+                double kR = algo.kR*sop_track.track();
+                double s = Math.max(1, Math.abs(kR));
 
-        Robot.drivetrain.tankDrive( (kD+kR)/s * scale, (kD-kR)/s * scale);
-        SmartDashboard.putNumber("Motor Left", (kD+kR)/s * scale);
-        SmartDashboard.putNumber("Motor Right", (kD-kR)/s * scale);
-        } else
-            Robot.drivetrain.reset();
+                Robot.drivetrain.tankDrive((kR)/s * scale, (-kR)/s * scale);
+            } else if (tracking_state == 0) 
+                Robot.drivetrain.reset();
+        }
+            
     }
 
     @Override

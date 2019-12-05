@@ -21,3 +21,7 @@ a landmark position is detected and position is adjusted.
 UNAlgo - Unammed Algorithim
 Don't have a name for this algorithim yet, currently in
 progress. TBD
+
+DOP - Dynamic Object Perminance
+
+SOP - Static Object Perminance
