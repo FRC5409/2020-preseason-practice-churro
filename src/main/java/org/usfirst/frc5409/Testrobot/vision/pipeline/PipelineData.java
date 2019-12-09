@@ -20,6 +20,6 @@ public abstract class PipelineData implements Cloneable {
     }
 
     public boolean asChoice() {
-        throw new DataConversionException("Attempted to extract choice from pipeline data with undefined conversion. Check code.");
+        throw new DataConversionException("Attempted to extract choice from Pipeline data with undefined conversion. Check code.");
     }
 }
