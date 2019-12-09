@@ -6,6 +6,13 @@
 	],
 	"settings": {
 		"java.implementationsCodeLens.enabled": true,
-		"java.dependency.syncWithFolderExplorer": true
+		"java.dependency.syncWithFolderExplorer": true,
+		"java.configuration.updateBuildConfiguration": "automatic",
+		"files.exclude": {
+			"**/.classpath": true,
+			"**/.project": true,
+			"**/.settings": true,
+			"**/.factorypath": true
+		}
 	}
 }

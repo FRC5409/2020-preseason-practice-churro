@@ -10,5 +10,6 @@
     ".classpath": true,
     ".project": true,
     "**/*~": true
-  }
+  },
+  "java.test.defaultConfig": "default"
 }
