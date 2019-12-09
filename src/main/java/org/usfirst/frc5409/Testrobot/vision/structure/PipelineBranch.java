@@ -2,11 +2,13 @@ package org.usfirst.frc5409.Testrobot.vision.structure;
 
 import java.util.Arrays;
 
-import org.usfirst.frc5409.Testrobot.vision.pipeline.*;
 import org.usfirst.frc5409.Testrobot.vision.exception.*;
+import org.usfirst.frc5409.Testrobot.vision.pipeline.*;
+import org.usfirst.frc5409.Testrobot.vision.control.*;
 
 public class PipelineBranch extends PipelineStructure implements PipelineStep {
     protected PipelineStep m_steps[];
+    protected PipeConfig   m_config;
     protected int          m_steps_length;
 
     public PipelineBranch() {
