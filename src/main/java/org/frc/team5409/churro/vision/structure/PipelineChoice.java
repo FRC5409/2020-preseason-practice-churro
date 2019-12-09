@@ -1,0 +1,38 @@
+package org.frc.team5409.churro.vision.structure;
+
+import org.frc.team5409.churro.vision.exception.*;
+import org.frc.team5409.churro.vision.pipeline.*;
+import org.frc.team5409.churro.vision.control.*;
+
+public class PipelineChoice extends PipelineStructure implements PipelineStep {
+    protected PipelineStep m_step_off = null;
+    protected PipelineStep m_step_on = null;
+
+    public <T extends PipelineStep> PipelineChoice add(T step, boolean switch_state) {
+        if (isLocked())
+            throw new LockedStructureException("Attempted to add steps to locked choice. Check code.");
+
+        if (switch_state)
+            m_step_on = step;
+        else
+            m_step_off = step;
+
+        return this;
+    }
+
+    @Override
+    public void finish() {
+        if (m_step_on == null && m_step_off == null)
+            throw new NoStepsException("Attempted to lock choice with no step cases.");
+        
+        lock();
+    }
+
+    @Override
+    public PipelineData process(PipelineData input, PipeConfig config) {
+        if (input.asChoice())
+            return m_step_on.process(input, config);
+        else
+            return m_step_off.process(input, config);
+    }
+}
