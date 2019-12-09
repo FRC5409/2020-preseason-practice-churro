@@ -1,6 +1,5 @@
 package org.usfirst.frc5409.Testrobot.vision.pipeline;
 
-import org.usfirst.frc5409.Testrobot.vision.control.ChoiceData;
 import org.usfirst.frc5409.Testrobot.vision.exception.DataConversionException;
 
 public abstract class PipelineData implements Cloneable {
