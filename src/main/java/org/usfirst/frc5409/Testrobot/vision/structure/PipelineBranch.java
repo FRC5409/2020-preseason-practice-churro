@@ -42,18 +42,16 @@ public class PipelineBranch extends PipelineStructure implements PipelineStep {
     }
 
     @Override
-    public PipelineOutput process(PipelineInput input) {
-        PipelineOutput out = null;
-        PipelineInput  in = input;
-
+    public PipelineData process(PipelineData input) {
+        PipelineData data = input.clone();
+        
         if (m_steps_length == 0) //TODO: Might not need this considering comparison cost at every iteration vs Safety
             throw new NoStepsException("Attempted to run branch with no steps.");
 
         for (int i=0; i < m_steps_length; i++) {
-            out = m_steps[i].process(in);
-            in = out.asInput();
+            data = m_steps[i].process(data);
         }
 
-        return out;
+        return data;
     }
 }
