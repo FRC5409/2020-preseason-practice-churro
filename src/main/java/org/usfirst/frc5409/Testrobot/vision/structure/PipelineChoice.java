@@ -28,7 +28,7 @@ public class PipelineChoice extends PipelineStructure implements PipelineStep {
     }
 
     @Override
-    public PipelineOutput process(PipelineInput input) {
+    public PipelineData process(PipelineData input) {
         if (input.asChoice().choice)
             return m_step_on.process(input);
         else
