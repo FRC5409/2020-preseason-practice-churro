@@ -1,25 +1,30 @@
 package org.usfirst.frc5409.Testrobot.vision.control;
 
-public class SwitchController {
+public class PipeSwitch {
     protected boolean m_switch;
-    protected Object  m_lock_mutex;
 
-    SwitchController() {
+    public PipeSwitch() {
         m_switch = false;
     }
 
-    SwitchController(boolean switch_value) {
+    public PipeSwitch(boolean switch_value) {
         m_switch = switch_value;
     }
 
     public void set(boolean switch_value) {
-        synchronized(m_lock_mutex) {
+        synchronized(this) {
             m_switch = switch_value;
         }
     }
 
+    public void flip() {
+        synchronized(this) {
+            m_switch = !m_switch;
+        }
+    }
+
     public boolean get() {
-        synchronized(m_lock_mutex) {
+        synchronized(this) {
             return m_switch;
         }
     }
