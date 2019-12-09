@@ -8,7 +8,6 @@ import org.usfirst.frc5409.Testrobot.vision.control.*;
 
 public class PipelineBranch extends PipelineStructure implements PipelineStep {
     protected PipelineStep m_steps[];
-    protected PipeConfig   m_config;
     protected int          m_steps_length;
 
     public PipelineBranch() {
@@ -44,14 +43,14 @@ public class PipelineBranch extends PipelineStructure implements PipelineStep {
     }
 
     @Override
-    public PipelineData process(PipelineData input) {
+    public PipelineData process(PipelineData input, PipeConfig config) {
         PipelineData data = input.clone();
         
         if (m_steps_length == 0) //TODO: Might not need this considering comparison cost at every iteration vs Safety
             throw new NoStepsException("Attempted to run branch with no steps.");
 
         for (int i=0; i < m_steps_length; i++) {
-            data = m_steps[i].process(data);
+            data = m_steps[i].process(data, config);
         }
 
         return data;

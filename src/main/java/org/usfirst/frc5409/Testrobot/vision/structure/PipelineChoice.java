@@ -2,6 +2,7 @@ package org.usfirst.frc5409.Testrobot.vision.structure;
 
 import org.usfirst.frc5409.Testrobot.vision.exception.*;
 import org.usfirst.frc5409.Testrobot.vision.pipeline.*;
+import org.usfirst.frc5409.Testrobot.vision.control.*;
 
 public class PipelineChoice extends PipelineStructure implements PipelineStep {
     protected PipelineStep m_step_off = null;
@@ -28,10 +29,10 @@ public class PipelineChoice extends PipelineStructure implements PipelineStep {
     }
 
     @Override
-    public PipelineData process(PipelineData input) {
+    public PipelineData process(PipelineData input, PipeConfig config) {
         if (input.asChoice())
-            return m_step_on.process(input);
+            return m_step_on.process(input, config);
         else
-            return m_step_off.process(input);
+            return m_step_off.process(input, config);
     }
 }

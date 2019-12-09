@@ -35,10 +35,10 @@ public class PipelineSwitch extends PipelineStructure implements PipelineStep {
     }
 
     @Override
-    public PipelineData process(PipelineData input) {
+    public PipelineData process(PipelineData input, PipeConfig config) {
         if (m_switch.get())
-            return m_step_on.process(input);
+            return m_step_on.process(input, config);
         else
-            return m_step_off.process(input);
+            return m_step_off.process(input, config);
     }
 }
