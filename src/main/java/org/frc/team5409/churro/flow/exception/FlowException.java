@@ -1,24 +1,24 @@
 package org.frc.team5409.churro.flow.exception;
 
-public final class NetworkClosedException extends FlowException {
+public class FlowException extends RuntimeException {
     /**
     * {@inheritDoc}
     */
-    public NetworkClosedException(String message) {
+    public FlowException(String message) {
         super(message);
     }
     
     /**
     * {@inheritDoc}
     */
-    public NetworkClosedException(String message, Throwable cause) {
+    public FlowException(String message, Throwable cause) {
         super(message, cause);
     }
     
     /**
     * {@inheritDoc}
     */
-    public NetworkClosedException(Throwable cause) {
+    public FlowException(Throwable cause) {
         super(cause);
     }
 }
