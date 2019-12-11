@@ -14,22 +14,22 @@ public abstract class FlowNetwork {
         m_closed = false;
     }
 
-    protected <T> void flow(FlowNode node, FlowObject<T> drop) {
+    protected void flow(FlowNode node, FlowObject drop) {
         if (m_closed)
             throw new NetworkClosedException("Attempted to flow through node on closed network. Check Code.");
         
-        m_task_pool.submit(new FlowTask<T>(node, drop));
+        m_task_pool.submit(new FlowTask(node, drop));
     }
 
-    protected <T> void flow(FlowNode nodes[], FlowObject<T> drop) {
+    protected void flow(FlowNode nodes[], FlowObject drop) {
         if (m_closed)
             throw new NetworkClosedException("Attempted to flow through nodes on closed network. Check Code.");
         
         for (int i=0; i<nodes.length; i++)
-            m_task_pool.submit(new FlowTask<T>(nodes[i], drop));
+            m_task_pool.submit(new FlowTask(nodes[i], drop));
     }
 
-    protected void close() {
+    protected final void close() {
         if (m_closed)
             return;
         
