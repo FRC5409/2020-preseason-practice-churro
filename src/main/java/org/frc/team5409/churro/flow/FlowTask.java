@@ -21,7 +21,6 @@ class FlowTask implements Runnable {
     private static final <T,R> void assertTypes(FlowType<T> type_a, FlowType<R> type_b) {
         if (!type_a.clazz.isAssignableFrom(type_b.clazz))
             throw new FlowTypeException(String.format("Attempted to flow %s type through non-convertible %s type. Check Code",
-                type_a.clazz.getSimpleName(), 
-                    type_b.clazz.getSimpleName()));
+                type_a.clazz.getSimpleName(), type_b.clazz.getSimpleName()));
     }
 }
