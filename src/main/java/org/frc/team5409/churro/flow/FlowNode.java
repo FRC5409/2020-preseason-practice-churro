@@ -19,12 +19,10 @@ public abstract class FlowNode<T, R> {
     protected abstract void onFlow(FlowObject<T> drop);
 
     protected final synchronized int addChild(FlowNode child) {
-        
         if (child.m_parent != null)
             throw new FlowException("Attempted to adopt an already parented node.");
         else if (child.m_network != null)
             throw new FlowException("Attempted to adopt a child of a different network.");
-        else if
 
         m_num_children++;
 
@@ -33,7 +31,7 @@ public abstract class FlowNode<T, R> {
 
         m_children[m_num_children-1] = child;
         child.m_network = m_network;
-        
+
         return m_num_children-1;
     }
 
