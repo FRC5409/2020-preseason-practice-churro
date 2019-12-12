@@ -8,13 +8,13 @@ public abstract class FlowNode<T, R> {
     private final FlowType<T> m_flow_type = new FlowType<T>();
     private final FlowType<R> m_drip_type = new FlowType<R>();
 
-    private FlowNetwork m_network = null;
+    private FlowNetwork       m_network = null;
 
-    private FlowNode    m_children[];
-    private FlowNode    m_parent = null;
+    private FlowNode          m_children[];
+    private FlowNode          m_parent = null;
 
-    private int         m_this_index = NO_INDEX;
-    private int         m_num_children = 0;
+    private int               m_this_index = NO_INDEX;
+    private int               m_num_children = 0;
 
     protected abstract void onFlow(FlowObject<T> drop);
 
