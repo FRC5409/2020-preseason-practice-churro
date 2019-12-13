@@ -3,14 +3,20 @@ package org.frc.team5409.churro.flow;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import org.frc.team5409.churro.flow.exception.NetworkClosedException;
+import org.frc.team5409.churro.flow.exception.*;
 
-public abstract class FlowNetwork {
-    private ExecutorService m_task_pool;
-    private boolean         m_closed;
+public class FlowNetwork extends FlowBase {
+    protected FlowBase[]      m_network;
+
+    private   ExecutorService m_task_pool;
+    private   boolean         m_finished;
+    private   boolean         m_closed;
 
     public FlowNetwork() {
         m_task_pool = Executors.newCachedThreadPool();
+        m_network = new FlowBase[0];
+        
+        m_finished = false;
         m_closed = false;
     }
 
@@ -35,5 +41,10 @@ public abstract class FlowNetwork {
         
         m_task_pool.shutdown();
         m_closed = true;
+    }
+
+    @Override
+    protected <I, O> FlowObject<O> flow(FlowObject<I> in) {
+        return null;
     }
 }
