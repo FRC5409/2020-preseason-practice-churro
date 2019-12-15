@@ -4,8 +4,10 @@ import org.frc.team5409.churro.navx.exception.RawDataException;
 
 /**
  * Abstract class from which all NavX data containers must
- * inherit and implement from. Provides useful functionality
- * like construction from raw byte data, data check, etc.
+ * inherit and implement from. 
+ * 
+ * <p> Provides useful functionality like construction 
+ * from raw byte data, data validity checks, etc. <p>
  * 
  * @author Keith Davies
  */

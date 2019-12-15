@@ -1,17 +1,14 @@
 package org.frc.team5409.churro.navx;
 
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.SPI.Port;
+
 
 /**
  * SPI Communication class for NavX.
  */
 public class NavXCom {
-    static {
-        com_crc7_table = buildCRCLookupTable();
-    }
-
     private SPI                m_spi_com;
     private Object             m_this_lock;
     private int                m_successive_err_count;
@@ -19,17 +16,15 @@ public class NavXCom {
 
     //Modifiable constants
     private static final int   com_clock_hz        = 500000; //[500,000 - 4,000,000]
-    private static final int   com_board_hz        = 200; //[4 - 200]
-    private static final int   com_lost_attempts   = 40; //Communication is considered lost after "x" successive errors
+    private static final int   com_board_hz        = 200;    //[4 - 200]
+    private static final int   com_lost_attempts   = 40;     //Communication lost after "x" successive errors
 
     //No-touchy constants
     private static final byte  com_req_len         =  0x03;
     private static final byte  com_who_am_i        =  0x32; 
     private static final byte  com_crc7_poly       = -0x6F; //0x91 in signed form
     private static final byte  com_write_flag      = -0x80; //Could be incorrect
-    private static final byte  com_address_space   =  0x6F;
-    private static final short com_address_space_s =  0x6F; //Ensure Memoization
-    private static final byte  com_crc7_table[];            //Memoization for crc calcs
+    private static final int   com_address_space   =  0x6F;
     
     /**
      * Construct NavX Com Class.
@@ -138,7 +133,7 @@ public class NavXCom {
         if (!m_is_initialized)
             return ComResult.NOCONNECTION;
 
-        if ((short)reg + (short)numReg > com_address_space_s) //Convert to short to prevent an overflow
+        if ((int)(reg + numReg) > com_address_space) //Convert to short to prevent an overflow
             return ComResult.NOADDRESS;                       //Might remove since conv. is probably costly
 
         ComResult result = ComResult.SUCCESS;
@@ -151,8 +146,8 @@ public class NavXCom {
         byte data_in[] = new byte[numReg+1];
         synchronized(m_this_lock) {
             comAttempt: {
-                int nnn = m_spi_com.write(data_out, com_req_len);
-                if (nnn != com_req_len) {
+                int bytes_out = m_spi_com.write(data_out, com_req_len);
+                if (bytes_out != com_req_len) {
                     result = ComResult.FAILED;
                     m_successive_err_count++;
                     break comAttempt; //Communication failed
@@ -160,8 +155,8 @@ public class NavXCom {
                     
                 Timer.delay(0.0002); //200 microsecond wait period
 
-                int nnnn = m_spi_com.read(true, data_in, data_in.length);
-                if (nnnn != data_in.length) {
+                int bytes_in = m_spi_com.read(true, data_in, data_in.length);
+                if (bytes_in != data_in.length) {
                     result = ComResult.FAILED;
                     m_successive_err_count++;
                     break comAttempt; //Communication failed
@@ -204,7 +199,7 @@ public class NavXCom {
      * 
      * @see ComResult
      */
-    public ComResult read(Regs regs, byte out[]) {
+    public ComResult read(NavXRegs regs, byte out[]) {
         return read(regs.rx, regs.nx, out);
     }
 
@@ -313,14 +308,6 @@ public class NavXCom {
      * @return CRC-7 byte
      */
     private static byte getCRC(byte data[], int len) {
-        /*int crc = 0;
-        
-        for (int i = 0; i < len; i++) {
-            crc ^= data[i];
-            crc = com_crc7_table[crc & 0xFF];
-        }
-        return (byte) (crc & 0xFF);*/
-
         int crc = 0;
 
         for (int i = 0; i < len; i++) {
@@ -332,28 +319,6 @@ public class NavXCom {
             }
         }
 
-        return (byte)crc;
-    }
-
-    /**
-     * Generate CRC lookup tables for faster computation. (Cyclic Redundancy Check)
-     * Credit to Kaui labs for CRC implementation
-     * 
-     * @return CRC-7 memoization table
-     */
-    private static byte[] buildCRCLookupTable() {
-        byte table[] = new byte[256];
-        int crc;
-
-        for (int i = 0; i < 256; i++ ) {
-            crc = i;
-            for (int j = 0; j < 8; j++) {
-                if ((crc & 1) == 1)
-                    crc ^= com_crc7_poly;
-                crc >>= 1;
-            }
-            table[i] = (byte) (crc & 0xFF);
-        }
-        return table;
+        return (byte) crc;
     }
 }

@@ -1,11 +1,8 @@
 package org.frc.team5409.churro.navx;
 
 /**
- * Communication Result. 
- * 
- * For detailing what failed in the 
- * communication process in the event
- * of failure.
+ * Provides details for specfic failures that may
+ * in the communication process.
  */
 public enum ComResult {
     /**

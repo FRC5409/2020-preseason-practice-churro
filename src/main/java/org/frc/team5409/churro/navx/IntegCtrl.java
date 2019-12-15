@@ -3,7 +3,7 @@ package org.frc.team5409.churro.navx;
 /**
  * Intergration Control flags
  */
-public final class IntgCtrl {
+public final class IntegCtrl {
     public static final byte RESET_VEL_X  = 0x01;
     public static final byte RESET_VEL_Y  = 0x02;
     public static final byte RESET_VEL_Z  = 0x04;
