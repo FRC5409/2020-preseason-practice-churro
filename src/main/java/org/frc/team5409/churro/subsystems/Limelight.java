@@ -226,7 +226,7 @@ public class Limelight extends Subsystem {
 
         synchronized(m_this_mutex) {
             target.x = m_data_entry_tx.getDouble(target.x);
-            target.y = m_data_entry_tx.getDouble(target.y);
+            target.y = m_data_entry_ty.getDouble(target.y);
         }
         
         return target;

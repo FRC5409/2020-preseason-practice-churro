@@ -36,6 +36,18 @@ public class NavX extends Subsystem {
         m_navx_com.write(RegisterMap.REG_INTG_CTRL, IntgCtrl.RESET_YAW);
     }
 
+    public void zeroVelocity() {
+        m_navx_com.write(RegisterMap.REG_INTG_CTRL, (byte) (IntgCtrl.RESET_VEL_X |
+                                                            IntgCtrl.RESET_VEL_Y |
+                                                            IntgCtrl.RESET_VEL_Z));
+    }
+
+    public void zeroDisplacement() {
+        m_navx_com.write(RegisterMap.REG_INTG_CTRL, (byte) (IntgCtrl.RESET_DISP_X |
+                                                            IntgCtrl.RESET_DISP_Y |
+                                                            IntgCtrl.RESET_DISP_Z));
+    }
+
     public YPRHData getYPRH() {
         byte data[] = new byte[YPRHData.packet_length];
 

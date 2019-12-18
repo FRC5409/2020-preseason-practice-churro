@@ -13,14 +13,14 @@ class FlowTask implements Runnable {
 
     @Override
     public void run() {
-        assertTypes(m_node.getDripType(), m_drop.getType());
+        assertTypes(m_node.getIType(), m_drop.getType());
         
         m_node.flow(m_drop);
     }
 
     private static final <T,R> void assertTypes(FlowType<T> type_a, FlowType<R> type_b) {
-        if (!type_a.clazz.isAssignableFrom(type_b.clazz))
+        if (!type_a.isAssignableFrom(type_b))
             throw new FlowTypeException(String.format("Attempted to flow %s type through non-convertible %s type. Check Code",
-                type_a.clazz.getSimpleName(), type_b.clazz.getSimpleName()));
+                type_a.getName(), type_b.getName()));
     }
 }

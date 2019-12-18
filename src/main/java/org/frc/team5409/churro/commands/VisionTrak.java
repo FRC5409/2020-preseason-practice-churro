@@ -7,30 +7,45 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.frc.team5409.churro.Robot;
 import org.frc.team5409.churro.ada.UNAlgo;
 import org.frc.team5409.churro.ada.blind.SOPTrack;
+import org.frc.team5409.churro.ada.FKBTrack;
 import org.frc.team5409.churro.limelight.LedMode;
 import org.frc.team5409.churro.limelight.PipelineIndex;
 import org.frc.team5409.churro.limelight.TrackMatrix;
+import org.frc.team5409.churro.navx.data.IDXYZData;
 import org.frc.team5409.churro.util.JoystickType;
 import org.frc.team5409.churro.util.Vector2;
+import org.frc.team5409.churro.util.Vector3;
 
 public class VisionTrak extends Command {
     SOPTrack sop_track;
+    FKBTrack fkb_track;
     UNAlgo algo;
 
-    int tracking_state;
+    int tracking_state = 0;
+
+    double h0 = 41;
+    double h1 = 22; //inches
+    double a0 = (10.0d/180.0d) * Math.PI;
+    Vector3 n1 = new Vector3(0, -1,0);
+    Vector3 p1 = new Vector3(0,0,0);
+    double lost_time = 0;
+    double last_lost = 0;
+    Vector3 n0 = new Vector3(0,0,0);
+    Vector3 p0 = new Vector3(0,0,0);
+    IDXYZData last = new IDXYZData();
     public VisionTrak() {
         super("VisionTrak");
 
         algo = new UNAlgo(0, 0, 0, 1, 0);
+        fkb_track = new FKBTrack(26.75);
         sop_track = new SOPTrack();
         requires(Robot.drivetrain);
         requires(Robot.limelight);
         requires(Robot.navX);
-        SmartDashboard.setDefaultNumber("kD", 0);
-        SmartDashboard.setDefaultNumber("kR", 0);
-        SmartDashboard.setDefaultNumber("wd", 0);
-        SmartDashboard.setDefaultNumber("scale", 1);
-        SmartDashboard.setDefaultNumber("Target Area", 20);
+        SmartDashboard.setDefaultNumber("Robot height (in)", h0);
+        SmartDashboard.setDefaultNumber("Target height (in)", h1);
+        SmartDashboard.setDefaultNumber("a0", 10);
+        SmartDashboard.setDefaultNumber("Max. lost time (ms)", lost_time);
 
         tracking_state = 0;
     }
@@ -45,6 +60,8 @@ public class VisionTrak extends Command {
         Robot.limelight.setLedMode(LedMode.LED_ON);
         Robot.drivetrain.reset();
         Robot.navX.zeroYaw();
+        Robot.drivetrain.enc_q4t_left_drive.reset();
+        Robot.drivetrain.enc_q4t_right_drive.reset();
     }
 
     @Override
@@ -52,69 +69,63 @@ public class VisionTrak extends Command {
         algo.kD = SmartDashboard.getNumber("kD", 0);
         algo.kR = SmartDashboard.getNumber("kR", 0);
         algo.wd = SmartDashboard.getNumber("wd", 0);
-        double tarea = SmartDashboard.getNumber("Target Area", 20);
-        double scale = SmartDashboard.getNumber("scale", 0);
 
+        h0 = SmartDashboard.getNumber("Robot height (in)", h0);
+        h1 = SmartDashboard.getNumber("Target height (in)", h1);
+        a0 = (SmartDashboard.getNumber("a0", 0)/180.0d) * Math.PI;
+        lost_time = SmartDashboard.getNumber("Max. lost time (ms)", lost_time);
+
+        Vector3 pos = new Vector3();
         if (Robot.limelight.hasTarget()) {
             if (tracking_state != 1) {
                 tracking_state = 1;
                 sop_track.deInitiate();
             }
-            /*TrackMatrix tm = Robot.limelight.getCameraTrack();
-
-            if (tm == null) {
-                Robot.drivetrain.reset();
-                if (Robot.limelight.getPipelineIndex() == PipelineIndex.PIPELINE_0)
-                    Robot.limelight.setPipelineIndex(PipelineIndex.PIPELINE_1);
-                else
-                    Robot.limelight.setPipelineIndex(PipelineIndex.PIPELINE_0);
-                Timer.delay(1.5);
-                return;
-            }
-
-            double y_n = tm.ptch/180 * Math.PI; //Asuuming the rotation is not in radians
-
-            double mo[] = algo.compute(
-                new Vector2(0,0),
-                new Vector2(0,-1),
-                new Vector2(tm.x, tm.z),
-                new Vector2(-Math.sin(y_n), Math.cos(y_n)));
-
-            Robot.drivetrain.tankDrive(mo[0]*scale, mo[1]*scale);
-
-            SmartDashboard.putNumber("Rotation", tm.ptch);
-            SmartDashboard.putBoolean("targets", Robot.limelight.hasTarget());
-            SmartDashboard.putNumber("ML", mo[0]);
-            SmartDashboard.putNumber("MR", mo[1]);*/
-
-            Vector2 target = Robot.limelight.getTarget();
-            double area = Robot.limelight.getTargetArea();
-            sop_track.feed(target.x);
-            double kR = algo.kR*target.x;
-            double kD;
-            
-
-            kD = algo.kD*(tarea - area);
-
-            double s = Math.max(1, Math.max(Math.abs(kD+kR),Math.abs(kD-kR)));
-
-            Robot.drivetrain.tankDrive( (kD+kR)/s * scale, (kD-kR)/s * scale);
-            SmartDashboard.putNumber("Motor Left", (kD+kR)/s * scale);
-            SmartDashboard.putNumber("Motor Right", (kD-kR)/s * scale);
         } else {
-            if (tracking_state == 1) {//CHANGE THIS TO AN ENUM ASAP
-                sop_track.initiate();
-                Robot.navX.zeroYaw();
+            if (tracking_state != 2 && tracking_state != 0) {
                 tracking_state = 2;
-            } else if (tracking_state == 2) {
-                double kR = algo.kR*(sop_track.track() - Robot.navX.getYPRH().yaw);
-                double s = Math.max(1, Math.abs(kR));
-
-                Robot.drivetrain.tankDrive((kR)/s * scale, (-kR)/s * scale);
-            } else if (tracking_state == 0) 
-                Robot.drivetrain.reset();
+                Robot.navX.zeroDisplacement();
+                sop_track.initiate();
+                fkb_track.reset(0, 0, 0);
+                last_lost = Timer.getFPGATimestamp();
+            }
         }
+
+        if (tracking_state == 1) {
+            Vector2 target = Robot.limelight.getTarget();
+            Vector2 targett = new Vector2(
+                target.x/180 * Math.PI,
+                target.y/180 * Math.PI
+            );
+            double d = Math.abs(h1-h0) / (Math.sin(targett.y+a0)*12);
             
+            Vector3 ppos = new Vector3(
+                d * (Math.cos(targett.y)*Math.cos(targett.x)),
+                d * (Math.cos(targett.y)*(-Math.sin(targett.x))),
+                d * Math.sin(targett.y)
+            );
+            p0 = ppos;
+            pos = ppos;
+            SmartDashboard.putNumber("distance", d);
+        } else if (tracking_state == 2) {
+            if (Timer.getFPGATimestamp()-last_lost > lost_time) {
+                tracking_state = 0;
+            } else {
+                double lv =  Robot.drivetrain.enc_q4t_left_drive.getRate();
+                double rv =  Robot.drivetrain.enc_q4t_right_drive.getRate();
+               fkb_track.feed(lv, rv);
+               pos = new Vector3(
+                   p0.x + fkb_track.getPosition().x,
+                   p0.y + fkb_track.getPosition().y,
+                   p0.z
+               );
+            }
+            
+        }
+        SmartDashboard.putNumber("Left encoder", Robot.drivetrain.enc_q4t_left_drive.getDistance());
+        SmartDashboard.putNumber("Right encoder", Robot.drivetrain.enc_q4t_right_drive.getDistance());
+        SmartDashboard.putString("position", String.format("[%f, %f, %f]", pos.x, pos.y, pos.z));
+        SmartDashboard.putNumber("Tracking State", tracking_state);
     }
 
     @Override
