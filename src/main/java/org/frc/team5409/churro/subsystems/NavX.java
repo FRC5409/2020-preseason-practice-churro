@@ -3,7 +3,7 @@ package org.frc.team5409.churro.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import org.frc.team5409.churro.navx.RegisterMap;
-import org.frc.team5409.churro.navx.IntgCtrl;
+import org.frc.team5409.churro.navx.IntegCtrl;
 import org.frc.team5409.churro.navx.NavXCom;
 import org.frc.team5409.churro.navx.data.*;
 
@@ -33,19 +33,19 @@ public class NavX extends Subsystem {
 
     //TODO: UN-JANK THESE FUNCTIONS, THEY HAVE NO SAFETY AND WILL PROBABLY CATASTROPHICALLY FAIL SOME DAY
     public void zeroYaw() {
-        m_navx_com.write(RegisterMap.REG_INTG_CTRL, IntgCtrl.RESET_YAW);
+        m_navx_com.write(RegisterMap.REG_INTG_CTRL, IntegCtrl.RESET_YAW);
     }
 
     public void zeroVelocity() {
-        m_navx_com.write(RegisterMap.REG_INTG_CTRL, (byte) (IntgCtrl.RESET_VEL_X |
-                                                            IntgCtrl.RESET_VEL_Y |
-                                                            IntgCtrl.RESET_VEL_Z));
+        m_navx_com.write(RegisterMap.REG_INTG_CTRL, (byte) (IntegCtrl.RESET_VEL_X |
+                                                            IntegCtrl.RESET_VEL_Y |
+                                                            IntegCtrl.RESET_VEL_Z));
     }
 
     public void zeroDisplacement() {
-        m_navx_com.write(RegisterMap.REG_INTG_CTRL, (byte) (IntgCtrl.RESET_DISP_X |
-                                                            IntgCtrl.RESET_DISP_Y |
-                                                            IntgCtrl.RESET_DISP_Z));
+        m_navx_com.write(RegisterMap.REG_INTG_CTRL, (byte) (IntegCtrl.RESET_DISP_X |
+                                                            IntegCtrl.RESET_DISP_Y |
+                                                            IntegCtrl.RESET_DISP_Z));
     }
 
     public YPRHData getYPRH() {
