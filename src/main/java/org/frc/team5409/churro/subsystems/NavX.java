@@ -2,9 +2,7 @@ package org.frc.team5409.churro.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-import org.frc.team5409.churro.navx.RegisterMap;
-import org.frc.team5409.churro.navx.IntegCtrl;
-import org.frc.team5409.churro.navx.NavXCom;
+import org.frc.team5409.churro.navx.*;
 import org.frc.team5409.churro.navx.data.*;
 
 /**
