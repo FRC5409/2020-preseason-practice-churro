@@ -1,24 +1,24 @@
 package org.frc.team5409.churro.flow.exception;
 
-public class FlowTypeException extends FlowException {
+public class InvalidPortException extends RuntimeException {
     /**
     * {@inheritDoc}
     */
-    public FlowTypeException(String message) {
+    public InvalidPortException(String message) {
         super(message);
     }
     
     /**
     * {@inheritDoc}
     */
-    public FlowTypeException(String message, Throwable cause) {
+    public InvalidPortException(String message, Throwable cause) {
         super(message, cause);
     }
     
     /**
     * {@inheritDoc}
     */
-    public FlowTypeException(Throwable cause) {
+    public InvalidPortException(Throwable cause) {
         super(cause);
     }
 }

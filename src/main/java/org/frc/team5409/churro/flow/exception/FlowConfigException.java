@@ -1,6 +1,6 @@
 package org.frc.team5409.churro.flow.exception;
 
-public class FlowConfigException extends RuntimeException {
+public class FlowConfigException extends FlowException {
     /**
      * {@inheritDoc}
      */

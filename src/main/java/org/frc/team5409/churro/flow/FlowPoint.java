@@ -1,81 +1,102 @@
 package org.frc.team5409.churro.flow;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.frc.team5409.churro.flow.exception.*;
 
+@SuppressWarnings("unused")
 public abstract class FlowPoint {
-    protected FlowType<?> m_flow_params[] = null;
-    protected Method      m_flow_func = null;
+    private final FlowIdentifier m_identity;
+    private final FPolicy        m_policy;
+    private final long           m_id;
 
-    protected FlowPoint(Class<?>... types) {
-        register(types);
-    }
+    private       FlowPort       m_connection = null;
+    private       FlowPoint      m_sibling = null;
 
-    protected FlowPoint(String name, Class<?>... params) {
-        register(name, params);
-    }
+    private       Method         m_onReceive = null;
+    private       Method         m_onProvide = null;
+    private       Method         m_onRequest = null;
 
-    protected void register(String name, Class<?>... params) {
-        try {
-            m_flow_func = this.getClass().getDeclaredMethod(name, params);
-        } catch (NoSuchMethodException e) {
-            throw new FlowException(e); // TODO: need error message here
+    public FlowPoint() {
+        m_id = Flow.obtainId();
+
+        Class<?> _class = this.getClass();
+
+        FlowPolicy policy = _class.getAnnotation(FlowPolicy.class);
+        if (policy == null)
+            throw new FlowInitException("Flow definition has no policy, check code.");
+        else m_policy = policy.key();
+            
+        FlowIdentity identity = _class.getAnnotation(FlowIdentity.class);
+        if (identity == null)
+            throw new FlowInitException("Flow definition has no identity, check code.");
+        else m_identity = new FlowIdentifier(identity.policy(), identity.identity());
+
+        for (Method method : _class.getMethods()) {
+            FlowMethod method_type = method.getAnnotation(FlowMethod.class);
+
+            if (method_type == null)
+                continue;
+
+            switch (method_type.key()) {
+                case PROVIDE: {
+                    if (m_onProvide != null)
+                        throw new FlowInitException("Declared multiple provide methods, check code.");
+                    if (!m_identity.strictCheck(method.getParameterTypes()))
+                        throw new FlowInitException("Provide function parameters do not match the implementing object identity, check code.");
+                    m_onProvide = method;
+                    continue;
+                }
+                case RECEIVE: {
+                    if (m_onReceive != null)
+                        throw new FlowInitException("Declared multiple receive methods, check code.");
+                    if (!m_identity.strictCheck(method.getParameterTypes()))
+                        throw new FlowInitException("Receive function parameters do not match the implementing object identity, check code.");
+                    m_onReceive = method;
+                    continue;
+                }
+                case REQUEST: {
+                    if (m_onRequest != null)
+                        throw new FlowInitException("Declared multiple request methods, check code.");
+                    if (!m_identity.strictCheck(method.getParameterTypes()))
+                        throw new FlowInitException("Request function parameters do not match the implementing object identity, check code.");
+                    m_onRequest = method;
+                    continue;
+                }
+            }
         }
-        register(params);
     }
 
-    protected void register(Class<?>... types) {
-        if (m_flow_params != null)
-            throw new EstablishedFlowException("Attempted to re-register function on an already establish FlowPoint.");
-
-        m_flow_params = new FlowType[types.length];
-
-        for (int i = 0; i < types.length; i++) {
-            m_flow_params[i] = FlowType.T(types[i]);
-        }
+    protected void request() {
+        //Override me!
     }
 
-    protected <T> void invoke(T... args) {
-        try {
-            m_flow_func.invoke(null, args);
-        } catch (Exception e) {
-            throw new FlowException("Flow invocation incountered an error.", e);
-        }
+    protected final void send() {
+
     }
 
-    protected final <T> boolean checkT(T... args) {
-        if (args.length != m_flow_params.length)
-            return false;
-        
-        for (int i=0; i<m_flow_params.length; i++) {
-            if (!m_flow_params[i].isAssignableFrom(FlowType.T(args[i])));
-                return false;
-        }
-
-        return false;
+    protected final synchronized void setPort(FlowPort fport, FlowPoint fsibling) {
+        m_connection = fport;
+        m_sibling = fsibling;
     }
 
-    protected final boolean checkT(FlowPoint other) {
-        if (m_flow_params.length != other.m_flow_params.length)
-            return false;
-        
-        for (int i=0; i<m_flow_params.length; i++) {
-            if (!m_flow_params[i].isAssignableFrom(other.m_flow_params[i]))
-                return false;
-        }
-
-        return false;
+    protected final synchronized FlowPort getPort() {
+        return m_connection;
     }
 
-    protected final void assertT(FlowPoint other) {
-        if (!checkT(other))
-            throw new FlowTypeException("message");//TODO: make exception message for this
+    protected final FPolicy getPolicy() {
+        return m_policy;
     }
-    
-    protected final <T> void assertT(T... args) {
-        if (!checkT(args))
-            throw new FlowTypeException("message");//TODO: make exception message for this
+
+    protected final FlowIdentifier getIdentity() {
+        return m_identity;
+    }
+
+    protected final long getId() {
+        return m_id;
+    }
+
+    protected final synchronized boolean isConnected() {
+        return (m_connection != null);
     }
 }
