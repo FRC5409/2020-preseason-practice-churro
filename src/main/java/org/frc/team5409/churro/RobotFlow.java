@@ -1,6 +1,7 @@
 package org.frc.team5409.churro;
 
 import org.frc.team5409.churro.flow.FlowConfig;
+import org.frc.team5409.churro.flow.FTypePolicy;
 
 public final class RobotFlow {
     private RobotFlow() {
@@ -14,7 +15,7 @@ public final class RobotFlow {
         config.assign(
             "Human Drive Control [DCI]",
             5409,
-            Double.class, Double.class
+            String.class, int.class
         );
 
         config.assign(

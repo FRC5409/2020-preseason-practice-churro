@@ -13,13 +13,13 @@ import org.frc.team5409.churro.navx.data.*;
  * software interface.
  */
 public class NavX extends Subsystem {
-    private NavXCom m_navx_com;
+    private NavXComm m_navx_com;
 
     /**
      * Initialize NavX Subsystem
      */
     public NavX() {
-        m_navx_com = new NavXCom();
+        m_navx_com = new NavXComm();
         
         //Establish communication with NavX
         if (m_navx_com.init()) {

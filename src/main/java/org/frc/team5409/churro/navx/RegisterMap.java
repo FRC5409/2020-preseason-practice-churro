@@ -1,15 +1,19 @@
 package org.frc.team5409.churro.navx;
 
 /**
- * Register Map of NavX.
+ * Defines addresses from the NavX-MXP register protocol
+ * used for sending, processing and retreiving information
+ * from the device.
  *
- * <p> Some addresses are missing in this implementation, visit the link below for complete list. <p>
- * {@link https://pdocs.kauailabs.com/navx-mxp/advanced/register-protocol/} 
+ * <p> Some addresses are uneccessary and are therefore missing in this implementation.
+ *     Visit this <a href="https://pdocs.kauailabs.com/navx-mxp/advanced/register-protocol/"> link <a/>
+ *     for complete list of register addresses as well as register protocol information.
+ * </p>
  * 
  * @author Keith Davies
  */
 public final class RegisterMap {
-    private static NavXRegs r(int rx, int ex) {
+    private static final NavXRegs r(int rx, int ex) {
         return new NavXRegs(rx, ex);
     }
 
@@ -24,17 +28,17 @@ public final class RegisterMap {
     public static final byte     REG_SELFTEST_STATUS =   0x0A; //Self-test Status, see BoardStatus.SELFTEST
     public static final byte     REG_SENSOR_STATUS   =   0x10; //Sensor Status, see BoardStatus.SENSOR 
 
-                                                         //Yaw, Pitch, Roll, Heading data
+                                                               //Yaw, Pitch, Roll, Heading data
     public static final NavXRegs REGS_YPRH_DATA      = r(0x16, 0x1F); 
-                                                         //Gyro Quaternion (W,X,Y,Z) data
+                                                                //Gyro Quaternion (W,X,Y,Z) data
     public static final NavXRegs REGS_QWXYZ_DATA     = r(0x2A, 0x31); 
-                                                         //Calibrated Gyro (X,Y,Z) data
+                                                                //Calibrated Gyro (X,Y,Z) data
     public static final NavXRegs REGS_GXYZ_DATA      = r(0x34, 0x39);
 
-    public static final byte     REG_INTG_CTRL       =   0x56; //Integration Control
+    public static final byte     REG_INTG_CTRL       =   0x56;  //Integration Control
 
-                                                         //Integrated Velocity (X,Y,Z)
+                                                                //Integrated Velocity (X,Y,Z)
     public static final NavXRegs REGS_IVXYZ          = r(0x58, 0x63); 
-                                                         //Integrated Displacement (X,Y,Z)
+                                                                //Integrated Displacement (X,Y,Z)
     public static final NavXRegs REGS_IDXYZ          = r(0x64, 0x6F); 
 }

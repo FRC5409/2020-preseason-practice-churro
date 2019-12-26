@@ -3,7 +3,7 @@ package org.frc.team5409.churro.flow;
 public enum FPolicy {
     PROVIDER         (  1),
     RECEIVER         (  2),
-    RECIPROCATOR     (-10),
+    COMMUNICATOR     (-10),
     PASSIVE_PROVIDER (  4),
     PASSIVE_RECEIVER (  5);
 
@@ -11,7 +11,7 @@ public enum FPolicy {
         m_compat_id = compat_id;
     }
 
-    public static boolean isCompatible(FPolicy A, FPolicy B) {
+    protected static boolean isCompatible(FPolicy A, FPolicy B) {
         switch(A.m_compat_id + B.m_compat_id) {
             case  2: return false; // P and P
             case  3: return true;  // P and R
@@ -22,7 +22,7 @@ public enum FPolicy {
             case  8: return false; //PP and PP
             case  9: return false; //PR and PP
             case 10: return false; //PR and PR
-            default: return true;  //Reciprocator
+            default: return true;  //Communicator
         }
     }
 

@@ -10,16 +10,15 @@ public final class FlowConfig {
         if (ports != null)
             throw new FlowConfigException("Attempted to reallocate port information during flow configuration.");
         else if (nports <= 0)
-            throw new FlowConfigException(String.format("Attempted to allocate \'%d\' ports during flow configuration.", nports));
+            throw new FlowConfigException(String.format("Attempted to allocate \'%d\' ports during flow configuration. Must be number greater than one.", nports));
 
         ports = new FlowPort[nports];
-        this.nports = nports;
 
         return this;
 	}
 
     
-    public FlowConfig assign(String name, int port, FlowIdentifier identity) {
+    public FlowConfig assign(String name, int port, FIdentity identity) {
         if (port < 0)
             throw new FlowConfigException(String.format("Attempted to assign at invalid port #\'%d\' du-ring flow configuration.", port));
         else if (nports == ports.length)
@@ -27,23 +26,23 @@ public final class FlowConfig {
         else if (!isUnique(port))
             throw new FlowConfigException(String.format("Port #%d is already in use.", port));
 
-        ports[nports] = new FlowPort(name, port, nports, identity);
+        ports[nports] = new FlowPort(name, port, identity);
         nports++;
 
         return this;
     }
 
     public FlowConfig assign(String name, int port, FTypePolicy policy, Class<?>... ftypes) {
-        return assign(name, port, new FlowIdentifier(policy, ftypes));
+        return assign(name, port, new FIdentity(policy, ftypes));
     }
 
     public FlowConfig assign(String name, int port, Class<?>... ftypes) {
-        return assign(name, port, new FlowIdentifier(FTypePolicy.LOOSE, ftypes));
+        return assign(name, port, new FIdentity(FTypePolicy.LOOSE, ftypes));
     }
 
     private boolean isUnique(int port) {
-        for (FlowPort fport : ports) {
-            if (port == fport.port)
+        for (int i=0; i<nports; i++) {
+            if (port == ports[i].port)
                 return false;
         }
 
