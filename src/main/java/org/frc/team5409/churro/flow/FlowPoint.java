@@ -218,7 +218,5 @@ public abstract class FlowPoint {
                 Thread.yield();
             }
         }
-    
-        System.out.println("TERMINATED");
     }
 }
