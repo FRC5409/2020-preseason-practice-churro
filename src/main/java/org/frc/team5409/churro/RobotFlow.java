@@ -1,7 +1,7 @@
 package org.frc.team5409.churro;
 
-import org.frc.team5409.churro.flow.FlowConfig;
-import org.frc.team5409.churro.flow.FTypePolicy;
+import org.frc.team5409.churro.experimental.flow.FlowConfig;
+import org.frc.team5409.churro.experimental.flow.FTypePolicy;
 
 public final class RobotFlow {
     private RobotFlow() {

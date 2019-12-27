@@ -1,4 +1,4 @@
-package org.frc.team5409.churro.ada.blind;
+package org.frc.team5409.churro.experimental.ada.blind;
 
 import org.frc.team5409.churro.util.Vector2;
 

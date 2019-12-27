@@ -1,6 +1,6 @@
 //Forward Kinematic Blind Tracking class
 //Check README
-package org.frc.team5409.churro.ada;
+package org.frc.team5409.churro.experimental.ada;
 //This whole class is just terrible
 
 import edu.wpi.first.wpilibj.Timer;
