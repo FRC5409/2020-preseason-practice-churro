@@ -31,7 +31,7 @@ public final class ServiceManager {
 
     //@CallerSensitive
     public static final <T extends AbstractService> T get(Class<T> service) {
-        if (!CallStack.checkFor(AbstractService.class) && !CallStack.checkFor(ServiceRegistor.class))
+        if (!CallStack.checkFor(AbstractService.class))
             throw new CallSecurityException("Illegal Service request. Services may not request other services");
 
         T inst;
