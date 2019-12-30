@@ -49,8 +49,8 @@ public final class ServiceManager {
 
     //@CallerSensitive
     protected static final <T extends AbstractService> void register(String name, Class<T> service) {
-        if (m_finalized)                   // This exception might never throw \/ \/ \/
-            throw new IllegalServiceRequest("Illegal registration call after registry finalization. Did you forget to register the Service?");
+        if (m_finalized)
+            throw new IllegalServiceRequest("Illegal registration call after registry finalization. Did you forget to register the Service during program intialization?");
         else if (service.getDeclaredConstructors().length != 1)
             throw new InvalidServiceException("Illegal use of constructor in Service definition, use init() instead.");
         else if (service.getModifiers() != (Modifier.FINAL | Modifier.PUBLIC))
