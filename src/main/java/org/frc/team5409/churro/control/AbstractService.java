@@ -1,20 +1,28 @@
 package org.frc.team5409.churro.control;
 
+import org.frc.team5409.churro.control.exception.CallSecurityException;
 
-public abstract class AbstractService extends ServiceBase {
+public abstract class AbstractService {
+    protected        ServiceBase     Service;
+    //protected        EventDispatcher ServiceDispatcher;
+
+    protected AbstractService() {
+        if (!CallStack.checkFor(ServiceFactory.class))
+            if (!CallStack.checkFor(ServiceBase.class)) // TODO: Figure out why constructor fires twice
+                throw new CallSecurityException("Illegal construction of Service.");
+    }
+
     protected abstract void init();
-
-    protected abstract void start();
-    
-    protected abstract void stop();
 
     protected void run() {
         // Override me !!!
-        System.out.println(getName());
     };
 
-    protected final static class Service extends ServiceUtility { // Proxy
-        private Service() {
-        }
+    public final String getName() {
+        return Service.getName();
+    }
+
+    public final long getUID() {
+        return Service.getUID();
     }
 }
