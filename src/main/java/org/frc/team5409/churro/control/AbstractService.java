@@ -3,8 +3,14 @@ package org.frc.team5409.churro.control;
 import org.frc.team5409.churro.control.exception.CallSecurityException;
 
 public abstract class AbstractService {
-    protected        ServiceBase     Service;
+    protected static ServiceRegistrant ServiceRegistry;
+
+    protected        ServiceBase       Service;
     //protected        EventDispatcher ServiceDispatcher;
+
+    static {
+        ServiceRegistry = new ServiceRegistrant();
+    }
 
     protected AbstractService() {
         if (!CallStack.checkFor(ServiceFactory.class))
