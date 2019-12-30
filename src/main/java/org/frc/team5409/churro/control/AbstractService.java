@@ -15,7 +15,7 @@ public abstract class AbstractService {
 
     protected AbstractService() {
         if (!CallStack.checkFor(ServiceFactory.class))
-            if (!CallStack.checkFor(ServiceBase.class)) // TODO: Figure out why constructor fires twice
+            if (!CallStack.checkFor(AbstractService.class)) // TODO: Figure out why constructor fires twice
                 throw new CallSecurityException("Illegal construction of Service.");
     }
 
