@@ -17,10 +17,10 @@ public final class ServiceRegistrant {
     }
 
     private Class<? extends AbstractService> getCaller() {
-        Class<?> caller = CallStack.searchFor(ServiceBase.class);
+        Class<?> caller = CallStack.searchFor(AbstractService.class);
     
         if (caller == null)
-            throw new CallSecurityException("Illegal Service Utility call.");
+            throw new CallSecurityException("Illegal Service call.");
         else
             return (Class<? extends AbstractService>) caller;
     }
