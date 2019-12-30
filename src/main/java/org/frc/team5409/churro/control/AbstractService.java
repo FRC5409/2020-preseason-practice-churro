@@ -6,6 +6,7 @@ public abstract class AbstractService {
     protected static ServiceRegistrant ServiceRegistry;
 
     protected        ServiceBase       Service;
+    protected        ServiceLogger     ServiceLogger;
     //protected        EventDispatcher ServiceDispatcher;
 
     static {

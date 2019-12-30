@@ -8,6 +8,7 @@ final class ServiceFactory {
         try {
             T inst = service.getConstructor().newInstance();
                 inst.Service = new ServiceBase(name, uid);
+                inst.ServiceLogger = new ServiceLogger(name, uid);
             return inst;
         } catch (Exception e) {
             throw new RuntimeException("Undefined behaviour during Service creation.", e);
