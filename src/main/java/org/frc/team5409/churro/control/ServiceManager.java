@@ -5,16 +5,14 @@ import java.util.Hashtable;
 
 import org.frc.team5409.churro.control.exception.*;
 
-@SuppressWarnings({ "unchecked", "rawtypes" })
+@SuppressWarnings({ "unchecked" })
 public final class ServiceManager {
     private static Hashtable<Long, AbstractService> m_registry;
-    private static ServiceFactory                   m_factory;
     private static boolean                          m_finalized;
 
     static {
         m_finalized = false;
-        m_registry = new Hashtable();
-        m_factory = new ServiceFactory();
+        m_registry = new Hashtable<>();
     }
 
     private ServiceManager() { // TODO: maybe remove?
@@ -28,14 +26,12 @@ public final class ServiceManager {
             return;
         
         m_finalized = true;
-
-        m_factory.finish();
         m_registry.entrySet().forEach( inst -> inst.getValue().init() ); // TODO: Should it be multithreaded?
     }
 
     //@CallerSensitive
     public static final <T extends AbstractService> T get(Class<T> service) {
-        if (!CallStack.checkFor(ServiceBase.class) && !CallStack.checkFor(ServiceUtility.class))
+        if (!CallStack.checkFor(AbstractService.class) && !CallStack.checkFor(ServiceRegistor.class))
             throw new CallSecurityException("Illegal Service request. Services may not request other services");
 
         T inst;
@@ -70,7 +66,7 @@ public final class ServiceManager {
         }
 
         if (m_registry.get(uid) != null) {
-            ServiceBase _inst = m_registry.get(uid);
+            AbstractService _inst = m_registry.get(uid);
 
             if (service.equals(_inst.getClass()))
                 throw new InvalidServiceException("Illegal multiple registration calls from service definition.");
@@ -78,6 +74,6 @@ public final class ServiceManager {
                 throw new InvalidServiceException(String.format("Service \"%s\" already exists with UID %d.", _inst.getName(), uid));
         }
 
-        m_registry.put(uid, m_factory.create(name, uid, service));
+        m_registry.put(uid, ServiceFactory.create(name, uid, service));
     }
 }
