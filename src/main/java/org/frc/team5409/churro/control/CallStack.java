@@ -23,11 +23,6 @@ final class CallStack {
     }
 
     public static final boolean checkFor(Class<?> caller) {
-        var stack = StackWalker.getInstance(Option.RETAIN_CLASS_REFERENCE)
-        .walk( s -> s/*.filter( f -> caller.isAssignableFrom(f.getDeclaringClass()) )*/
-        .collect( Collectors.toList()));
-
-
         return !StackWalker.getInstance(Option.RETAIN_CLASS_REFERENCE)
                     .walk( s -> s.filter( f -> caller.isAssignableFrom(f.getDeclaringClass()) )
                     .collect( Collectors.toList()))
