@@ -4,22 +4,22 @@ package org.frc.team5409.churro.util;
  * Simple 2D Cartesian plane
  * point / vector / coordinate.
  */
-public class Vector2 {
+public class Vec2 {
     /**
-     * Construct Blank Vector2.
+     * Construct Blank Vec2.
      */
-    public Vector2() {
+    public Vec2() {
         x = 0;
         y = 0;
     }
 
     /**
-     * Construct Vector with coordinates.
+     * Construct Vec2 with coordinates.
      * 
      * @param x X Coordinate
      * @param y Y Coordinate
      */
-    public Vector2(double x, double y) {
+    public Vec2(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -32,7 +32,7 @@ public class Vector2 {
      * 
      * @return Dot product
      */
-    public double dot(Vector2 B) {
+    public double dot(Vec2 B) {
         return (x*B.x + y*B.y);
     }
 

@@ -1,6 +1,6 @@
 package org.frc.team5409.churro.experimental.ada.blind;
 
-import org.frc.team5409.churro.util.Vector2;
+import org.frc.team5409.churro.util.Vec2;
 
 import edu.wpi.first.wpilibj.Timer;
 

@@ -1,6 +1,6 @@
 package org.frc.team5409.churro.experimental.ada;
 //https://www.geogebra.org/geometry/mj6c8auz
-import org.frc.team5409.churro.util.Vector2;
+import org.frc.team5409.churro.util.Vec2;
 
 public class UNAlgo {
     public double  kD;
@@ -26,9 +26,9 @@ public class UNAlgo {
         is_first_iter = true;
     }
 
-    public double[] compute(Vector2 T, Vector2 nT, Vector2 O, Vector2 nO) {
-        Vector2 Gp; //Gets initialized later      
-        Vector2 nG = new Vector2();
+    public double[] compute(Vec2 T, Vec2 nT, Vec2 O, Vec2 nO) {
+        Vec2 Gp; //Gets initialized later      
+        Vec2 nG = new Vec2();
         double  dg;
 
         //if (is_first_iter) {
@@ -37,7 +37,7 @@ public class UNAlgo {
         //    
         //}
 
-        Vector2 Pi = computePi(T, nT, O, nO);
+        Vec2 Pi = computePi(T, nT, O, nO);
 
         //Determine which optimization to use
         if (Pi == null || computeD(Pi, T) <= 1/kR) {
@@ -49,7 +49,7 @@ public class UNAlgo {
                 Gp = computePo(T, O, nT);
                 dg = computeD(T, O, Gp);
             } else {
-                Vector2 Po = computePo(T, O, nT);
+                Vec2 Po = computePo(T, O, nT);
 
                 double d_i = computeD(T, O, Pi);
                 double d_o = computeD(T, O, Po);
@@ -94,24 +94,24 @@ public class UNAlgo {
         return new double[] {Rl/s, Rr/s};
     }
 
-    private double computeD(Vector2 A, Vector2 B, Vector2 C) {
+    private double computeD(Vec2 A, Vec2 B, Vec2 C) {
         return Math.sqrt((A.x-C.x)*(A.x-C.x) + (A.y-C.y)*(A.y-C.y))
                 + Math.sqrt((B.x-C.x)*(B.x-C.x) + (B.y-C.y)*(B.y-C.y));
     }   
     
-    private double computeD(Vector2 A, Vector2 B) {
+    private double computeD(Vec2 A, Vec2 B) {
         return Math.sqrt((A.x-B.x)*(A.x-B.x) + (A.y-B.y)*(A.y-B.y));
     }   
 
-    private Vector2 computePo(Vector2 T, Vector2 O, Vector2 nT) {
+    private Vec2 computePo(Vec2 T, Vec2 O, Vec2 nT) {
         final double px = T.x - O.x;
         final double py = T.y - O.y;
 
         final double oi = (px*px + py*py) / (-2*(px*nT.x + py*nT.y));
-        return new Vector2(T.x + nT.x*oi, T.y + nT.y*oi);
+        return new Vec2(T.x + nT.x*oi, T.y + nT.y*oi);
     }
 
-    private Vector2 computePi(Vector2 T, Vector2 nT, Vector2 O, Vector2 nO) {
+    private Vec2 computePi(Vec2 T, Vec2 nT, Vec2 O, Vec2 nO) {
         final double w  = nT.y*nO.x - nT.x*nO.y;
         if (w == 0)
             return null;
@@ -119,7 +119,7 @@ public class UNAlgo {
         final double c1 = nT.y*T.x - nT.x*T.y;
         final double c2 = nO.y*O.x - nO.x*O.y;
 
-        return new Vector2((-nT.x*c2 + nO.x*c1)/w, (nO.y*c1 - nT.y*c2)/w);
+        return new Vec2((-nT.x*c2 + nO.x*c1)/w, (nO.y*c1 - nT.y*c2)/w);
     }
 
     private double deadband(double x) {

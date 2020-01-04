@@ -13,8 +13,8 @@ import org.frc.team5409.churro.limelight.PipelineIndex;
 import org.frc.team5409.churro.limelight.TrackMatrix;
 import org.frc.team5409.churro.navx.data.IDXYZData;
 import org.frc.team5409.churro.util.JoystickType;
-import org.frc.team5409.churro.util.Vector2;
-import org.frc.team5409.churro.util.Vector3;
+import org.frc.team5409.churro.util.Vec2;
+import org.frc.team5409.churro.util.Vec3;
 
 public class VisionTrak extends Command {
     SOPTrack sop_track;
@@ -26,12 +26,12 @@ public class VisionTrak extends Command {
     double h0 = 41;
     double h1 = 22; //inches
     double a0 = (10.0d/180.0d) * Math.PI;
-    Vector3 n1 = new Vector3(0, -1,0);
-    Vector3 p1 = new Vector3(0,0,0);
+    Vec3 n1 = new Vec3(0, -1,0);
+    Vec3 p1 = new Vec3(0,0,0);
     double lost_time = 0;
     double last_lost = 0;
-    Vector3 n0 = new Vector3(0,0,0);
-    Vector3 p0 = new Vector3(0,0,0);
+    Vec3 n0 = new Vec3(0,0,0);
+    Vec3 p0 = new Vec3(0,0,0);
     IDXYZData last = new IDXYZData();
     public VisionTrak() {
         super("VisionTrak");
@@ -75,7 +75,7 @@ public class VisionTrak extends Command {
         a0 = (SmartDashboard.getNumber("a0", 0)/180.0d) * Math.PI;
         lost_time = SmartDashboard.getNumber("Max. lost time (ms)", lost_time);
 
-        Vector3 pos = new Vector3();
+        Vec3 pos = new Vec3();
         if (Robot.limelight.hasTarget()) {
             if (tracking_state != 1) {
                 tracking_state = 1;
@@ -92,14 +92,14 @@ public class VisionTrak extends Command {
         }
 
         if (tracking_state == 1) {
-            Vector2 target = Robot.limelight.getTarget();
-            Vector2 targett = new Vector2(
+            Vec2 target = Robot.limelight.getTarget();
+            Vec2 targett = new Vec2(
                 target.x/180 * Math.PI,
                 target.y/180 * Math.PI
             );
             double d = Math.abs(h1-h0) / (Math.sin(targett.y+a0)*12);
             
-            Vector3 ppos = new Vector3(
+            Vec3 ppos = new Vec3(
                 d * (Math.cos(targett.y)*Math.cos(targett.x)),
                 d * (Math.cos(targett.y)*(-Math.sin(targett.x))),
                 d * Math.sin(targett.y)
@@ -114,7 +114,7 @@ public class VisionTrak extends Command {
                 double lv =  Robot.drivetrain.enc_q4t_left_drive.getRate();
                 double rv =  Robot.drivetrain.enc_q4t_right_drive.getRate();
                fkb_track.feed(lv, rv);
-               pos = new Vector3(
+               pos = new Vec3(
                    p0.x + fkb_track.getPosition().x,
                    p0.y + fkb_track.getPosition().y,
                    p0.z

@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.*;
 
 import org.frc.team5409.churro.limelight.*;
-import org.frc.team5409.churro.util.Vector2;
+import org.frc.team5409.churro.util.Vec2;
 
 import java.awt.geom.Line2D.Double;
 
@@ -221,8 +221,8 @@ public class Limelight extends Subsystem {
      * 
      * @return Limelight Pipeline
      */
-    public Vector2 getTarget() {
-        Vector2 target = new Vector2();
+    public Vec2 getTarget() {
+        Vec2 target = new Vec2();
 
         synchronized(m_this_mutex) {
             target.x = m_data_entry_tx.getDouble(target.x);

@@ -4,14 +4,14 @@ package org.frc.team5409.churro.experimental.ada;
 //This whole class is just terrible
 
 import edu.wpi.first.wpilibj.Timer;
-import org.frc.team5409.churro.util.Vector2;
+import org.frc.team5409.churro.util.Vec2;
 
 public class FKBTrack {
     private double  m_wheel_diameter;
     private double  m_last_timestamp;
 
-    private Vector2 m_fkbt_position;
-    private Vector2 m_fkbt_normal;
+    private Vec2 m_fkbt_position;
+    private Vec2 m_fkbt_normal;
     private double  m_fkbt_theta;
 
     private Object  m_this_lock;
@@ -20,8 +20,8 @@ public class FKBTrack {
         m_last_timestamp = Timer.getFPGATimestamp();
         m_wheel_diameter = w_d;
         
-        m_fkbt_position = new Vector2(0,0);
-        m_fkbt_normal = new Vector2(1, 0);
+        m_fkbt_position = new Vec2(0,0);
+        m_fkbt_normal = new Vec2(1, 0);
         m_fkbt_theta = 0.0d;
 
         m_this_lock = new Object();
@@ -31,8 +31,8 @@ public class FKBTrack {
         m_last_timestamp = Timer.getFPGATimestamp();
         m_wheel_diameter = w_d;
         
-        m_fkbt_position = new Vector2(r_x, r_y);
-        m_fkbt_normal = new Vector2(Math.cos(r_t), Math.sin(r_t));
+        m_fkbt_position = new Vec2(r_x, r_y);
+        m_fkbt_normal = new Vec2(Math.cos(r_t), Math.sin(r_t));
         m_fkbt_theta = r_t;
 
         m_this_lock = new Object();
@@ -89,8 +89,8 @@ public class FKBTrack {
     }
 
 
-    public Vector2 getPosition() {
-        Vector2 position;
+    public Vec2 getPosition() {
+        Vec2 position;
         synchronized(m_this_lock) {
             position = m_fkbt_position;
         }
@@ -98,8 +98,8 @@ public class FKBTrack {
         return position;
     }
 
-    public Vector2 getNormal() {
-        Vector2 normal;
+    public Vec2 getNormal() {
+        Vec2 normal;
         synchronized(m_this_lock) {
             normal = m_fkbt_normal;
         }
