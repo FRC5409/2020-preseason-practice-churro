@@ -10,17 +10,16 @@ public final class EventStack {
     public <T> EventStack(T... stack) {
         m_stack = stack;
     }
-
     
+    public Object[] getStack() {
+        return m_stack;
+    }
+
     public <R> R get(int index) {
         if (index > m_stack.length-1)
             throw new OutOfStackException("Attempted to access object outside of EventStack.");
 
         return getStackObject(index);
-    }
-
-    public Object[] getStack() {
-        return m_stack;
     }
 
     private <R> R getStackObject(int index) {
