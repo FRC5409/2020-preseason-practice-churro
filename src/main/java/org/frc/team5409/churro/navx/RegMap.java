@@ -12,7 +12,7 @@ package org.frc.team5409.churro.navx;
  * 
  * @author Keith Davies
  */
-public final class RegisterMap {
+public final class RegMap {
     private static final NavXRegs r(int rx, int ex) {
         return new NavXRegs(rx, ex);
     }

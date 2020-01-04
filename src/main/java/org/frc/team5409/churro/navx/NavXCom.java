@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.SPI.Port;
 public class NavXCom {
     private SPI                m_spi_com;
     private Object             m_this_lock;
-    private int                m_successive_err_count;
+    private int                m_err_count;
     private boolean            m_is_initialized;
 
     //Modifiable constants
@@ -22,7 +22,6 @@ public class NavXCom {
     //No-touchy constants
     private static final byte  com_req_len         =  0x03;
     private static final byte  com_who_am_i        =  0x32; 
-    private static final byte  com_crc7_poly       = -0x6F; //0x91 in signed form
     private static final byte  com_write_flag      = -0x80; //Could be incorrect
     private static final int   com_address_space   =  0x6F;
     
@@ -30,7 +29,7 @@ public class NavXCom {
      * Construct NavX Com Class.
      */
     public NavXCom() {
-        m_successive_err_count = 0;
+        m_err_count = 0;
         m_is_initialized = false;
         m_this_lock = new Object();
     }
@@ -73,7 +72,7 @@ public class NavXCom {
                 break checkDevice;
 
             //Set NavX update rate
-            write(RegisterMap.REG_UPDATE_RATE, (byte)com_board_hz);
+            write(RegMap.REG_UPDATE_RATE, (byte)com_board_hz);
 
             //Successfully established communication with NavX
             return true;
@@ -110,9 +109,9 @@ public class NavXCom {
         synchronized(m_this_lock) {
             if (m_spi_com.write(data, com_req_len) != com_req_len) {
                 result = ComResult.FAILED;
-                m_successive_err_count++;
+                m_err_count++;
             } else
-                m_successive_err_count = 0;
+                m_err_count = 0;
         }
 
         return result;
@@ -149,7 +148,7 @@ public class NavXCom {
                 int bytes_out = m_spi_com.write(data_out, com_req_len);
                 if (bytes_out != com_req_len) {
                     result = ComResult.FAILED;
-                    m_successive_err_count++;
+                    m_err_count++;
                     break comAttempt; //Communication failed
                 }
                     
@@ -158,15 +157,15 @@ public class NavXCom {
                 int bytes_in = m_spi_com.read(true, data_in, data_in.length);
                 if (bytes_in != data_in.length) {
                     result = ComResult.FAILED;
-                    m_successive_err_count++;
+                    m_err_count++;
                     break comAttempt; //Communication failed
                 }
 
                 if (getCRC(data_in, numReg) != data_in[numReg]) {
                     result = ComResult.BADCRC; //Communication succeded, but got bad data
-                    m_successive_err_count++;
+                    m_err_count++;
                 } else
-                    m_successive_err_count = 0; //Communication succeded
+                    m_err_count = 0; //Communication succeded
             }
         }
 
@@ -222,7 +221,7 @@ public class NavXCom {
 
         byte who_am_i[] = new byte[1];
         while (err_count < com_lost_attempts) {
-            ComResult res = read(RegisterMap.REG_WHOAMI, who_am_i);
+            ComResult res = read(RegMap.REG_WHOAMI, who_am_i);
             if (res.success) 
                 return (who_am_i[0] == com_who_am_i);
             else
@@ -242,7 +241,7 @@ public class NavXCom {
 
         byte op_status[] = new byte[1];
         while (err_count < com_lost_attempts) {
-            ComResult res = read(RegisterMap.REG_OP_STATUS, op_status);
+            ComResult res = read(RegMap.REG_OP_STATUS, op_status);
             if (res.success) {
                 switch(op_status[0]) {
                     case BoardStatus.OP.INITIALIZING:            continue;
@@ -268,7 +267,7 @@ public class NavXCom {
 
         byte test_status[] = new byte[1];
         while (err_count < com_lost_attempts) {
-            ComResult res = read(RegisterMap.REG_SELFTEST_STATUS, test_status);
+            ComResult res = read(RegMap.REG_SELFTEST_STATUS, test_status);
             if (res.success) {
                 if ((test_status[0] & BoardStatus.SELFTEST.COMPLETE) != 0)
                     return true;
@@ -288,7 +287,7 @@ public class NavXCom {
 
         byte cal_status[] = new byte[1];
         while (err_count < com_lost_attempts) {
-            ComResult res = read(RegisterMap.REG_CAL_STATUS, cal_status);
+            ComResult res = read(RegMap.REG_CAL_STATUS, cal_status);
             if (res.success) {
                 if ((cal_status[0] & BoardStatus.CAL.COMPLETE) != 0);
                     return true;

@@ -5,10 +5,7 @@ package org.frc.team5409.churro.navx.data;
  * 
  * @author Keith
  */
-final class cv { //SOME FUNCTIONS NEED TESTING.
-    private static int sxFF = (int) 0xFF;
-    private static int   ixFF = (int)   0xFF;
-    private static int  lxFF = (int)  0xFF;
+final class cv {
 
     /**
      * Decode Unsigned Byte. (8-bit)
@@ -19,7 +16,7 @@ final class cv { //SOME FUNCTIONS NEED TESTING.
      * @return Unsigned Byte
      */
     public static short decodeUnsignedByte(byte data[], int i) { 
-        return (short) (data[i] & sxFF);
+        return (short) (data[i] & 0xFF);
     }
 
     /**
@@ -30,7 +27,7 @@ final class cv { //SOME FUNCTIONS NEED TESTING.
      * @return Unsigned Byte (short)
      */
     public static short decodeUnsignedByte(byte data) {
-        return (short) (data & sxFF);
+        return (short) (data & 0xFF);
     }
 
     /**
@@ -73,9 +70,9 @@ final class cv { //SOME FUNCTIONS NEED TESTING.
      */
     public static int decodeSignedInt(byte data[], int i) {
         return (int) ( 
-            ((data[i + 0] & ixFF)      ) |
-            ((data[i + 1] & ixFF) << 8 ) |
-            ((data[i + 2] & ixFF) << 16) |
+            ((data[i + 0] & 0xFF)      ) |
+            ((data[i + 1] & 0xFF) << 8 ) |
+            ((data[i + 2] & 0xFF) << 16) |
             ( data[i + 3]         << 24)
         );
     }
@@ -90,10 +87,10 @@ final class cv { //SOME FUNCTIONS NEED TESTING.
      */
     public static long decodeUnsignedInt(byte data[], int i) {
         return (long) ( 
-            ((data[i + 0] & lxFF)       ) |
-            ((data[i + 1] & lxFF) << 8L ) |
-            ((data[i + 2] & lxFF) << 16L) |
-            ((data[i + 3] & lxFF) << 24L)
+            ((data[i + 0] & 0xFF)       ) |
+            ((data[i + 1] & 0xFF) << 8L ) |
+            ((data[i + 2] & 0xFF) << 16L) |
+            ((data[i + 3] & 0xFF) << 24L)
         );
     }
     /**
