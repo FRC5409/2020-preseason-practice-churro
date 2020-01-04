@@ -8,7 +8,6 @@ public abstract class AbstractService {
     protected        ServiceBase       Service;
     protected        ServiceLogger     SELogger;
     protected        ServiceRunner     SERunner;
-    //protected        EventDispatcher ServiceDispatcher;
 
     static {
         ServiceRegistry = new ServiceRegistrant();
