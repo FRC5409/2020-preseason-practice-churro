@@ -2,6 +2,24 @@ package org.frc.team5409.churro.control;
 
 import org.frc.team5409.churro.control.exception.CallSecurityException;
 
+/**
+ * <h2> AbstractService </h2>
+ * 
+ * A globally accessible system based on the processing,
+ * distribution and abstraction of information.
+ * 
+ * <p> This system can be accessed and utilized anywhere in
+ * the program, and should be designed to function in such
+ * an environment. </p>
+ * 
+ * A service receives information from several sources,
+ * such as a {@code ServiceBackend}, other {@code Services}
+ * as well as internal processes.
+ * 
+ * <p> Services must be implemented to handle multiple
+ * calls from different threads at any time. They must be
+ * thread-safe, offer synchronization, and avoid race conditions. </p>
+ */
 public abstract class AbstractService {
     protected static ServiceRegistrant ServiceRegistry;
 
