@@ -3,6 +3,7 @@ package org.frc.team5409.churro.services;
 import org.frc.team5409.churro.control.AbstractService;
 import org.frc.team5409.churro.control.EventEmitter;
 import org.frc.team5409.churro.limelight.*;
+import org.frc.team5409.churro.util.Vec2;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -62,5 +63,9 @@ public final class VisionService extends AbstractService {
         while (!SERunner.interrupted()) {
 
         }
+    }
+
+    public Vec2 getTarget() {
+        return new Vec2(10, 0);
     }
 }
