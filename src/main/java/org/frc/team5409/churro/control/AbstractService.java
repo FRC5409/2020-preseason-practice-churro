@@ -21,10 +21,37 @@ import org.frc.team5409.churro.control.exception.CallSecurityException;
  * thread-safe, offer synchronization, and avoid race conditions. </p>
  */
 public abstract class AbstractService {
+    /** 
+     * <h3> Service Registration utility. </h3>
+     * 
+     * Provides an interface between the {@code ServiceManager} and
+     * the {@code AbstractService} and facilitates the registration
+     * of Services.
+     */
     protected static ServiceRegistrant ServiceRegistry;
-
+    
+    /** 
+     * <h3> Service information. </h3>
+     * 
+     * Provides base information of the Service, such as
+     * it's name, uid, etc.
+     */
     protected        ServiceBase       Service;
+
+    /** 
+     * <h3> Service Logging utility. </h3>
+     * 
+     * Provides an abstraction of console logging
+     * functionality.
+     */
     protected        ServiceLogger     SELogger;
+
+    /** 
+     * <h3> Service Runner utility. </h3>
+     * 
+     * Provides a functional wrapper for managing
+     * threads relating to services.
+     */
     protected        ServiceRunner     SERunner;
 
     static {
@@ -37,16 +64,28 @@ public abstract class AbstractService {
                 throw new CallSecurityException("Illegal construction of Service.");
     }
 
+    /**
+     * Initializes a Service.
+     */
     protected abstract void init();
 
+    /**
+     * Default Service thread function.
+     */
     protected void run() {
         // Override me !!!
     };
 
+    /**
+     * Retrieves Service name.
+     */
     public final String getName() {
         return Service.getName();
     }
 
+    /**
+     * Retrieves Service uid.
+     */
     public final long getUID() {
         return Service.getUID();
     }
