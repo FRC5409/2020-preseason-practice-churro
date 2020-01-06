@@ -30,7 +30,7 @@ public final class EventEmitter {
     }
 
     public synchronized void emit(Object... args) {
-        EventStack stack = new EventStack(args);
+        final EventStack stack = new EventStack(args);
         synchronized(m_emissions) {
             for (EventHandle handle : m_emissions) {
                 handle.getProxy().push(new SendableEvent(handle, stack));
