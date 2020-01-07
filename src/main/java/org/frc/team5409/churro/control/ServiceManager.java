@@ -5,7 +5,6 @@ import java.util.Hashtable;
 
 import org.frc.team5409.churro.control.exception.*;
 
-@SuppressWarnings({ "unchecked" })
 public final class ServiceManager {
     private static Hashtable<Long, AbstractService> m_registry;
     private static boolean                          m_finalized;
@@ -25,11 +24,18 @@ public final class ServiceManager {
         else if (m_finalized)
             return;
         
+       for (var entry : m_registry.entrySet()) {
+           var inst = entry.getValue();
+            if (!inst.Service.isInit()) {
+                inst.Service.setInitFlag(true);
+                inst.init();
+            }
+        }
         m_finalized = true;
-        m_registry.entrySet().forEach( inst -> inst.getValue().init() ); // TODO: Should it be multithreaded?
     }
 
-    //@CallerSensitive
+    
+    @SuppressWarnings({ "unchecked" })
     public static final <T extends AbstractService> T get(Class<T> service) {
         if (!CallStack.checkFor(AbstractService.class))
             throw new CallSecurityException("Illegal Service request. Services may not request other services");
