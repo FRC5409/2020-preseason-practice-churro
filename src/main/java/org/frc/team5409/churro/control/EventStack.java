@@ -2,12 +2,11 @@ package org.frc.team5409.churro.control;
 
 import org.frc.team5409.churro.control.exception.*;
 
-@SuppressWarnings("unchecked")
 public final class EventStack {
-    private final Object   m_stack[];
+    private final Object m_stack[];
 
     @SafeVarargs
-    public <T> EventStack(T... stack) {
+    protected <T> EventStack(T... stack) {
         m_stack = stack;
     }
     
@@ -22,6 +21,7 @@ public final class EventStack {
         return getStackObject(index);
     }
 
+    @SuppressWarnings("unchecked")
     private <R> R getStackObject(int index) {
         try {
             return (R) m_stack[index];

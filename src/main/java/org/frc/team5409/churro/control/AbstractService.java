@@ -19,6 +19,8 @@ import org.frc.team5409.churro.control.exception.CallSecurityException;
  * <p> Services must be implemented to handle multiple
  * calls from different threads at any time. They must be
  * thread-safe, offer synchronization, and avoid race conditions. </p>
+ * 
+ * @author Keith Davies
  */
 public abstract class AbstractService {
     /** 
@@ -42,7 +44,7 @@ public abstract class AbstractService {
      * <h3> Service Logging utility. </h3>
      * 
      * Provides an abstraction of console logging
-     * functionality.
+     * functionality for service utilization.
      */
     protected        ServiceLogger     SELogger;
 
@@ -50,7 +52,7 @@ public abstract class AbstractService {
      * <h3> Service Runner utility. </h3>
      * 
      * Provides a functional wrapper for managing
-     * threads relating to services.
+     * threads relating to service activities.
      */
     protected        ServiceRunner     SERunner;
 
@@ -77,16 +79,18 @@ public abstract class AbstractService {
     };
 
     /**
-     * Retrieves Service name.
+     * Get Service name.
      */
     public final String getName() {
         return Service.getName();
     }
 
     /**
-     * Retrieves Service uid.
+     * Get Service uid.
      */
     public final long getUID() {
         return Service.getUID();
     }
+
+
 }

@@ -1,7 +1,6 @@
 package org.frc.team5409.churro.services;
 
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import edu.wpi.first.wpilibj.Timer;
 
@@ -23,7 +22,6 @@ public final class VisionService extends AbstractService {
     }
 
     private VisionBackend               m_backend;
-    private AtomicBoolean               m_ll_is_targeted;
     private AtomicReference<Vec3>       m_ll_track_data;
     private AtomicReference<TargetType> m_ll_target_data;
 
@@ -37,7 +35,6 @@ public final class VisionService extends AbstractService {
     @Override
     protected void init() {
         m_backend         = new VisionBackend();
-        m_ll_is_targeted  = new AtomicBoolean(false);
         m_ll_track_data   = new AtomicReference<>();
         m_ll_target_data  = new AtomicReference<>(TargetType.NONE);
 
@@ -76,7 +73,6 @@ public final class VisionService extends AbstractService {
         while (m_backend.isTargeted()) {
             if (m_ll_profile.isAcceptable()) {
                 TargetType type = m_backend.getTargetType();
-
                 m_ll_target_data.set(type);
                 emit(m_onTargetAquired, type, updateTarget());
                 return true;
