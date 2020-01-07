@@ -2,6 +2,15 @@ package org.frc.team5409.churro.control;
 
 import java.io.PrintStream;
 
+/**
+ * Service Logging utility.
+ * 
+ * <p> Used for reporting service related information
+ * to a target {@code PrintStream}. </p>
+ * 
+ * @author Keith Davies
+ * @see AbstractService
+ */
 public final class ServiceLogger {
     private final String       m_prefix_info;
     private final String       m_prefix_warn;

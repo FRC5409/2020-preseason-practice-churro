@@ -2,7 +2,15 @@ package org.frc.team5409.churro.control;
 
 import org.frc.team5409.churro.control.exception.CallSecurityException;
 
-@SuppressWarnings("unchecked")
+/**
+ * Service Registration utility.
+ * 
+ * <p> Used for adding services to 
+ * the {@code ServiceManager} registry. </p>
+ * 
+ * @author Keith Davies
+ * @see AbstractService
+ */
 public final class ServiceRegistrant {
     protected ServiceRegistrant() {
     }
@@ -16,6 +24,7 @@ public final class ServiceRegistrant {
         ServiceManager.register(service.getSimpleName(), service);
     }
 
+    @SuppressWarnings("unchecked")
     private Class<? extends AbstractService> getCaller() {
         Class<?> caller = CallStack.searchFor(AbstractService.class);
     

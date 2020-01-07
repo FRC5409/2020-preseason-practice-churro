@@ -2,6 +2,15 @@ package org.frc.team5409.churro.control;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * Service Runner utility.
+ * 
+ * <p> Used for controlling service related 
+ * threads. </p>
+ * 
+ * @author Keith Davies
+ * @see AbstractService
+ */
 public final class ServiceRunner {
     private  final String        m_name;
 
@@ -10,7 +19,6 @@ public final class ServiceRunner {
 
     protected ServiceRunner(long uid) {
         m_name = "ServiceThread["+uid+"]";
-
         m_thread = new Thread(m_name);
         m_interrupt = new AtomicBoolean(false);
     }
