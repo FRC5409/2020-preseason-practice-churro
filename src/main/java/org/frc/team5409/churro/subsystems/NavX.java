@@ -29,21 +29,20 @@ public class NavX extends Subsystem {
         }
     }
 
-    //TODO: UN-JANK THESE FUNCTIONS, THEY HAVE NO SAFETY AND WILL PROBABLY CATASTROPHICALLY FAIL SOME DAY
     public void zeroYaw() {
-        m_navx_com.write(RegMap.REG_INTG_CTRL, IntegCtrl.RESET_YAW);
+        m_navx_com.write(RegMap.REG_INTG_CTRL,         IntegCtrl.RESET_YAW);
     }
 
     public void zeroVelocity() {
         m_navx_com.write(RegMap.REG_INTG_CTRL, (byte) (IntegCtrl.RESET_VEL_X |
-                                                            IntegCtrl.RESET_VEL_Y |
-                                                            IntegCtrl.RESET_VEL_Z));
+                                                       IntegCtrl.RESET_VEL_Y |
+                                                       IntegCtrl.RESET_VEL_Z));
     }
 
     public void zeroDisplacement() {
         m_navx_com.write(RegMap.REG_INTG_CTRL, (byte) (IntegCtrl.RESET_DISP_X |
-                                                            IntegCtrl.RESET_DISP_Y |
-                                                            IntegCtrl.RESET_DISP_Z));
+                                                       IntegCtrl.RESET_DISP_Y |
+                                                       IntegCtrl.RESET_DISP_Z));
     }
 
     public YPRHData getYPRH() {
@@ -83,10 +82,5 @@ public class NavX extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-    }
-
-    @Override
-    public void periodic() {
-        
     }
 }
