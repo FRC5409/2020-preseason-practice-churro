@@ -45,7 +45,6 @@ public final class VisionService extends AbstractService {
         m_onTargetLost    = new EventEmitter();
         
         m_ll_profile.setMaxError(config.max_profile_err);
-
         SERunner.run(this::run);
     }
 
