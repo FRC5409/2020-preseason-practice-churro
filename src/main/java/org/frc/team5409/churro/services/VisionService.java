@@ -55,9 +55,13 @@ public final class VisionService extends AbstractService {
                         break;
                     updateTarget();
                 }
-                emit(m_onTargetLost);
+                looseTarget();
             }
         }
+    }
+
+    public boolean hasTarget() {
+        return m_ll_target_data.get() != TargetType.NONE;
     }
 
     public Vec3 getTarget() {
@@ -80,6 +84,11 @@ public final class VisionService extends AbstractService {
         }
 
         return false;
+    }
+
+    private void looseTarget() {
+        m_ll_target_data.set(TargetType.NONE);
+        emit(m_onTargetLost);
     }
 
     private Vec3 updateTarget() {

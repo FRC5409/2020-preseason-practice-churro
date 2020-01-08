@@ -7,8 +7,6 @@ import edu.wpi.first.networktables.*;
 import org.frc.team5409.churro.limelight.*;
 import org.frc.team5409.churro.util.Vec2;
 
-import java.awt.geom.Line2D.Double;
-
 import org.frc.team5409.churro.commands.*;
 
 /**
