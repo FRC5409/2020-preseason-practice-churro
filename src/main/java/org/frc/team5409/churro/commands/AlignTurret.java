@@ -11,10 +11,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public final class AlignTurret extends Command {
     private VisionService m_service;
     
+    public AlignTurret() {
+
+        requires(Robot.turretControl);
+    }
+
     @Override
     protected void initialize() {
-        m_service = ServiceManager.get("VisionService");
-        requires(Robot.turretControl);
+        m_service = ServiceManager.get(VisionService.class);
 
         SmartDashboard.setDefaultNumber("Target height", 0);
         SmartDashboard.setDefaultNumber("Robot height", 0);
