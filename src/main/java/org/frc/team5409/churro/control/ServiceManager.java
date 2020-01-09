@@ -22,7 +22,7 @@ public final class ServiceManager {
         throw new CallSecurityException("Illegal initialization of Service Manager.");
     }
     
-    public static final void init() {
+    public static final void start() {
         if (!CallStack.checkFor(org.frc.team5409.churro.Main.class))
             throw new CallSecurityException("Illegal initialization of Service Manager outside of main().");
         else if (m_finalized)

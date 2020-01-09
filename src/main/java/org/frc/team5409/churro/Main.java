@@ -14,7 +14,13 @@ public final class Main {
    * <p>If you change your main robot class, change the parameter type.
    */
   public static void main(String... args) {
-    ServiceManager.init();
+    // Initiate and register robot services
+    RobotServices.start();
+
+    // Start robot service mangaer
+    ServiceManager.start();
+
+    // Start robot program
     RobotBase.startRobot(Robot::new);
   }
 }
