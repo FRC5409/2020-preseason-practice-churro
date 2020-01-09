@@ -13,7 +13,7 @@ public final class AlignTurret extends Command {
     
     @Override
     protected void initialize() {
-        m_service = ServiceManager.get(VisionService.class);
+        m_service = ServiceManager.get("VisionService");
         requires(Robot.turretControl);
 
         SmartDashboard.setDefaultNumber("Target height", 0);
@@ -40,8 +40,8 @@ public final class AlignTurret extends Command {
 
             SmartDashboard.putString("Target 2D", String.format("{%f, %f, &f}", tpos.x, tpos.y));
             SmartDashboard.putString(" Robot 3D", String.format("{%f, %f, &f}", rpos.x, rpos.y, rpos.z));
-        } else
-            Robot.turretControl.m_pwm4_turret_rotation.set(0);
+        } //else
+            //Robot.turretControl.m_pwm4_turret_rotation.set(0);
     }
 
     @Override
@@ -52,7 +52,7 @@ public final class AlignTurret extends Command {
 
     @Override
     protected void end() {
-        Robot.turretControl.m_pwm4_turret_rotation.set(0);
+        //Robot.turretControl.m_pwm4_turret_rotation.set(0);
         super.end();
     }
 
@@ -61,6 +61,6 @@ public final class AlignTurret extends Command {
 
         SmartDashboard.putNumber("Turret Speed", speed);
 
-        Robot.turretControl.m_pwm4_turret_rotation.set(speed);
+        //Robot.turretControl.m_pwm4_turret_rotation.set(speed);
     }
 }
