@@ -15,10 +15,10 @@ public final class Main {
    */
   public static void main(String... args) {
     // Initiate and register robot services
-    RobotServices.start();
+    RobotServices.init();
 
-    // Start robot service mangaer
-    ServiceManager.start();
+    // Initialize robot service mangaer
+    ServiceManager.getInstance().initialize();
 
     // Start robot program
     RobotBase.startRobot(Robot::new);

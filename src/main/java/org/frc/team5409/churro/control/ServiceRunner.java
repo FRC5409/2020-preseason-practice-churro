@@ -23,11 +23,26 @@ public final class ServiceRunner {
         m_interrupt = new AtomicBoolean(false);
     }
 
-    public void run(Runnable target) {
-        if (!m_thread.isAlive()) {
+    public void runThread(Runnable target) {
+        if (!this.isAlive()) {
             m_thread = new Thread(wrap(target), m_name);
             m_interrupt.set(false);
             m_thread.start();
+        }
+    }
+
+    public void stopThread() {
+        if (this.isAlive()) {
+            m_thread.interrupt();
+            m_interrupt.set(true);
+            join();
+        }
+    }
+
+    public void interrupt() {
+        if (this.isAlive()) {
+            m_thread.interrupt();
+            m_interrupt.set(true);
         }
     }
 
@@ -35,16 +50,25 @@ public final class ServiceRunner {
         return m_thread.isAlive();
     }
 
-    public void interrupt() {
-        if (m_thread.isAlive())
-            m_interrupt.set(true);
-    }
-
     public boolean interrupted() {
         return m_interrupt.get();
     }
 
+    protected void join() {
+        if (this.isAlive() && Thread.currentThread().getId() != m_thread.getId()) {
+            try {
+                m_thread.join();
+            } catch (Exception e) {
+                // Should never throw
+            }
+        }
+    }
+
     private Runnable wrap(Runnable target)  {
-        return () -> { target.run(); m_interrupt.set(false); };
+        return () -> {
+            while (!this.interrupted())
+                target.run();
+            m_interrupt.set(false);
+        };
     }
 }

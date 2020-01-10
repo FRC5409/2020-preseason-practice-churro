@@ -8,8 +8,8 @@ final class ServiceFactory {
         try {
             T inst = service.getConstructor().newInstance();
                 inst.Service = new ServiceBase(name, uid);
-                inst.SELogger = new ServiceLogger(name, uid);
-                inst.SERunner = new ServiceRunner(uid);
+                inst.ServiceLogger = new ServiceLogger(name, uid);
+                inst.ServiceRunner = new ServiceRunner(uid);
                 inst.Service.setInitFlag(false);
             return inst;
         } catch (Exception e) {

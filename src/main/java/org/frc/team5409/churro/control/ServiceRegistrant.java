@@ -15,13 +15,8 @@ public final class ServiceRegistrant {
     protected ServiceRegistrant() {
     }
 
-    public void register(String name) {
-        ServiceManager.register(name, getCaller());
-    }
-
-    public void register() {
-        var service = getCaller();
-        ServiceManager.register(service.getSimpleName(), service);
+    public void register(String name, long uid) {
+        ServiceManager.register(name, uid, getCaller());
     }
 
     @SuppressWarnings("unchecked")

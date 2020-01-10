@@ -46,7 +46,7 @@ public abstract class AbstractService {
      * Provides an abstraction of console logging
      * functionality for service utilization.
      */
-    protected        ServiceLogger     SELogger;
+    protected        ServiceLogger     ServiceLogger;
 
     /** 
      * <h3> Service Runner utility. </h3>
@@ -54,7 +54,7 @@ public abstract class AbstractService {
      * Provides a functional wrapper for managing
      * threads relating to service activities.
      */
-    protected        ServiceRunner     SERunner;
+    protected        ServiceRunner     ServiceRunner;
 
     static {
         ServiceRegistry = new ServiceRegistrant();
@@ -69,10 +69,20 @@ public abstract class AbstractService {
     /**
      * Initializes a Service.
      */
-    protected abstract void init();
+    protected abstract void initialize();
 
     /**
-     * Default Service thread function.
+     * Starts a Service.
+     */
+    protected abstract void start();
+
+    /**
+     * Stops a Service
+     */
+    protected abstract void stop();
+
+    /**
+     * Default Service thread method.
      */
     protected void run() {
         // Override me !!!

@@ -6,60 +6,106 @@ import java.util.Hashtable;
 import org.frc.team5409.churro.control.exception.*;
 
 public final class ServiceManager {
-    private static Hashtable<String, Integer> m_name_hash;
-    private static Hashtable<  Long, Integer> m_uid_hash;
-    private static AbstractService[]          m_registry;
-    private static boolean                    m_finalized;
+    private static ServiceManager             m_instance;
+    
+    private        AbstractService[]          m_registry;
+
+    private        Hashtable<String, Integer> m_name_hash;
+    private        Hashtable<  Long, Integer> m_uid_hash;
+
+    private        boolean                    m_finalized;
+    private        boolean                    m_running;
 
     static {
-        m_finalized = false;
-        m_name_hash = new Hashtable<>();
-        m_uid_hash = new Hashtable<>();
-        m_registry = new AbstractService[0];
+        m_instance = new ServiceManager();
     }
 
-    private ServiceManager() { // TODO: maybe remove?
-        throw new CallSecurityException("Illegal initialization of Service Manager.");
+    public static ServiceManager getInstance() {
+        return m_instance;
+    }
+
+    private ServiceManager() {
+        m_registry = new AbstractService[0];     
+        
+        m_name_hash = new Hashtable<>();
+        m_uid_hash = new Hashtable<>();
+
+        m_finalized = false;
+        m_running = false;
     }
     
-    public static final void start() {
+    public void initialize() {
         if (!CallStack.checkFor(org.frc.team5409.churro.Main.class))
             throw new CallSecurityException("Illegal initialization of Service Manager outside of main().");
         else if (m_finalized)
             return;
         
-       for (var inst : m_registry) {
-            inst.Service.setInitFlag(true);
-            inst.init();
+        for (var inst : m_registry) {
+            //inst.Service.setInitFlag(true);
+            inst.initialize();
         }
         m_finalized = true;
     }
 
-    
+    public void startServices() {
+        if (m_running)
+            return;
+
+        for (var inst : m_registry) {
+            inst.start();
+        }
+        m_running = true;
+    }
+
+    public void stopServices() {
+        if (!m_running)
+            return;
+            
+        for (var inst : m_registry) {
+            inst.ServiceRunner.interrupt();
+        }
+
+        for (var inst : m_registry) {
+            inst.ServiceRunner.join();
+            inst.stop();
+        }
+        m_running = false;
+    }
+
+
     @SuppressWarnings({ "unchecked" })
-    public static final <T extends AbstractService> T get(String name, Class<T> service) {
-        Integer index = m_name_hash.get(name);
+    public static <T extends AbstractService> T getService(String name) {
+        Integer index = getInstance().m_name_hash.get(name);
 
         if (index == null)
-            throw new IllegalServiceRequest(String.format("Attempted to get unregistered Service \"%s\". Did you for get to register \"%s\"?", name, name));
+            throw new IllegalServiceRequest(String.format("Attempted to get unknown service \"%s\". Did you for get to register \"%s\"?", name, name));
 
-        return (T) m_registry[index];
+        return (T) getInstance().m_registry[index];
     }
 
     @SuppressWarnings({ "unchecked" })
-    public static final <T extends AbstractService> T get(String name) {
-        Integer index = m_name_hash.get(name);
+    public static <T extends AbstractService> T getService(long uid) {
+        Integer index = getInstance().m_uid_hash.get(uid);
 
         if (index == null)
-            throw new IllegalServiceRequest(String.format("Attempted to get unregistered Service \"%s\". Did you for get to register \"%s\"?", name, name));
+            throw new IllegalServiceRequest(String.format("Attempted to get unknown service with uid \"%d\". Did you for get to register the correct service?", uid));
 
-        return (T) m_registry[index];
+        return (T) getInstance().m_registry[index];
     }
 
+    public static <V extends AbstractService> V getService(String name, Class<V> service) {
+        return getService(name);
+    }
+
+    public static <V extends AbstractService> V getService(long uid, Class<V> service) {
+        return getService(uid);
+    }
 
     //@CallerSensitive
-    protected static final <T extends AbstractService> void register(String name, Class<T> service) {
-        if (m_finalized)
+    protected static <T extends AbstractService> void register(String name, long uid, Class<T> service) {
+        ServiceManager inst = getInstance();
+
+        if (inst.m_finalized)
             throw new IllegalServiceRequest("Illegal registration call after registry finalization. Did you forget to register the Service during program intialization?");
         else if (service.getDeclaredConstructors().length != 1)
             throw new InvalidServiceException("Illegal use of constructor in Service definition, use init() instead.");
@@ -68,34 +114,27 @@ public final class ServiceManager {
         else if (service.getDeclaringClass() != null)
             throw new InvalidServiceException("Illegal Service defintion, must be a singleton top level class definition.");
 
-        long uid;
-        try {
-            uid = service.getField("serviceUID").getLong(null);
-        } catch (Exception e) {
-            throw new InvalidServiceException("Attempted to register Service with no UID, did you define long serviceUID?");
-        }
-
-        if (m_uid_hash.get(uid) != null) {
-            AbstractService _inst = m_registry[m_uid_hash.get(uid)];
-
-            if (service.equals(_inst.getClass()))
-                throw new InvalidServiceException("Illegal multiple registration calls from service definition.");
-            else
-                throw new InvalidServiceException(String.format("Service \"%s\" already exists with UID %d.", _inst.getName(), uid));
-        } else if (m_name_hash.get(name) != null) {
-            AbstractService _inst = m_registry[m_name_hash.get(name)];
+        if (inst.m_name_hash.get(name) != null) {
+            AbstractService _inst = inst.m_registry[inst.m_name_hash.get(name)];
 
             if (service.equals(_inst.getClass()))
                 throw new InvalidServiceException("Illegal multiple registration calls from service definition.");
             else
                 throw new InvalidServiceException(String.format("Service \"%s\" already exists with name %s.", _inst.getName(), name));
+        } else if (inst.m_uid_hash.get(uid) != null) {
+            AbstractService _inst = inst.m_registry[inst.m_uid_hash.get(uid)];
+
+            if (service.equals(_inst.getClass()))
+                throw new InvalidServiceException("Illegal multiple registration calls from service definition.");
+            else
+                throw new InvalidServiceException(String.format("Service \"%s\" already exists with UID %d.", _inst.getName(), uid));
         }
         
-        m_registry = java.util.Arrays.copyOf(m_registry, m_registry.length+1);
-        int index = m_registry.length-1;
+        int index = inst.m_registry.length;
 
-        m_registry[index] = ServiceFactory.create(name, uid, service);
-        m_name_hash.put(name, index);
-        m_uid_hash.put(uid, index);
+        inst.m_registry = java.util.Arrays.copyOf(inst.m_registry, index+1);
+        inst.m_registry[index] = ServiceFactory.create(name, uid, service);
+            inst.m_name_hash.put(name, index);
+            inst.m_uid_hash.put(  uid, index);
     }
 }
