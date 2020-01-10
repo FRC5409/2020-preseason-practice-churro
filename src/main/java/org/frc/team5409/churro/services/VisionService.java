@@ -4,8 +4,8 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import edu.wpi.first.wpilibj.Timer;
 
-import org.frc.team5409.churro.services.impl.vision.VisionBackend;
-import org.frc.team5409.churro.services.vision.TargetType;
+import org.frc.team5409.churro.services.backend.vision.VisionBackend;
+import org.frc.team5409.churro.vision.TargetType;
 import org.frc.team5409.churro.control.AbstractService;
 import org.frc.team5409.churro.control.EventEmitter;
 import org.frc.team5409.churro.util.ErrorProfile;
@@ -13,12 +13,8 @@ import org.frc.team5409.churro.util.Vec3;
 
 
 public final class VisionService extends AbstractService {
-    public final static long serviceUID = 89162L;
-
-    private final static class config {
-        public static final double max_latency_ms = 25; //ms
-        public static final double min_targeted_sec = 0.5; //sec
-        public static final double max_profile_err = 0.781; //Random constants
+    static {
+        ServiceRegistry.register("VisionService", 89162L);
     }
 
     private VisionBackend               m_backend;
@@ -28,35 +24,36 @@ public final class VisionService extends AbstractService {
     private EventEmitter                m_onTargetAquired;
     private EventEmitter                m_onTargetLost;
 
-    static {
-        ServiceRegistry.register("VisionService");
-    }
-
     @Override
-    protected void init() {
+    protected void initialize() {
         m_backend         = new VisionBackend();
         m_ll_track_data   = new AtomicReference<>();
         m_ll_target_data  = new AtomicReference<>(TargetType.NONE);
 
         m_onTargetAquired = new EventEmitter();
         m_onTargetLost    = new EventEmitter();
-        
-        m_ll_profile.setMaxError(config.max_profile_err);
-        SERunner.run(this::run);
+    }
+
+    @Override
+    protected void start() {
+        ServiceRunner.runThread(this::run);
+    }
+
+    @Override
+    protected void stop() {
+        ServiceRunner.stopThread();
     }
 
     @Override
     protected void run() {
-        while (!SERunner.interrupted()) {
-            if (m_backend.isTargeted()) {
-                aquireTarget();
-                while (m_backend.isTargeted()) {
-                    if (!m_ll_profile.isAcceptable())
-                        break;
-                    updateTarget();
-                }
-                looseTarget();
+        if (m_backend.isTargeted()) {
+            aquireTarget(true);
+            while (m_backend.isTargeted()) {
+                if (!m_err_profile.isAcceptable())
+                    break;
+                updateTarget();
             }
+            looseTarget(true);
         }
     }
 
@@ -72,13 +69,14 @@ public final class VisionService extends AbstractService {
         return m_ll_target_data.get();
     }
 
-    private boolean aquireTarget() {
-        m_ll_profile.reset();
+    private boolean aquireTarget(boolean do_emit) {
+        m_err_profile.reset();
         while (m_backend.isTargeted()) {
-            if (m_ll_profile.isAcceptable()) {
+            if (m_err_profile.isAcceptable()) {
                 TargetType type = m_backend.getTargetType();
                 m_ll_target_data.set(type);
-                emit(m_onTargetAquired, type, updateTarget());
+                if (do_emit)
+                    emit(m_onTargetAquired, type, updateTarget());
                 return true;
             }
         }
@@ -86,13 +84,14 @@ public final class VisionService extends AbstractService {
         return false;
     }
 
-    private void looseTarget() {
+    private void looseTarget(boolean do_emit) {
         m_ll_target_data.set(TargetType.NONE);
-        emit(m_onTargetLost);
+        if (do_emit)
+            emit(m_onTargetLost);
     }
 
     private Vec3 updateTarget() {
-        final Vec3 target = m_backend.getTarget();
+        Vec3 target = m_backend.getTarget();
         m_ll_track_data.set(target);
         return target;
     }
@@ -101,7 +100,12 @@ public final class VisionService extends AbstractService {
         emitter.emit(args);
     }
 
-    private ErrorProfile m_ll_profile = new ErrorProfile() {
+
+    private ErrorProfile m_err_profile = new ErrorProfile() {
+        private final double max_latency_ms = 25; //ms
+        private final double min_targeted_sec = 0.5; //sec
+        private final double max_profile_err = 0.781; //Random constants
+
         private double m_last_ts;
 
         @Override
@@ -112,14 +116,14 @@ public final class VisionService extends AbstractService {
 
         @Override
         public void profile() {
-            setError(m_backend.getLatency() / config.max_latency_ms * validity());
+            setError(m_backend.getLatency() / max_latency_ms * validity());
         }
 
         private double validity() {
-            if (Timer.getFPGATimestamp() - m_last_ts > config.min_targeted_sec)
+            if (Timer.getFPGATimestamp() - m_last_ts > min_targeted_sec)
                 return 1.0d;
             else
                 return -1.0d;
         }
-    }; 
+    };
 }

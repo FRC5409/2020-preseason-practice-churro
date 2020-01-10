@@ -1,10 +1,10 @@
-package org.frc.team5409.churro.services.impl.vision;
+package org.frc.team5409.churro.services.backend.vision;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTable;
 
-import org.frc.team5409.churro.services.vision.TargetType;
+import org.frc.team5409.churro.vision.TargetType;
 import org.frc.team5409.churro.limelight.*;
 import org.frc.team5409.churro.util.Vec3;
 

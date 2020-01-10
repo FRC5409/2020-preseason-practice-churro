@@ -3,23 +3,27 @@ package org.frc.team5409.churro.services;
 import org.frc.team5409.churro.control.AbstractService;
 
 public final class RobotIdentityService extends AbstractService {
-    public final static long  serviceUID = 97612L;
-
     static {
-        ServiceRegistry.register("VisionService");
+        ServiceRegistry.register("VisionService", 97612L);
     }
 
     @Override
-    protected void init() {
+    protected void initialize() {
+        // TODO Auto-generated method stub
 
-        SERunner.run(this::run);
     }
-
 
     @Override
-    protected void run() {
-        while (!SERunner.interrupted()) {
+    protected void start() {
+        // TODO Auto-generated method stub
 
-        }
     }
+
+    @Override
+    protected void stop() {
+        // TODO Auto-generated method stub
+
+    }
+
+  
 }

@@ -1,4 +1,4 @@
-package org.frc.team5409.churro.services.vision;
+package org.frc.team5409.churro.vision;
 
 public enum TargetType {
     OUTER_PORT,
