@@ -1,6 +1,6 @@
 package org.frc.team5409.churro.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 
 import org.frc.team5409.churro.navx.*;
 import org.frc.team5409.churro.navx.data.*;
@@ -12,7 +12,7 @@ import org.frc.team5409.churro.navx.data.*;
  * of Kaui Labs hardware through a 
  * software interface.
  */
-public class NavX extends Subsystem {
+public class NavX implements Subsystem {
     private NavXCom m_navx_com;
 
     /**
@@ -78,9 +78,5 @@ public class NavX extends Subsystem {
 
         m_navx_com.read(RegMap.REGS_IDXYZ, data);
         return IDXYZData.fromRaw(data);
-    }
-
-    @Override
-    protected void initDefaultCommand() {
     }
 }

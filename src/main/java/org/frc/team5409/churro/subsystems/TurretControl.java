@@ -1,6 +1,6 @@
 package org.frc.team5409.churro.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.frc.team5409.churro.commands.AlignTurret;
@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Victor;
 
-public final class TurretControl extends Subsystem {
+public final class TurretControl implements Subsystem {
     private Victor  mo_pwm4_turret_rotation;
     private Encoder en_qd89_turret_rotation;
 
@@ -23,28 +23,30 @@ public final class TurretControl extends Subsystem {
     public TurretControl() {
         mo_pwm4_turret_rotation = new Victor(4);
         
-        addChild(mo_pwm4_turret_rotation);
+        // addChild(mo_pwm4_turret_rotation);
 
         en_qd89_turret_rotation = new Encoder(8, 9);
             en_qd89_turret_rotation.setDistancePerPulse(1.0d/2.5d);
             en_qd89_turret_rotation.setReverseDirection(true);
         
-        addChild(en_qd89_turret_rotation);
+        // addChild(en_qd89_turret_rotation);
 
         mo_pwm6_turret_flywheel = new Spark(6);
         
-        addChild(mo_pwm6_turret_flywheel);
+        // addChild(mo_pwm6_turret_flywheel);
 
         mo_pwm7_turret_flywheel = new Spark(7);
         
-        addChild(mo_pwm7_turret_flywheel);
+        // addChild(mo_pwm7_turret_flywheel);
 
         en_qd45_turret_flywheel = new Encoder(4, 5);
             en_qd45_turret_flywheel.setDistancePerPulse(1/4);
         
-        addChild(en_qd45_turret_flywheel);
+        // addChild(en_qd45_turret_flywheel);
 
         m_rot_controller = new PIDController(0, 0, 0);
+        
+        setDefaultCommand(new AlignTurret());
     }
 
     public void zeroRotation() {
@@ -94,12 +96,6 @@ public final class TurretControl extends Subsystem {
         mo_pwm4_turret_rotation.set(clamp(-max, speed, max));
     }
 
-    @Override
-    protected void initDefaultCommand() {
-        // TODO Auto-generated method stub
-        setDefaultCommand(new AlignTurret()); 
-    }
-    
     private double clamp(double mn, double v, double mx) {
         if (v > mx)
             return mx;
