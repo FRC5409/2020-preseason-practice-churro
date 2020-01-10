@@ -13,7 +13,7 @@ public abstract class ErrorProfile {
 
     public abstract void reset();
 
-    public final void setMaxError(double error) {
+    protected final void setMaxError(double error) {
         m_max_error = error;
     }
 
