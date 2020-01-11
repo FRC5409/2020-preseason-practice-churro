@@ -18,8 +18,8 @@ public final class VisionService extends AbstractService {
     }
 
     private VisionBackend               m_backend;
-    private AtomicReference<Vec3>       m_ll_track_data;
-    private AtomicReference<TargetType> m_ll_target_data;
+    private AtomicReference<Vec3>       m_track_data;
+    private AtomicReference<TargetType> m_target_data;
 
     private EventEmitter                m_onTargetAquired;
     private EventEmitter                m_onTargetLost;
@@ -27,8 +27,8 @@ public final class VisionService extends AbstractService {
     @Override
     protected void initialize() {
         m_backend         = new VisionBackend();
-        m_ll_track_data   = new AtomicReference<>();
-        m_ll_target_data  = new AtomicReference<>(TargetType.NONE);
+        m_track_data      = new AtomicReference<>();
+        m_target_data     = new AtomicReference<>(TargetType.NONE);
 
         m_onTargetAquired = new EventEmitter();
         m_onTargetLost    = new EventEmitter();
@@ -41,7 +41,8 @@ public final class VisionService extends AbstractService {
 
     @Override
     protected void stop() {
-        ServiceRunner.stopThread();
+        //ServiceRunner.stopThread();
+        looseTarget(false);
     }
 
     @Override
@@ -58,15 +59,15 @@ public final class VisionService extends AbstractService {
     }
 
     public boolean hasTarget() {
-        return m_ll_target_data.get() != TargetType.NONE;
+        return m_target_data.get() != TargetType.NONE;
     }
 
     public Vec3 getTarget() {
-        return m_ll_track_data.get();
+        return m_track_data.get();
     }
 
     public TargetType getTargetType() {
-        return m_ll_target_data.get();
+        return m_target_data.get();
     }
 
     private boolean aquireTarget(boolean do_emit) {
@@ -74,7 +75,7 @@ public final class VisionService extends AbstractService {
         while (m_backend.isTargeted()) {
             if (m_err_profile.isAcceptable()) {
                 TargetType type = m_backend.getTargetType();
-                m_ll_target_data.set(type);
+                m_target_data.set(type);
                 if (do_emit)
                     emit(m_onTargetAquired, type, updateTarget());
                 return true;
@@ -85,14 +86,14 @@ public final class VisionService extends AbstractService {
     }
 
     private void looseTarget(boolean do_emit) {
-        m_ll_target_data.set(TargetType.NONE);
+        m_target_data.set(TargetType.NONE);
         if (do_emit)
             emit(m_onTargetLost);
     }
 
     private Vec3 updateTarget() {
         Vec3 target = m_backend.getTarget();
-        m_ll_track_data.set(target);
+        m_track_data.set(target);
         return target;
     }
 
