@@ -114,27 +114,27 @@ public final class ServiceManager {
         else if (service.getDeclaringClass() != null)
             throw new InvalidServiceException("Illegal Service defintion, must be a singleton top level class definition.");
 
-        if (inst.m_name_hash.get(name) != null) {
+        if (inst.m_name_hash.containsKey(name)) {
             AbstractService _inst = inst.m_registry[inst.m_name_hash.get(name)];
 
             if (service.equals(_inst.getClass()))
                 throw new InvalidServiceException("Illegal multiple registration calls from service definition.");
             else
-                throw new InvalidServiceException(String.format("Service \"%s\" already exists with name %s.", _inst.getName(), name));
-        } else if (inst.m_uid_hash.get(uid) != null) {
+                throw new InvalidServiceException(String.format("Service \"%s\" already exists with name %s.", _inst.getClass().getSimpleName(), name));
+        } else if (inst.m_uid_hash.containsKey(uid)) {
             AbstractService _inst = inst.m_registry[inst.m_uid_hash.get(uid)];
 
             if (service.equals(_inst.getClass()))
                 throw new InvalidServiceException("Illegal multiple registration calls from service definition.");
             else
-                throw new InvalidServiceException(String.format("Service \"%s\" already exists with UID %d.", _inst.getName(), uid));
+                throw new InvalidServiceException(String.format("Service \"%s\" already exists with UID %d.", _inst.getClass().getSimpleName(), uid));
         }
         
         int index = inst.m_registry.length;
 
         inst.m_registry = java.util.Arrays.copyOf(inst.m_registry, index+1);
         inst.m_registry[index] = ServiceFactory.create(name, uid, service);
-            inst.m_name_hash.put(name, index);
-            inst.m_uid_hash.put(  uid, index);
+        inst.m_name_hash.put(name, index);
+        inst.m_uid_hash.put(  uid, index);
     }
 }
