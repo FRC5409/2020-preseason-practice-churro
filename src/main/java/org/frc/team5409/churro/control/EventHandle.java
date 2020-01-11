@@ -5,15 +5,15 @@ import org.frc.team5409.churro.control.exception.InvalidHandleException;
 public final class EventHandle {
     private static  long          m_last_id = Long.MIN_VALUE;
 
+    private static synchronized long obtainId() {
+        return m_last_id++;
+    }
+
     private final   long          m_id;
     private final   RunnableEvent m_target;
 
     private final   EventProxy    m_proxy;
     private         EventEmitter  m_emitter;
-
-    private static synchronized long obtainId() {
-        return m_last_id++;
-    }
 
     public EventHandle(RunnableEvent target, EventProxy proxy) {
         if (target == null || proxy == null)
@@ -24,6 +24,10 @@ public final class EventHandle {
         m_target = target;
         m_proxy = proxy;
         m_emitter = null;
+    }
+
+    public EventHandle(RunnableEvent target) {
+        this(target, new EventProxy());
     }
     
     public void bind(EventEmitter emitter) {
