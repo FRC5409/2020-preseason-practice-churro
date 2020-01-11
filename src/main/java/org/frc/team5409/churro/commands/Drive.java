@@ -1,11 +1,11 @@
 package org.frc.team5409.churro.commands;
 
 import org.frc.team5409.churro.util.JoystickType;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.XboxController;
 import org.frc.team5409.churro.Robot;
 
-public class Drive extends Command {
+public class Drive implements Command {
 
     public Drive() {
         super("Drive");
