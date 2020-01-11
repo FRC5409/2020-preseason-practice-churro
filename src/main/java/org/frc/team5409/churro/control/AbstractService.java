@@ -101,6 +101,4 @@ public abstract class AbstractService {
     public final long getUID() {
         return Service.getUID();
     }
-
-
 }

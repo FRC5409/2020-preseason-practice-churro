@@ -6,11 +6,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import org.frc.team5409.churro.Robot;
 
 public class Drive implements Command {
-
     public Drive() {
-        super("Drive");
 
-        requires(Robot.drivetrain);
+        addRequirement(Robot.drivetrain);
     }
 
     @Override

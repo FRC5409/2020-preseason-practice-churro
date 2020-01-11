@@ -8,17 +8,18 @@ import org.frc.team5409.churro.commands.AlignTurret;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Victor;
 
 public final class TurretControl implements Subsystem {
-    private Victor  mo_pwm4_turret_rotation;
-    private Encoder en_qd89_turret_rotation;
+    private Victor               mo_pwm4_turret_rotation;
+    private Encoder              en_qd89_turret_rotation;
 
-    private Spark   mo_pwm6_turret_flywheel;
-    private Spark   mo_pwm7_turret_flywheel;
-    private Encoder en_qd45_turret_flywheel;
+    private SpeedControllerGroup mo_pwm67_turret_velocity;
+    private Encoder              en_qd45_turret_velocity;
 
-    private PIDController m_rot_controller;
+    private PIDController        pid_turret_rotation;
+    private PIDController        pid_turret_velocity;
 
     public TurretControl() {
         mo_pwm4_turret_rotation = new Victor(4);
@@ -31,34 +32,34 @@ public final class TurretControl implements Subsystem {
         
         // addChild(en_qd89_turret_rotation);
 
-        mo_pwm6_turret_flywheel = new Spark(6);
-        
-        // addChild(mo_pwm6_turret_flywheel);
-
-        mo_pwm7_turret_flywheel = new Spark(7);
+        mo_pwm67_turret_velocity = new SpeedControllerGroup(
+            new Spark(6),
+            new Spark(7)
+        );
         
         // addChild(mo_pwm7_turret_flywheel);
 
-        en_qd45_turret_flywheel = new Encoder(4, 5);
-            en_qd45_turret_flywheel.setDistancePerPulse(1/4);
+        //en_qd45_turret_velocity = new Encoder(4, 5);
+        //    en_qd45_turret_velocity.setDistancePerPulse(1/4);
         
         // addChild(en_qd45_turret_flywheel);
 
-        m_rot_controller = new PIDController(0, 0, 0);
+        pid_turret_rotation = new PIDController(0, 0, 0);
+        pid_turret_velocity = new PIDController(0, 0, 0);
         
-        setDefaultCommand(new AlignTurret());
+        //setDefaultCommand(new AlignTurret());
     }
 
     public void zeroRotation() {
         en_qd89_turret_rotation.reset();
-        synchronized(m_rot_controller) {
-            m_rot_controller.reset();
+        synchronized(pid_turret_rotation) {
+            pid_turret_rotation.reset();
         }
     }
 
     public synchronized void setRotation(double target) {
-        synchronized(m_rot_controller) {
-            m_rot_controller.setSetpoint(clamp(0, target, 90));
+        synchronized(pid_turret_rotation) {
+            pid_turret_rotation.setSetpoint(clamp(0, target, 90));
         }
     }
 
@@ -67,28 +68,28 @@ public final class TurretControl implements Subsystem {
     }
 
     public void setP(double P) {
-        synchronized(m_rot_controller) {
-            m_rot_controller.setP(P);
+        synchronized(pid_turret_rotation) {
+            pid_turret_rotation.setP(P);
         }
     }
 
     public void setI(double I) {
-        synchronized(m_rot_controller) {
-            m_rot_controller.setI(I);
+        synchronized(pid_turret_rotation) {
+            pid_turret_rotation.setI(I);
         }
     }
 
     public void setD(double D) {
-        synchronized(m_rot_controller) {
-            m_rot_controller.setD(D);
+        synchronized(pid_turret_rotation) {
+            pid_turret_rotation.setD(D);
         }
     }
 
     @Override
     public void periodic() {
         double speed;
-        synchronized(m_rot_controller) {
-            speed = m_rot_controller.calculate(getRotation() );
+        synchronized(pid_turret_rotation) {
+            speed = pid_turret_rotation.calculate(getRotation());
         }
 
         SmartDashboard.putNumber("Turret Rotation Speed", speed);

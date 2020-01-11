@@ -7,9 +7,16 @@
 
 package org.frc.team5409.churro;
 
+import java.util.Set;
+
+import org.frc.team5409.churro.commands.AlignTurret;
+import org.frc.team5409.churro.subsystems.FeederControl;
+import org.frc.team5409.churro.subsystems.TurretControl;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -18,33 +25,15 @@ import edu.wpi.first.wpilibj2.command.Command;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-	// The robot's subsystems and commands are defined here...
+    public TurretControl sys_turretControl;
+    public FeederControl sys_feederControl;
+    
+    public AlignTurret   cmd_alignTurret;
 
-	/**
-	 * The container for the robot.  Contains subsystems, OI devices, and commands.
-	 */
-	public RobotContainer() {
-		// Configure the button bindings
-		configureButtonBindings();
-	}
+    public RobotContainer() {
+        sys_turretControl = new TurretControl();
+        sys_feederControl = new FeederControl();
 
-	/**
-	 * Use this method to define your button->command mappings.  Buttons can be created by
-	 * instantiating a {@link GenericHID} or one of its subclasses ({@link
-	 * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
-	 * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-	 */
-	private void configureButtonBindings() {
-	}
-
-
-	/**
-	 * Use this to pass the autonomous command to the main {@link Robot} class.
-	 *
-	 * @return the command to run in autonomous
-	 */
-	public Command getAutonomousCommand() {
-		// An ExampleCommand will run in autonomous
-		return null;
-	}
+        cmd_alignTurret = new AlignTurret();
+    }
 }

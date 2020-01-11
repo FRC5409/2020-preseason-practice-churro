@@ -15,9 +15,9 @@ public final class Main {
    */
   public static void main(String... args) {
     // Initiate and register robot services
-    RobotServices.init();
+    RobotServices.register();
 
-    // Initialize robot service mangaer
+    // Initialize robot service manager
     ServiceManager.getInstance().initialize();
 
     // Start robot program
