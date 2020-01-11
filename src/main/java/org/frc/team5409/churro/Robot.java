@@ -1,36 +1,31 @@
 package org.frc.team5409.churro;
 
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj.TimedRobot;
 
-import org.frc.team5409.churro.subsystems.*;
-import org.frc.team5409.churro.commands.*;
 import org.frc.team5409.churro.control.ServiceManager;
 
 
 
 public class Robot extends TimedRobot {
-    private static RobotContainer m_container = new RobotContainer();
+    private static RobotContainer m_container;
 
-    public static double     c_defaultHertz = 200;//Hz
-
-    public static OI         oi;
+    public static OI              oi; //TODO: wrap OI in service
 
     public Robot() {
-        m_period = 1.0d / c_defaultHertz;
+        m_container = new RobotContainer();
+            m_container.initialize();
 
-        //turretControl = new TurretControl();
-        //feederControl = new FeederControl();
-        //navX = new NavX();
+        m_period = 1.0d / 200.0d;
     }
 
-    public static RobotContainer getContainer() {
-        return m_container;
+	public static <T extends Subsystem> T getSubsystem(String name) {
+		return m_container.getSubsystem(name);
     }
-
+    
+    public static <T extends Command> T getCommand(String name) {
+		return m_container.getCommand(name);
+	}
 
     @Override
     public void robotInit() {
@@ -63,7 +58,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-        new AlignTurret().schedule();
+        getCommand("AlignTurret").schedule();
     }
 
     @Override

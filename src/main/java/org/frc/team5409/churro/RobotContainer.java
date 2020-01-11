@@ -7,16 +7,12 @@
 
 package org.frc.team5409.churro;
 
-import java.util.Set;
+import org.frc.team5409.churro.system.SystemContainer;
 
-import org.frc.team5409.churro.commands.AlignTurret;
 import org.frc.team5409.churro.subsystems.FeederControl;
 import org.frc.team5409.churro.subsystems.TurretControl;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Subsystem;
+import org.frc.team5409.churro.commands.AlignTurret;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -24,16 +20,11 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
  * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
  * (including subsystems, commands, and button mappings) should be declared here.
  */
-public class RobotContainer {
-    public TurretControl sys_turretControl;
-    public FeederControl sys_feederControl;
-    
-    public AlignTurret   cmd_alignTurret;
+public class RobotContainer extends SystemContainer {
+    public void initialize() {
+        addSubsystem("TurretControl", new TurretControl());
+        addSubsystem("FeederControl", new FeederControl());
 
-    public RobotContainer() {
-        sys_turretControl = new TurretControl();
-        sys_feederControl = new FeederControl();
-
-        cmd_alignTurret = new AlignTurret();
+        addCommand("AlignTurret", new AlignTurret());
     }
 }
