@@ -3,18 +3,24 @@ package org.frc.team5409.churro.control;
 import org.frc.team5409.churro.control.exception.InvalidHandleException;
 
 public final class EventHandle {
-    private static  long          m_last_id = Long.MIN_VALUE;
+    private static  long                 m_last_id = Long.MIN_VALUE;
+
+    private final   long                 m_id;
+    private final   RunnableStackedEvent m_target;
+
+    private         EventEmitter         m_emitter;
 
     private static synchronized long obtainId() {
         return m_last_id++;
     }
 
-    private final   long          m_id;
-    private final   RunnableEvent m_target;
-
-    private         EventEmitter  m_emitter;
-
     public EventHandle(RunnableEvent target) {
+        this(stack -> {
+            target.fire();
+        });
+    }
+
+    public EventHandle(RunnableStackedEvent target) {
         if (target == null)
             throw new InvalidHandleException("Attempted to construct handle with null parameter.");
 
@@ -44,7 +50,7 @@ public final class EventHandle {
         }
     }
     
-    protected RunnableEvent getTarget() {
+    protected RunnableStackedEvent getTarget() {
         return m_target;
     }
 
