@@ -1,6 +1,6 @@
 package org.frc.team5409.churro;
 
-import org.frc.team5409.churro.control.ServiceInitiator;
+import org.frc.team5409.churro.system.ServiceInitiator;
 
 import org.frc.team5409.churro.services.RobotService;
 import org.frc.team5409.churro.services.VisionService;
