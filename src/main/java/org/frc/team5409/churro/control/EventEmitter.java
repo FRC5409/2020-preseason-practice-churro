@@ -3,13 +3,13 @@ package org.frc.team5409.churro.control;
 import java.util.LinkedList;
 
 public final class EventEmitter {
-    private LinkedList<RunnableHandle> m_emissions;
+    private LinkedList<EventHandle> m_emissions;
 
     public EventEmitter() {
         m_emissions = new LinkedList<>();
     }
 
-    protected void bind(RunnableHandle handle) {
+    protected void bind(EventHandle handle) {
         synchronized(m_emissions) {
             m_emissions.add(handle);
         }
