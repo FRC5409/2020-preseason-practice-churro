@@ -14,7 +14,6 @@
 			"**/.settings": true,
 			"**/.factorypath": true
 		},
-		"java.debug.logLevel": "verbose",
-		"java.home": "C:\\Users\\Public\\wpilib\\2020\\jdk"
+		"java.debug.logLevel": "verbose"
 	}
 }
