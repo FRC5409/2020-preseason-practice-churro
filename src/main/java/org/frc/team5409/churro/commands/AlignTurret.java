@@ -1,45 +1,39 @@
 package org.frc.team5409.churro.commands;
 
-import java.util.Set;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import org.frc.team5409.churro.Robot;
-import org.frc.team5409.churro.control.ServiceManager;
-import org.frc.team5409.churro.services.VisionService;
-import org.frc.team5409.churro.subsystems.FeederControl;
-import org.frc.team5409.churro.subsystems.TurretControl;
 import org.frc.team5409.churro.util.JoystickType;
 import org.frc.team5409.churro.util.Vec3;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.frc.team5409.churro.services.VisionService;
+import org.frc.team5409.churro.control.ServiceManager;
 
-public final class AlignTurret implements Command {
-    private VisionService m_service;
+import org.frc.team5409.churro.subsystems.FeederControl;
+import org.frc.team5409.churro.subsystems.TurretControl;
+
+import org.frc.team5409.churro.Robot;
+
+public final class AlignTurret extends CommandBase {
+    private VisionService m_vision;
     private TurretControl m_turret;
     private FeederControl m_feeder;
 
     private boolean       m_feeder_on;
 
     public AlignTurret() {
-        m_feeder_on = false;
-    }
+        m_vision = ServiceManager.getService("VisionService");
 
-    @Override
-    public Set<Subsystem> getRequirements() {
-        return Set.of(
-            Robot.getContainer().sys_turretControl,
-            Robot.getContainer().sys_feederControl
-        );
+        m_turret = Robot.getSubsystem("TurretControl");
+        m_feeder = Robot.getSubsystem("FeederControl");
+
+        m_feeder_on = false;
+
+        addRequirements(m_turret, m_feeder);
     }
 
     @Override
     public void initialize() {
-        m_service = ServiceManager.getService("VisionService");
-
-        m_turret = Robot.getContainer().sys_turretControl;
-        m_feeder = Robot.getContainer().sys_feederControl;
-
         SmartDashboard.setDefaultNumber("Target height", 0);
         SmartDashboard.setDefaultNumber("Robot height", 0);
         SmartDashboard.setDefaultNumber("Turret P", 0);
@@ -56,8 +50,8 @@ public final class AlignTurret implements Command {
 
     @Override
     public void execute() {
-        if (m_service.hasTarget()) {
-            Vec3 tpos = m_service.getTarget();
+        if (m_vision.hasTarget()) {
+            Vec3 tpos = m_vision.getTarget();
 
             final double a0 = (SmartDashboard.getNumber("Camera elevation", 0) / 180) * Math.PI;
 
@@ -73,6 +67,7 @@ public final class AlignTurret implements Command {
 
             SmartDashboard.putString("Target 2D", String.format("{%f, %f}", tpos.x, tpos.y));
             SmartDashboard.putString(" Robot 3D", String.format("{%f, %f, %f}", rpos.x, rpos.y, rpos.z));
+            
             m_turret.setRotation(m_turret.getRotation() + tpos.x);
         } // else
           // Robot.turretControl.m_pwm4_turret_rotation.set(0);
