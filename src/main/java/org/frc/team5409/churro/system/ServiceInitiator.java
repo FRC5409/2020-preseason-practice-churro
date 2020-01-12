@@ -1,8 +1,9 @@
-package org.frc.team5409.churro.control;
+package org.frc.team5409.churro.system;
 
+import org.frc.team5409.churro.control.AbstractService;
 
 public abstract class ServiceInitiator {
-    protected static final <T extends AbstractService> void addService(Class<T> service) {
+    protected static final void addService(Class<? extends AbstractService> service) {
         try {
             Class.forName(service.getName()); // Triggers static initializer
         } catch (Exception e) {
