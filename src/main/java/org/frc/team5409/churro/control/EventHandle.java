@@ -12,22 +12,16 @@ public final class EventHandle {
     private final   long          m_id;
     private final   RunnableEvent m_target;
 
-    private final   EventProxy    m_proxy;
     private         EventEmitter  m_emitter;
 
-    public EventHandle(RunnableEvent target, EventProxy proxy) {
-        if (target == null || proxy == null)
+    public EventHandle(RunnableEvent target) {
+        if (target == null)
             throw new InvalidHandleException("Attempted to construct handle with null parameter.");
 
         m_id = obtainId();
 
         m_target = target;
-        m_proxy = proxy;
         m_emitter = null;
-    }
-
-    public EventHandle(RunnableEvent target) {
-        this(target, new EventProxy());
     }
     
     public void bind(EventEmitter emitter) {
@@ -50,10 +44,6 @@ public final class EventHandle {
         }
     }
     
-    protected EventProxy getProxy() {
-        return m_proxy;
-    }
-
     protected RunnableEvent getTarget() {
         return m_target;
     }

@@ -25,7 +25,7 @@ public final class EventEmitter {
         final EventStack stack = new EventStack(args);
         synchronized(m_emissions) {
             for (var handle : m_emissions) {
-                handle.getProxy().push(new SendableEvent(handle, stack));
+                handle.getTarget().fire(stack);
             }
         }
     }
