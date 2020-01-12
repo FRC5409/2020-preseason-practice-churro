@@ -8,7 +8,7 @@
 package org.frc.team5409.churro;
 
 import org.frc.team5409.churro.system.SystemContainer;
-
+import org.frc.team5409.churro.subsystems.Drivetrain;
 import org.frc.team5409.churro.subsystems.FeederControl;
 import org.frc.team5409.churro.subsystems.TurretControl;
 
@@ -24,6 +24,7 @@ public class RobotContainer extends SystemContainer {
     public void initialize() {
         addSubsystem("TurretControl", new TurretControl());
         addSubsystem("FeederControl", new FeederControl());
+        addSubsystem(   "Drivetrain", new Drivetrain()   );
 
         addCommand("AlignTurret", new AlignTurret());
     }
