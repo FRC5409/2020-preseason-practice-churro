@@ -14,7 +14,7 @@ public abstract class SystemContainer {
         m_commands = new Hashtable<>();
     }
 
-    public abstract void initialize();
+    protected abstract void initialize();
 
     @SuppressWarnings("unchecked")
     public final <T extends Subsystem> T getSubsystem(String name) {
