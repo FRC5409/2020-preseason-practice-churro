@@ -5,8 +5,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 
 import org.frc.team5409.churro.control.ServiceManager;
 
-
-
 public class Robot extends TimedRobot {
     private static RobotContainer m_container;
 
