@@ -3,7 +3,6 @@ package org.frc.team5409.churro.subsystems;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.frc.team5409.churro.commands.AlignTurret;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.Encoder;
@@ -39,15 +38,13 @@ public final class TurretControl implements Subsystem {
         
         // addChild(mo_pwm7_turret_flywheel);
 
-        //en_qd45_turret_velocity = new Encoder(4, 5);
-        //    en_qd45_turret_velocity.setDistancePerPulse(1/4);
+        en_qd45_turret_velocity = new Encoder(4, 5);
+            en_qd45_turret_velocity.setDistancePerPulse(1/4);
         
         // addChild(en_qd45_turret_flywheel);
 
         pid_turret_rotation = new PIDController(0, 0, 0);
         pid_turret_velocity = new PIDController(0, 0, 0);
-        
-        //setDefaultCommand(new AlignTurret());
     }
 
     public void zeroRotation() {
