@@ -19,13 +19,20 @@ public class Robot extends TimedRobot {
 		return m_container.getSubsystem(name);
     }
     
+    public static <T extends Subsystem> T getSubsystem(String name, Class<T> type) {
+		return getSubsystem(name);
+	}
+
     public static <T extends Command> T getCommand(String name) {
 		return m_container.getCommand(name);
+    }
+    
+    public static <T extends Command> T getCommand(String name, Class<T> type) {
+		return getCommand(name);
 	}
 
     @Override
     public void robotInit() {
-        m_container = new RobotContainer();
 
         ServiceManager.getInstance().startServices();
     }
@@ -53,6 +60,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
         getCommand("AlignTurret").schedule();
+        getCommand("Drive").schedule();
     }
 
     @Override
