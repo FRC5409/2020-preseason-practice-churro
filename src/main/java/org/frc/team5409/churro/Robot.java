@@ -8,8 +8,6 @@ import org.frc.team5409.churro.control.ServiceManager;
 public class Robot extends TimedRobot {
     private static RobotContainer m_container;
 
-    public static OI              oi; //TODO: wrap OI in service
-
     public Robot() {
         m_container = new RobotContainer();
             m_container.initialize();
