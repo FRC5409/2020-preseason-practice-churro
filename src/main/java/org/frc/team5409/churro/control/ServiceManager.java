@@ -12,8 +12,8 @@ public final class ServiceManager {
     private Hashtable<String, AbstractService> m_registry_name;
     private Hashtable<  Long, AbstractService> m_registry_uid;
 
-    private        boolean                     m_finalized;
-    private        boolean                     m_running;
+    private        boolean                     m_srvcs_finalized;
+    private        boolean                     m_srvcs_running;
 
     static {
         m_instance = new ServiceManager();
@@ -27,8 +27,8 @@ public final class ServiceManager {
         m_registry_name = new Hashtable<>();
         m_registry_uid = new Hashtable<>();
 
-        m_finalized = false;
-        m_running = false;
+        m_srvcs_finalized = false;
+        m_srvcs_running = false;
     }
     
     @SuppressWarnings({ "unchecked" })
@@ -63,8 +63,8 @@ public final class ServiceManager {
     protected static <T extends AbstractService> void register(String name, long uid, Class<T> service) {
         ServiceManager inst = getInstance();
 
-        if (inst.m_finalized)
-            throw new IllegalServiceRequest("Illegal registration call after registry finalization. Did you forget to register the Service during program intialization?");
+        if (inst.m_srvcs_finalized)
+            throw new IllegalServiceRequest("Illegal registration call after registry finalization. Did you forget to register the Service in RobotServices.java during program intialization?");
         else if (service.getDeclaredConstructors().length != 1)
             throw new InvalidServiceException("Illegal use of constructor in Service definition, use init() instead.");
         else if (service.getModifiers() != (Modifier.FINAL | Modifier.PUBLIC))
@@ -90,13 +90,13 @@ public final class ServiceManager {
         
         T service_inst = ServiceFactory.create(name, uid, service);
             inst.m_registry_name.put(name, service_inst);
-            inst.m_registry_uid.put(  uid, service_inst);
+            inst.m_registry_uid.put(uid, service_inst);
     }
 
     public void initialize() {
         if (!CallStack.checkFor(org.frc.team5409.churro.Main.class))
             throw new CallSecurityException("Illegal initialization of Service Manager outside of main().");
-        else if (m_finalized)
+        else if (m_srvcs_finalized)
             return;
         
         for (var entry : m_registry_name.entrySet()) {
@@ -104,11 +104,11 @@ public final class ServiceManager {
             if (e != null)
                 new ServiceExecutionException(String.format("Service \"%s\" encountered error during initialization.", entry.getKey()), e).printStackTrace();
         }
-        m_finalized = true;
+        m_srvcs_finalized = true;
     }
 
     public void startServices() {
-        if (m_running)
+        if (m_srvcs_running)
             return;
 
         for (var entry : m_registry_name.entrySet()) {
@@ -116,11 +116,11 @@ public final class ServiceManager {
             if (e != null)
                 new ServiceExecutionException(String.format("Service \"%s\" encountered error during start.", entry.getKey()), e).printStackTrace();
         }
-        m_running = true;
+        m_srvcs_running = true;
     }
 
     public void stopServices() {
-        if (!m_running)
+        if (!m_srvcs_running)
             return;
 
         for (var entry : m_registry_name.entrySet()) {
@@ -130,7 +130,7 @@ public final class ServiceManager {
             else
                 entry.getValue().Service.alert(true);
         }
-        m_running = false;
+        m_srvcs_running = false;
     }
 
     private Exception callService(AbstractService service, Runnable service_call) {
