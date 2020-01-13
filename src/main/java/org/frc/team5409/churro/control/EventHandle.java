@@ -1,5 +1,7 @@
 package org.frc.team5409.churro.control;
 
+import edu.wpi.first.wpilibj2.command.Command;
+
 import org.frc.team5409.churro.control.exception.InvalidHandleException;
 
 public final class EventHandle {
@@ -12,6 +14,16 @@ public final class EventHandle {
 
     private static synchronized long obtainId() {
         return m_last_id++;
+    }
+
+    public EventHandle(Command command) {
+        this(command, true);
+    }
+
+    public EventHandle(Command command, boolean interruptible) {
+        this(stack -> {
+            command.schedule(interruptible);
+        });
     }
 
     public EventHandle(RunnableEvent target) {
