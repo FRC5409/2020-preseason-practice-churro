@@ -2,6 +2,8 @@ package org.frc.team5409.churro.control;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.frc.team5409.churro.control.exception.ControlException;
+
 /**
  * Service Runner utility.
  * 
@@ -33,15 +35,24 @@ public final class ServiceRunner {
 
     public void stopThread() {
         if (this.isAlive()) {
+            m_interrupt.set(true);
             m_thread.interrupt();
 
             if (Thread.currentThread().getId() != m_thread.getId()) {
                 try {
                     m_thread.join();
-                } catch (Exception e) {
-                    // Should never throw
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                 }
             }
+        }
+    }
+
+    public void sleep(long ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -61,9 +72,17 @@ public final class ServiceRunner {
 
     private Runnable wrap(Runnable target)  {
         return () -> {
-            while (!this.interrupted())
-                target.run();
-            m_interrupt.set(false);
+            try {
+                while (!this.interrupted())
+                    target.run();
+                m_interrupt.set(false);
+            } catch (Exception e) {
+                if (e instanceof InterruptedException) {
+                    m_interrupt.set(false);
+                    Thread.currentThread().interrupt();
+                } else
+                    new ControlException("Service encountered error during execution.", e).printStackTrace();
+            }
         };
     }
 }
