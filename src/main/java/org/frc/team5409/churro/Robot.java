@@ -27,8 +27,6 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         m_container = new RobotContainer();
 
-        oi = new OI();
-
         ServiceManager.getInstance().startServices();
     }
 
