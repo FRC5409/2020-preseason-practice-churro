@@ -6,6 +6,16 @@ import java.util.Hashtable;
 
 import org.frc.team5409.churro.control.exception.*;
 
+/**
+ * <h2> ServiceManager </h2>
+ * 
+ * Facilitates and manages the execution of services
+ * and provides an access point for services throughout
+ * the robot program.
+ * 
+ * <p> This class serves as a registry and container for services. </p>
+
+ */
 public final class ServiceManager {
     private static ServiceManager              m_instance;
 
@@ -19,6 +29,11 @@ public final class ServiceManager {
         m_instance = new ServiceManager();
     }
 
+    /**
+     * Retrieves the ServiceManager singleton instance.
+     * 
+     * @return ServiceManager instance.
+     */
     public static ServiceManager getInstance() {
         return m_instance;
     }
@@ -31,6 +46,26 @@ public final class ServiceManager {
         m_srvcs_running = false;
     }
     
+    /**
+     * Gets service with {@code name} from internal registry. 
+     * If no service exists with {@code name},
+     * an {@code IllegalServiceRequest} is thrown.
+     * 
+     * <pre>{@code
+     *... 
+     *    ExampleService inst;
+     *    inst = ServiceManager.getService("ExampleService");
+     *...
+     *}</pre>
+     * 
+     * @param <T>  The service type.
+     * 
+     * @param name The name of the service.
+     *
+     * @return The requested service.
+     * 
+     * @throws IllegalServiceRequest Thrown when service with {@code name} does not exist.
+     */
     @SuppressWarnings({ "unchecked" })
     public static <T extends AbstractService> T getService(String name) {
         T service_inst = (T) getInstance().m_registry_name.get(name);
@@ -41,6 +76,52 @@ public final class ServiceManager {
         return service_inst;
     }
 
+    /**
+     * Gets service with {@code name} from internal registry. 
+     * If no service exists with {@code name},
+     * an {@code IllegalServiceRequest} is thrown.
+     * 
+     * <p> Inline version of {@link ServiceManager#getService(String)}. </p>
+     * 
+     * <pre>{@code
+     *... 
+     *    ServiceManager.getService("ExampleService", ExampleService.class).someMethod();
+     *...
+     *}</pre>
+     * 
+     * @param <V>     The service type.
+     * 
+     * @param name    The name of the service.
+     * @param service The service class.
+     *
+     * @return The requested service.
+     * 
+     * @throws IllegalServiceRequest Thrown when service with {@code name} does not exist.
+     */
+    public static <V extends AbstractService> V getService(String name, Class<V> service) {
+        return getService(name);
+    }
+
+    /**
+     * Gets service with {@code uid} from internal registry. 
+     * If no service exists with {@code uid},
+     * an {@code IllegalServiceRequest} is thrown.
+     * 
+     * <pre>{@code
+     *... 
+     *    ExampleService inst;
+     *    inst = ServiceManager.getService("ExampleService");
+     *...
+     *}</pre>
+     * 
+     * @param <T> The service type.
+     * 
+     * @param uid The uid of the service.
+     *
+     * @return The requested service.
+     * 
+     * @throws IllegalServiceRequest Thrown when service with {@code uid} does not exist.
+     */
     @SuppressWarnings({ "unchecked" })
     public static <T extends AbstractService> T getService(long uid) {
         T service_inst = (T) getInstance().m_registry_uid.get(uid);
@@ -50,17 +131,64 @@ public final class ServiceManager {
 
         return service_inst;
     }
-
-    public static <V extends AbstractService> V getService(String name, Class<V> service) {
-        return getService(name);
-    }
-
+    
+    /**
+     * Gets service with {@code uid} from internal registry. 
+     * If no service exists with {@code uid},
+     * an {@code IllegalServiceRequest} is thrown.
+     * 
+     * <p> Inline version of {@link ServiceManager#getService(Long)}. </p>
+     * 
+     * <pre>{@code
+     *... 
+     *    ServiceManager.getService("ExampleService", ExampleService.class).someMethod();
+     *...
+     *}</pre>
+     * 
+     * @param <V>     The service type.
+     * 
+     * @param uid     The uid of the service.
+     * @param service The service class.
+     *
+     * @return The requested service.
+     * 
+     * @throws IllegalServiceRequest Thrown when service with {@code uid} does not exist.
+     */
     public static <V extends AbstractService> V getService(long uid, Class<V> service) {
         return getService(uid);
     }
 
-    //@CallerSensitive
+    /**
+     * Registers service into the manager's internal registry
+     * with {@code name} and {@code uid}.
+     * 
+     * <pre> {@code
+     *
+     *public final class ExampleService extends AbstractService { 
+     *    static {
+     *        ServiceRegistry.register("ExampleService", 5409L); // Proxy Method.
+     *    }
+     *}}</pre>
+     *
+     *
+     * @param <T> The service type
+     * 
+     * @param name    The service name
+     * @param uid     The service uid
+     * @param service The service class
+     * 
+     * @throws IllegalServiceRequest   Thrown when the service isn't registered in {@code RobotServices}.
+     * @throws InvalidServiceException Thrown when the service violates service implementation guidelines.
+     */
     protected static <T extends AbstractService> void register(String name, long uid, Class<T> service) {
+        try {
+            registerService(name, uid, service);
+        } catch (ControlException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static <T extends AbstractService> void registerService(String name, long uid, Class<T> service) {
         ServiceManager inst = getInstance();
 
         if (inst.m_srvcs_finalized)
@@ -76,7 +204,7 @@ public final class ServiceManager {
             AbstractService _inst = inst.m_registry_name.get(name);
 
             if (service.equals(_inst.getClass()))
-                throw new InvalidServiceException("Illegal multiple registration calls from service definition.");
+                new InvalidServiceException("Illegal multiple registration calls from service definition.");
             else
                 throw new InvalidServiceException(String.format("Service \"%s\" already exists with name %s.", _inst.getClass().getSimpleName(), name));
         } else if (inst.m_registry_uid.containsKey(uid)) {
@@ -93,6 +221,9 @@ public final class ServiceManager {
             inst.m_registry_uid.put(uid, service_inst);
     }
 
+    /**
+     * Initializes manager and all services.
+     */
     public void initialize() {
         if (!CallStack.checkFor(org.frc.team5409.churro.Main.class))
             throw new CallSecurityException("Illegal initialization of Service Manager outside of main().");
@@ -107,6 +238,9 @@ public final class ServiceManager {
         m_srvcs_finalized = true;
     }
 
+    /**
+     * Starts all services.
+     */
     public void startServices() {
         if (m_srvcs_running)
             return;
@@ -119,6 +253,9 @@ public final class ServiceManager {
         m_srvcs_running = true;
     }
 
+    /**
+     * Stops all services.
+     */
     public void stopServices() {
         if (!m_srvcs_running)
             return;
