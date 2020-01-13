@@ -84,7 +84,7 @@ public final class IButton {
     }
 
     private EventHandle newHandle(EventEmitter emitter, Command command) {
-        EventHandle handle = new EventHandle(() -> command.schedule(true));
+        EventHandle handle = new EventHandle(command);
         handle.bind(emitter);
         return handle;
     }

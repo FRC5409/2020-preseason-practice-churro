@@ -68,8 +68,8 @@ public final class ITrigger {
     }
 
     private EventHandle newHandle(EventEmitter emitter, Command command) {
-        EventHandle handle = new EventHandle(() -> command.schedule(true));
-            handle.bind(emitter);
+        EventHandle handle = new EventHandle(command);
+        handle.bind(emitter);
         return handle;
     }
 }
