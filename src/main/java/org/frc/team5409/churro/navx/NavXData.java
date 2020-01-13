@@ -1,6 +1,6 @@
 package org.frc.team5409.churro.navx;
 
-import org.frc.team5409.churro.navx.exception.RawDataException;
+import org.frc.team5409.churro.navx.exception.BadDataException;
 
 /**
  * Abstract class from which all NavX data containers must
@@ -39,9 +39,9 @@ public abstract class NavXData {
      * 
      * @throws BadRawDataException Thrown when data is invalid
      */
-    protected static void check(byte raw_data[], int expected_len) throws RawDataException {
+    protected static void check(byte raw_data[], int expected_len) throws BadDataException {
         if (raw_data.length != expected_len)
-            throw new RawDataException(String.format("Invalid Raw Data buffer length. Got \"%d\", expected \"%d\"", raw_data.length, expected_len));
+            throw new BadDataException(String.format("Invalid Raw Data buffer length. Got \"%d\", expected \"%d\"", raw_data.length, expected_len));
     }
     /**
      * Length of raw data buffer.

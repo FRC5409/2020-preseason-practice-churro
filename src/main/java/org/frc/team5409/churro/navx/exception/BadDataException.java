@@ -8,25 +8,27 @@ package org.frc.team5409.churro.navx.exception;
  * 
  * @see org.frc.team5409.churro.navx.NavXData
  */
-public final class RawDataException extends RuntimeException {
+public final class BadDataException extends RuntimeException {
+    private static final long serialVersionUID = 7286084801556540024L;
+
     /**
      * {@inheritDoc}
      */
-    public RawDataException(String message) {
+    public BadDataException(String message) {
         super(message);
     }
     
     /**
      * {@inheritDoc}
      */
-    public RawDataException(String message, Throwable cause) {
+    public BadDataException(String message, Throwable cause) {
         super(message, cause);
     }
     
     /**
      * {@inheritDoc}
      */
-    public RawDataException(Throwable cause) {
+    public BadDataException(Throwable cause) {
         super(cause);
     }
     
