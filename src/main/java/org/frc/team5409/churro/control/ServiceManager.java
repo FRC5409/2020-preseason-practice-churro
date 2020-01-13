@@ -81,7 +81,7 @@ public final class ServiceManager {
      * If no service exists with {@code name},
      * an {@code IllegalServiceRequest} is thrown.
      * 
-     * <p> Inline version of {@link ServiceManager#getService(String)}. </p>
+     * <p> Inline version of {@link #getService(String)}. </p>
      * 
      * <pre>{@code
      *... 
@@ -137,7 +137,7 @@ public final class ServiceManager {
      * If no service exists with {@code uid},
      * an {@code IllegalServiceRequest} is thrown.
      * 
-     * <p> Inline version of {@link ServiceManager#getService(Long)}. </p>
+     * <p> Inline version of {@link #getService(Long)}. </p>
      * 
      * <pre>{@code
      *... 
