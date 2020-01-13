@@ -14,15 +14,11 @@ public final class EventStack {
         return m_stack;
     }
 
+    @SuppressWarnings("unchecked")
     public <R> R get(int index) {
         if (index > m_stack.length-1)
             throw new OutOfStackException("Attempted to access object outside of EventStack.");
 
-        return getStackObject(index);
-    }
-
-    @SuppressWarnings("unchecked")
-    private <R> R getStackObject(int index) {
         try {
             return (R) m_stack[index];
         } catch (ClassCastException e) {
