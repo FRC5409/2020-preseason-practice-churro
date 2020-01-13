@@ -1,20 +1,31 @@
 package org.frc.team5409.churro.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.XboxController;
 
-import org.frc.team5409.churro.util.JoystickType;
-
-import org.frc.team5409.churro.subsystems.Drivetrain;
+import org.frc.team5409.churro.control.ServiceManager;
 import org.frc.team5409.churro.Robot;
 
-public class Drive extends CommandBase {
-    //private UserInputService m_input;
+import org.frc.team5409.churro.services.UserInputService;
+import org.frc.team5409.churro.subsystems.Drivetrain;
 
+import org.frc.team5409.churro.uinput.*;
+import org.frc.team5409.churro.uinput.IController.*;
+
+
+
+public class Drive extends CommandBase {
     private Drivetrain m_drive;
 
+    private ITrigger   m_ui_axis_fwd_vel;
+    private ITrigger   m_ui_axis_bwd_vel;
+    private IJoystick  m_ui_stck_rot;
+
     public Drive() {
-        //m_input = ServiceManager.getService("UserInputService");
+        IController controller = ServiceManager.getService("UserInputService", UserInputService.class).getController(Controller.kMainDriver);
+        
+        m_ui_axis_fwd_vel = controller.getTrigger(Hand.kRight);
+        m_ui_axis_bwd_vel = controller.getTrigger(Hand.kLeft);
+        m_ui_stck_rot = controller.getJoystick(Hand.kRight);
 
         m_drive = Robot.getSubsystem("Drivetrain");
 
@@ -28,11 +39,8 @@ public class Drive extends CommandBase {
 
     @Override
     public void execute() {
-        XboxController joystick = Robot.oi.getJoystick(JoystickType.MAIN);
-        //
-        
-        double axis_v = joystick.getRawAxis(3) - joystick.getRawAxis(2);
-        double axis_r = joystick.getRawAxis(0);
+        double axis_v = m_ui_axis_fwd_vel.getValue() - m_ui_axis_bwd_vel.getValue();
+        double axis_r = m_ui_stck_rot.getAxis().x;
 
         m_drive.arcadeDrive(axis_v, axis_r);
     }
