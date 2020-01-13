@@ -34,14 +34,19 @@ public final class ServiceRunner {
     public void stopThread() {
         if (this.isAlive()) {
             m_thread.interrupt();
-            m_interrupt.set(true);
-            join();
+
+            if (Thread.currentThread().getId() != m_thread.getId()) {
+                try {
+                    m_thread.join();
+                } catch (Exception e) {
+                    // Should never throw
+                }
+            }
         }
     }
 
     public void interrupt() {
         if (this.isAlive()) {
-            m_thread.interrupt();
             m_interrupt.set(true);
         }
     }
@@ -52,16 +57,6 @@ public final class ServiceRunner {
 
     public boolean interrupted() {
         return m_interrupt.get();
-    }
-
-    protected void join() {
-        if (this.isAlive() && Thread.currentThread().getId() != m_thread.getId()) {
-            try {
-                m_thread.join();
-            } catch (Exception e) {
-                // Should never throw
-            }
-        }
     }
 
     private Runnable wrap(Runnable target)  {
