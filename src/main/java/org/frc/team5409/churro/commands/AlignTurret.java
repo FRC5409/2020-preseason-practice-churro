@@ -3,7 +3,6 @@ package org.frc.team5409.churro.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import org.frc.team5409.churro.util.JoystickType;
 import org.frc.team5409.churro.util.Vec3;
 
 import org.frc.team5409.churro.services.VisionService;
@@ -19,15 +18,11 @@ public final class AlignTurret extends CommandBase {
     private TurretControl m_turret;
     private FeederControl m_feeder;
 
-    private boolean       m_feeder_on;
-
     public AlignTurret() {
         m_vision = ServiceManager.getService("VisionService");
 
         m_turret = Robot.getSubsystem("TurretControl");
         m_feeder = Robot.getSubsystem("FeederControl");
-
-        m_feeder_on = false;
 
         addRequirements(m_turret, m_feeder);
     }
@@ -77,28 +72,5 @@ public final class AlignTurret extends CommandBase {
         m_turret.setD(SmartDashboard.getNumber("Turret D", 0));
         // m_subsystem.setRotation(SmartDashboard.getNumber("Target rotation", 0));
         SmartDashboard.putNumber("Rotation", m_turret.getRotation());
-
-        if (Robot.oi.getJoystick(JoystickType.MAIN).getAButtonPressed()) {
-            m_feeder_on = !m_feeder_on;
-            
-            if (m_feeder_on)
-                m_feeder.runAt(0.1);
-            else
-                m_feeder.stop();
-        }
-    }
-
-    @Override
-    public boolean isFinished() {
-
-        return false;
-    }
-
-    private void setRotation(double target) {
-        final double speed = (target - m_turret.getRotation()) * SmartDashboard.getNumber("Turret P", 0);
-
-        SmartDashboard.putNumber("Turret Speed", speed);
-
-        // m_subsystem.m_pwm4_turret_rotation.set(speed);
     }
 }
