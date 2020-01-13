@@ -60,14 +60,10 @@ public final class ServiceManager {
     public void stopServices() {
         if (!m_running)
             return;
-            
-        for (var inst : m_registry) {
-            inst.ServiceRunner.interrupt();
-        }
 
         for (var inst : m_registry) {
-            inst.ServiceRunner.join();
             inst.stop();
+            inst.Service.alert(true);
         }
         m_running = false;
     }

@@ -11,11 +11,12 @@ package org.frc.team5409.churro.control;
 public final class ServiceBase {
 	private final String  m_name;
     private final long    m_uid;
-    private       boolean m_init_f;
+    private       boolean m_did_run;
     
     protected ServiceBase(String name, long uid) {
         m_name = name;
         m_uid = uid;
+        m_did_run = false;
     }
 
     public String getName() {
@@ -26,12 +27,12 @@ public final class ServiceBase {
         return Long.valueOf(m_uid);
     }
 
-    protected void setInitFlag(boolean initd) {
-        m_init_f = initd;
+    public boolean isFirstRun() {
+        return !m_did_run;
     }
 
-    protected boolean isInit() {
-        return m_init_f;
+    protected void alert(boolean did_run) {
+        m_did_run = did_run;
     }
 }
     
