@@ -1,6 +1,8 @@
 package org.frc.team5409.churro.control.exception;
 
 public final class InvalidServiceException extends ControlException {
+    private static final long serialVersionUID = 7585233785747977663L;
+
     /**
      * {@inheritDoc}
      */

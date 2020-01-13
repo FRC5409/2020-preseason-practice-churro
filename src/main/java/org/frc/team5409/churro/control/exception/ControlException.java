@@ -1,6 +1,8 @@
 package org.frc.team5409.churro.control.exception;
 
 public class ControlException extends RuntimeException {
+    private static final long serialVersionUID = -1949827286713529703L;
+
     /**
      * {@inheritDoc}
      */

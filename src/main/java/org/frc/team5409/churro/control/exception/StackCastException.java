@@ -1,6 +1,8 @@
 package org.frc.team5409.churro.control.exception;
 
 public final class StackCastException extends ControlException {
+    private static final long serialVersionUID = 5198637277982120152L;
+
     /**
      * {@inheritDoc}
      */
