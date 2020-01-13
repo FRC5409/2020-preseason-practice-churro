@@ -41,7 +41,7 @@ public final class VisionService extends AbstractService {
 
     @Override
     protected void stop() {
-        //ServiceRunner.stopThread();
+        ServiceRunner.stopThread();
         looseTarget(false);
     }
 
