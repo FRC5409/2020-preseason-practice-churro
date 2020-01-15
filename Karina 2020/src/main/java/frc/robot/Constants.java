@@ -28,4 +28,6 @@ public final class Constants {
     public static final boolean kRightEncoderReversed = false;
 
     public static final double kEncoderDistancePerPulse=0;
+
+    public static final boolean  kGyroReversed=false;
 }

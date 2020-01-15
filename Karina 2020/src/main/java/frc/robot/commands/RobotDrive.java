@@ -27,11 +27,10 @@ public class RobotDrive extends SubsystemBase {
   /**
    * Creates a new RobotDrive.
    */
-  public RobotDrive() {
 
-  }
 
   // The motors on the left side of the drive.
+  
  private WPI_TalonSRX  m_leftDriveFront_talonSRX_C20 = new WPI_TalonSRX(20);
  private WPI_TalonSRX m_leftDriveRear_talonSRX_C21 = new WPI_TalonSRX(21);
 
@@ -55,7 +54,7 @@ public class RobotDrive extends SubsystemBase {
 
   // The right-side drive encoder
   private final Encoder m_rightEncoder =
-      new Encoder(Constants.kRightEncoderPorts[0], Constants.kRightEncoderPorts[1],
+      new Encoder(Constants.kRightEncoderPorts[2], Constants.kRightEncoderPorts[3],
                  Constants.kRightEncoderReversed);
 
   // The gyro sensor
@@ -67,7 +66,7 @@ public class RobotDrive extends SubsystemBase {
   /**
    * Creates a new DriveSubsystem.
    */
-  public DriveSubsystem() {
+  public RobotDrive() {
     // Sets the distance per pulse for the encoders
     m_leftEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
     m_rightEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
