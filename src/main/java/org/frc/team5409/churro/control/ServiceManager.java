@@ -71,7 +71,7 @@ public final class ServiceManager {
         T service_inst = (T) getInstance().m_registry_name.get(name);
 
         if (service_inst == null)
-            throw new IllegalServiceRequest(String.format("Attempted to get unknown service \"%s\". Did you for get to register \"%s\"?", name, name));
+            throw new IllegalServiceRequest(String.format("Attempted to get unknown service \"%s\". Did you forget to register \"%s\"?", name, name));
 
         return service_inst;
     }
@@ -127,7 +127,7 @@ public final class ServiceManager {
         T service_inst = (T) getInstance().m_registry_uid.get(uid);
 
         if (service_inst == null)
-            throw new IllegalServiceRequest(String.format("Attempted to get unknown service with uid \"%d\". Did you for get to register the correct service?", uid));
+            throw new IllegalServiceRequest(String.format("Attempted to get unknown service with uid \"%d\". Did you forget to register the service?", uid));
 
         return service_inst;
     }

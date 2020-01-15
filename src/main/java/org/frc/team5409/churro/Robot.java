@@ -33,8 +33,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotInit() {
-
-        ServiceManager.getInstance().startServices();
     }
 
     @Override
@@ -59,6 +57,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
+        ServiceManager.getInstance().startServices();
+
         getCommand("AlignTurret").schedule();
         getCommand("Drive").schedule();
     }

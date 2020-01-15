@@ -9,11 +9,12 @@ public final class FeederControl implements Subsystem {
     private double m_feeder_speed;
 
     public FeederControl() {
-        mo_pwm0_feeder_control = new Spark(3);
+        mo_pwm0_feeder_control = new Spark(0);
 
         m_feeder_speed = 0;
     }
 
+    
     public void runAt(double speed) {
         double clamped = clamp(-1,speed,1);
 
@@ -22,7 +23,7 @@ public final class FeederControl implements Subsystem {
     }
 
     public void stop() {
-        mo_pwm0_feeder_control.stopMotor();
+        mo_pwm0_feeder_control.setSpeed(0);
     }
 
     public double getSpeed() {

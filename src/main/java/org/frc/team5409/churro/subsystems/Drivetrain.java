@@ -13,12 +13,12 @@ public class Drivetrain implements Subsystem {
     private TalonSRX mo_CO4_drive_right;
 
     public Drivetrain() {
-        mo_C01_drive_left = new TalonSRX(0);
+        mo_C01_drive_left = new TalonSRX(1);
 
-        mo_C02_drive_left = new TalonSRX(1);
+        mo_C02_drive_left = new TalonSRX(2);
             mo_C02_drive_left.follow(mo_C01_drive_left);
 
-        mo_C03_drive_right = new TalonSRX(2);
+        mo_C03_drive_right = new TalonSRX(3);
 
         mo_CO4_drive_right = new TalonSRX(4);
             mo_CO4_drive_right.follow(mo_C03_drive_right);

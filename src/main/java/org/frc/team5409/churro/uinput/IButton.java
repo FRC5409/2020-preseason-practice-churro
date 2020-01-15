@@ -63,17 +63,17 @@ public final class IButton {
     }
 
     protected void query(boolean is_pressed) {
-        boolean last_state = m_state.getAndSet(is_pressed);
+       boolean last_state = m_state.getAndSet(is_pressed);
 
         if (last_state == false && is_pressed == true) {
             m_latch_state.set(!m_latch_state.get());
 
             double now_press = Timer.getFPGATimestamp();
-            if (now_press-m_last_press < 0.5d)
+            if (now_press-m_last_press < 0.5d) 
                 m_on_double_pressed.emit();
+            else
+                m_on_pressed.emit();
             m_last_press = now_press;
-
-            m_on_pressed.emit();
         } else if (last_state == true && is_pressed == true) {
             m_while_pressed.emit();
         } else if (last_state == true && is_pressed == false) {

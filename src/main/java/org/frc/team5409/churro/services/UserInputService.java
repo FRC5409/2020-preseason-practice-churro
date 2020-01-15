@@ -9,7 +9,7 @@ public final class UserInputService extends AbstractService {
     private static final long m_update_period = 20; // 50 hz
     
     static {
-        ServiceRegistry.register("UserInputService", 85719L);
+        ServiceRegistry.register("UserInputService", 5018419L);
     }
 
     private IController m_ctrl_main;

@@ -42,7 +42,9 @@ public class Drive extends CommandBase {
         double axis_v = m_ui_axis_fwd_vel.getValue() - m_ui_axis_bwd_vel.getValue();
         double axis_r = m_ui_stck_rot.getAxis().x;
 
-        m_drive.arcadeDrive(axis_v, axis_r);
+        m_drive.tankDrive(m_ui_axis_bwd_vel.getValue(), m_ui_axis_fwd_vel.getValue());
+
+        //m_drive.arcadeDrive(axis_v, axis_r);
     }
 
     @Override
