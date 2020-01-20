@@ -1,0 +1,723 @@
+<grip:Pipeline>
+  <sources>
+    <grip:MultiImageFile>
+      <property name="path[26]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02157.jpg"/>
+      <property name="path[10]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02136.jpg"/>
+      <property name="path[16]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02147.jpg"/>
+      <property name="path[65]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02201.jpg"/>
+      <property name="path[5]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02125.jpg"/>
+      <property name="path[55]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02190.jpg"/>
+      <property name="path[45]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02180.jpg"/>
+      <property name="path[35]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02168.jpg"/>
+      <property name="path[25]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02156.jpg"/>
+      <property name="path[15]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02146.jpg"/>
+      <property name="path[64]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02200.jpg"/>
+      <property name="path[4]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02124.jpg"/>
+      <property name="path[54]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02189.jpg"/>
+      <property name="path[44]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02179.jpg"/>
+      <property name="path[34]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02167.jpg"/>
+      <property name="path[24]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02155.jpg"/>
+      <property name="path[14]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02145.jpg"/>
+      <property name="path[63]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02199.jpg"/>
+      <property name="path[3]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02123.jpg"/>
+      <property name="path[69]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02205.jpg"/>
+      <property name="path[53]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02188.jpg"/>
+      <property name="path[9]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02135.jpg"/>
+      <property name="path[59]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02195.jpg"/>
+      <property name="path[43]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02178.jpg"/>
+      <property name="path[49]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02184.jpg"/>
+      <property name="path[33]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02166.jpg"/>
+      <property name="path[39]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02174.jpg"/>
+      <property name="path[23]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02154.jpg"/>
+      <property name="path[29]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02162.jpg"/>
+      <property name="path[13]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02142.jpg"/>
+      <property name="path[62]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02198.jpg"/>
+      <property name="path[2]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02122.jpg"/>
+      <property name="path[19]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02150.jpg"/>
+      <property name="path[68]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02204.jpg"/>
+      <property name="path[52]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02187.jpg"/>
+      <property name="path[8]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02134.jpg"/>
+      <property name="path[58]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02194.jpg"/>
+      <property name="path[42]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02177.jpg"/>
+      <property name="path[48]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02183.jpg"/>
+      <property name="path[32]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02165.jpg"/>
+      <property name="path[38]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02171.jpg"/>
+      <property name="path[22]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02153.jpg"/>
+      <property name="path[28]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02161.jpg"/>
+      <property name="path[12]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02139.jpg"/>
+      <property name="path[61]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02197.jpg"/>
+      <property name="path[1]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02120.jpg"/>
+      <property name="path[18]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02149.jpg"/>
+      <property name="path[67]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02203.jpg"/>
+      <property name="path[51]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02186.jpg"/>
+      <property name="path[7]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02133.jpg"/>
+      <property name="path[57]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02193.jpg"/>
+      <property name="path[41]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02176.jpg"/>
+      <property name="path[47]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02182.jpg"/>
+      <property name="path[31]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02164.jpg"/>
+      <property name="path[37]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02170.jpg"/>
+      <property name="path[21]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02152.jpg"/>
+      <property name="path[27]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02158.jpg"/>
+      <property name="path[11]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02137.jpg"/>
+      <property name="path[60]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02196.jpg"/>
+      <property name="numImages" value="70"/>
+      <property name="path[0]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02119.jpg"/>
+      <property name="path[17]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02148.jpg"/>
+      <property name="path[66]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02202.jpg"/>
+      <property name="path[50]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02185.jpg"/>
+      <property name="path[6]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02132.jpg"/>
+      <property name="index" value="17"/>
+      <property name="path[56]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02192.jpg"/>
+      <property name="path[40]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02175.jpg"/>
+      <property name="path[46]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02181.jpg"/>
+      <property name="path[30]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02163.jpg"/>
+      <property name="path[36]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02169.jpg"/>
+      <property name="path[20]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data2\img\DSC02151.jpg"/>
+    </grip:MultiImageFile>
+    <grip:Classifier>
+      <property name="file_path" value="C:\Users\keith\Desktop\Images Tagged as Valid\train\cascade.xml"/>
+    </grip:Classifier>
+    <grip:MultiImageFile>
+      <property name="path[26]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_02975.png"/>
+      <property name="path[75]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07245.png"/>
+      <property name="path[10]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_00050.png"/>
+      <property name="path[16]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_00080.png"/>
+      <property name="path[65]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07160.png"/>
+      <property name="path[5]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_00025.png"/>
+      <property name="path[55]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_04380.png"/>
+      <property name="path[45]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_04285.png"/>
+      <property name="path[35]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_03020.png"/>
+      <property name="path[25]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_01970.png"/>
+      <property name="path[74]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07205.png"/>
+      <property name="path[15]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_00075.png"/>
+      <property name="path[64]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07155.png"/>
+      <property name="path[4]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_00020.png"/>
+      <property name="path[54]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_04375.png"/>
+      <property name="path[44]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_04275.png"/>
+      <property name="path[34]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_03015.png"/>
+      <property name="path[24]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_01950.png"/>
+      <property name="path[73]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07200.png"/>
+      <property name="path[79]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07265.png"/>
+      <property name="path[14]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_00070.png"/>
+      <property name="path[63]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07150.png"/>
+      <property name="path[3]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_00015.png"/>
+      <property name="path[69]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07180.png"/>
+      <property name="path[53]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_04370.png"/>
+      <property name="path[9]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_00045.png"/>
+      <property name="path[59]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07090.png"/>
+      <property name="path[43]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_04270.png"/>
+      <property name="path[49]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_04315.png"/>
+      <property name="path[33]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_03010.png"/>
+      <property name="path[39]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_03040.png"/>
+      <property name="path[23]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_01945.png"/>
+      <property name="path[72]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07195.png"/>
+      <property name="path[29]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_02990.png"/>
+      <property name="path[78]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07260.png"/>
+      <property name="path[13]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_00065.png"/>
+      <property name="path[62]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07145.png"/>
+      <property name="path[2]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_00010.png"/>
+      <property name="path[19]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_00095.png"/>
+      <property name="path[68]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07175.png"/>
+      <property name="path[52]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_04350.png"/>
+      <property name="path[8]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_00040.png"/>
+      <property name="path[58]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07085.png"/>
+      <property name="path[42]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_04265.png"/>
+      <property name="path[48]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_04310.png"/>
+      <property name="path[32]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_03005.png"/>
+      <property name="path[38]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_03035.png"/>
+      <property name="path[22]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_01940.png"/>
+      <property name="path[71]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07190.png"/>
+      <property name="path[28]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_02985.png"/>
+      <property name="path[77]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07255.png"/>
+      <property name="path[12]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_00060.png"/>
+      <property name="path[61]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07140.png"/>
+      <property name="path[1]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_00005.png"/>
+      <property name="path[18]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_00090.png"/>
+      <property name="path[67]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07170.png"/>
+      <property name="path[51]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_04345.png"/>
+      <property name="path[7]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_00035.png"/>
+      <property name="path[57]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07080.png"/>
+      <property name="path[41]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_04260.png"/>
+      <property name="path[47]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_04305.png"/>
+      <property name="path[31]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_03000.png"/>
+      <property name="path[37]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_03030.png"/>
+      <property name="path[21]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_00105.png"/>
+      <property name="path[70]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07185.png"/>
+      <property name="path[27]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_02980.png"/>
+      <property name="path[76]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07250.png"/>
+      <property name="path[11]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_00055.png"/>
+      <property name="path[60]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07095.png"/>
+      <property name="numImages" value="80"/>
+      <property name="path[0]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_00000.png"/>
+      <property name="path[17]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_00085.png"/>
+      <property name="path[66]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07165.png"/>
+      <property name="path[50]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_04330.png"/>
+      <property name="path[6]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_00030.png"/>
+      <property name="index" value="22"/>
+      <property name="path[56]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_07075.png"/>
+      <property name="path[40]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_03045.png"/>
+      <property name="path[46]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_04290.png"/>
+      <property name="path[30]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_02995.png"/>
+      <property name="path[36]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_03025.png"/>
+      <property name="path[20]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data3\img\frame_00100.png"/>
+    </grip:MultiImageFile>
+    <grip:MultiImageFile>
+      <property name="path[108]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01905.png"/>
+      <property name="path[399]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03550.png"/>
+      <property name="path[363]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03370.png"/>
+      <property name="path[295]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03030.png"/>
+      <property name="path[191]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02440.png"/>
+      <property name="path[359]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03350.png"/>
+      <property name="path[323]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03170.png"/>
+      <property name="path[73]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01730.png"/>
+      <property name="path[255]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02760.png"/>
+      <property name="path[187]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02420.png"/>
+      <property name="path[151]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02240.png"/>
+      <property name="path[319]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03150.png"/>
+      <property name="path[69]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01710.png"/>
+      <property name="path[33]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00545.png"/>
+      <property name="path[215]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02560.png"/>
+      <property name="path[147]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02220.png"/>
+      <property name="path[111]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01920.png"/>
+      <property name="path[29]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00265.png"/>
+      <property name="path[107]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01900.png"/>
+      <property name="path[398]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03545.png"/>
+      <property name="path[362]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03365.png"/>
+      <property name="path[294]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03025.png"/>
+      <property name="path[190]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02435.png"/>
+      <property name="path[358]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03345.png"/>
+      <property name="path[322]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03165.png"/>
+      <property name="path[72]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01725.png"/>
+      <property name="path[254]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02755.png"/>
+      <property name="path[186]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02415.png"/>
+      <property name="path[150]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02235.png"/>
+      <property name="path[318]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03145.png"/>
+      <property name="path[68]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01705.png"/>
+      <property name="path[32]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00540.png"/>
+      <property name="path[214]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02555.png"/>
+      <property name="path[146]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02215.png"/>
+      <property name="path[110]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01915.png"/>
+      <property name="path[28]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00260.png"/>
+      <property name="path[106]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01895.png"/>
+      <property name="path[397]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03540.png"/>
+      <property name="path[361]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03360.png"/>
+      <property name="path[293]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03020.png"/>
+      <property name="path[357]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03340.png"/>
+      <property name="path[321]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03160.png"/>
+      <property name="path[289]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03000.png"/>
+      <property name="path[71]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01720.png"/>
+      <property name="path[9]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00045.png"/>
+      <property name="path[253]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02750.png"/>
+      <property name="path[185]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02410.png"/>
+      <property name="path[317]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03140.png"/>
+      <property name="path[67]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01700.png"/>
+      <property name="path[249]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02730.png"/>
+      <property name="path[31]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00535.png"/>
+      <property name="path[213]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02550.png"/>
+      <property name="path[145]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02210.png"/>
+      <property name="path[27]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00255.png"/>
+      <property name="path[209]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02530.png"/>
+      <property name="path[105]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01890.png"/>
+      <property name="path[396]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03535.png"/>
+      <property name="path[360]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03355.png"/>
+      <property name="path[292]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03015.png"/>
+      <property name="path[356]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03335.png"/>
+      <property name="path[320]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03155.png"/>
+      <property name="path[288]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02995.png"/>
+      <property name="path[70]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01715.png"/>
+      <property name="path[8]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00040.png"/>
+      <property name="path[252]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02745.png"/>
+      <property name="path[184]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02405.png"/>
+      <property name="path[316]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03135.png"/>
+      <property name="path[66]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01695.png"/>
+      <property name="path[248]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02725.png"/>
+      <property name="path[30]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00530.png"/>
+      <property name="path[212]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02545.png"/>
+      <property name="path[144]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02205.png"/>
+      <property name="path[26]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00250.png"/>
+      <property name="path[208]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02525.png"/>
+      <property name="path[104]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01885.png"/>
+      <property name="path[395]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03530.png"/>
+      <property name="path[291]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03010.png"/>
+      <property name="numImages" value="417"/>
+      <property name="path[355]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03330.png"/>
+      <property name="path[287]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02990.png"/>
+      <property name="path[7]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00035.png"/>
+      <property name="path[251]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02740.png"/>
+      <property name="path[183]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02400.png"/>
+      <property name="path[315]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03130.png"/>
+      <property name="path[65]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01690.png"/>
+      <property name="path[247]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02720.png"/>
+      <property name="path[179]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02380.png"/>
+      <property name="path[211]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02540.png"/>
+      <property name="path[143]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02200.png"/>
+      <property name="path[25]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00245.png"/>
+      <property name="path[207]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02520.png"/>
+      <property name="path[139]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02180.png"/>
+      <property name="path[103]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01880.png"/>
+      <property name="path[394]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03525.png"/>
+      <property name="path[290]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03005.png"/>
+      <property name="path[354]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03325.png"/>
+      <property name="path[286]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02985.png"/>
+      <property name="path[6]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00030.png"/>
+      <property name="path[250]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02735.png"/>
+      <property name="path[182]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02395.png"/>
+      <property name="path[314]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03125.png"/>
+      <property name="path[64]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01685.png"/>
+      <property name="path[246]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02715.png"/>
+      <property name="path[210]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02535.png"/>
+      <property name="path[178]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02375.png"/>
+      <property name="path[142]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02195.png"/>
+      <property name="path[24]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00240.png"/>
+      <property name="path[206]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02515.png"/>
+      <property name="path[138]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02060.png"/>
+      <property name="path[102]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01875.png"/>
+      <property name="path[393]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03520.png"/>
+      <property name="path[389]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03500.png"/>
+      <property name="path[353]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03320.png"/>
+      <property name="path[285]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02980.png"/>
+      <property name="path[5]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00025.png"/>
+      <property name="path[181]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02390.png"/>
+      <property name="path[349]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03300.png"/>
+      <property name="path[99]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01860.png"/>
+      <property name="path[313]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03120.png"/>
+      <property name="path[63]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01680.png"/>
+      <property name="path[245]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02710.png"/>
+      <property name="path[177]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02370.png"/>
+      <property name="path[141]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02190.png"/>
+      <property name="path[309]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03100.png"/>
+      <property name="path[59]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01660.png"/>
+      <property name="path[23]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00235.png"/>
+      <property name="path[205]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02510.png"/>
+      <property name="path[137]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02055.png"/>
+      <property name="path[101]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01870.png"/>
+      <property name="path[392]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03515.png"/>
+      <property name="path[19]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00215.png"/>
+      <property name="path[388]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03495.png"/>
+      <property name="path[352]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03315.png"/>
+      <property name="path[4]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00020.png"/>
+      <property name="path[284]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02975.png"/>
+      <property name="path[180]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02385.png"/>
+      <property name="path[416]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03640.png"/>
+      <property name="path[348]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03295.png"/>
+      <property name="path[98]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01855.png"/>
+      <property name="path[312]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03115.png"/>
+      <property name="path[62]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01675.png"/>
+      <property name="path[244]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02705.png"/>
+      <property name="path[176]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02365.png"/>
+      <property name="path[140]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02185.png"/>
+      <property name="path[308]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03095.png"/>
+      <property name="path[58]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01655.png"/>
+      <property name="path[22]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00230.png"/>
+      <property name="path[204]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02505.png"/>
+      <property name="path[136]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02050.png"/>
+      <property name="path[100]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01865.png"/>
+      <property name="path[391]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03510.png"/>
+      <property name="path[18]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00210.png"/>
+      <property name="path[387]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03490.png"/>
+      <property name="path[351]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03310.png"/>
+      <property name="path[3]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00015.png"/>
+      <property name="path[283]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02970.png"/>
+      <property name="path[415]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03635.png"/>
+      <property name="path[347]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03290.png"/>
+      <property name="path[97]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01850.png"/>
+      <property name="path[311]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03110.png"/>
+      <property name="path[279]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02950.png"/>
+      <property name="path[61]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01670.png"/>
+      <property name="path[243]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02700.png"/>
+      <property name="path[175]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02360.png"/>
+      <property name="path[307]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03090.png"/>
+      <property name="path[57]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01650.png"/>
+      <property name="path[239]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02680.png"/>
+      <property name="path[21]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00225.png"/>
+      <property name="path[203]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02500.png"/>
+      <property name="path[135]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02045.png"/>
+      <property name="path[390]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03505.png"/>
+      <property name="path[17]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00205.png"/>
+      <property name="path[386]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03485.png"/>
+      <property name="path[350]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03305.png"/>
+      <property name="path[2]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00010.png"/>
+      <property name="path[282]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02965.png"/>
+      <property name="path[414]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03625.png"/>
+      <property name="path[346]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03285.png"/>
+      <property name="path[96]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01845.png"/>
+      <property name="path[310]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03105.png"/>
+      <property name="path[278]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02945.png"/>
+      <property name="path[60]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01665.png"/>
+      <property name="path[242]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02695.png"/>
+      <property name="path[174]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02355.png"/>
+      <property name="path[306]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03085.png"/>
+      <property name="path[56]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01645.png"/>
+      <property name="path[238]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02675.png"/>
+      <property name="path[20]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00220.png"/>
+      <property name="path[202]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02495.png"/>
+      <property name="path[134]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02040.png"/>
+      <property name="path[16]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00200.png"/>
+      <property name="path[385]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03480.png"/>
+      <property name="path[1]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00005.png"/>
+      <property name="path[281]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02960.png"/>
+      <property name="path[413]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03620.png"/>
+      <property name="path[345]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03280.png"/>
+      <property name="path[95]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01840.png"/>
+      <property name="path[277]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02940.png"/>
+      <property name="path[241]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02690.png"/>
+      <property name="path[173]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02350.png"/>
+      <property name="path[409]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03600.png"/>
+      <property name="path[305]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03080.png"/>
+      <property name="path[55]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01640.png"/>
+      <property name="path[237]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02670.png"/>
+      <property name="path[169]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02330.png"/>
+      <property name="path[201]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02490.png"/>
+      <property name="path[133]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02035.png"/>
+      <property name="path[15]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00195.png"/>
+      <property name="path[129]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02015.png"/>
+      <property name="path[384]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03475.png"/>
+      <property name="path[0]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00000.png"/>
+      <property name="path[280]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02955.png"/>
+      <property name="path[412]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03615.png"/>
+      <property name="path[344]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03275.png"/>
+      <property name="path[94]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01835.png"/>
+      <property name="path[276]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02935.png"/>
+      <property name="path[240]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02685.png"/>
+      <property name="path[172]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02345.png"/>
+      <property name="path[408]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03595.png"/>
+      <property name="path[304]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03075.png"/>
+      <property name="path[54]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01635.png"/>
+      <property name="path[236]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02665.png"/>
+      <property name="path[168]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02325.png"/>
+      <property name="path[200]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02485.png"/>
+      <property name="path[132]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02030.png"/>
+      <property name="path[14]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00070.png"/>
+      <property name="path[128]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02010.png"/>
+      <property name="path[383]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03470.png"/>
+      <property name="path[411]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03610.png"/>
+      <property name="path[379]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03450.png"/>
+      <property name="path[343]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03270.png"/>
+      <property name="path[93]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01830.png"/>
+      <property name="path[275]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02930.png"/>
+      <property name="path[171]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02340.png"/>
+      <property name="path[407]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03590.png"/>
+      <property name="path[339]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03250.png"/>
+      <property name="path[89]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01810.png"/>
+      <property name="path[303]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03070.png"/>
+      <property name="path[53]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01630.png"/>
+      <property name="path[235]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02660.png"/>
+      <property name="path[167]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02320.png"/>
+      <property name="path[131]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02025.png"/>
+      <property name="path[49]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01610.png"/>
+      <property name="path[13]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00065.png"/>
+      <property name="path[127]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02005.png"/>
+      <property name="path[382]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03465.png"/>
+      <property name="path[410]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03605.png"/>
+      <property name="path[378]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03445.png"/>
+      <property name="path[342]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03265.png"/>
+      <property name="path[92]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01825.png"/>
+      <property name="path[274]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02925.png"/>
+      <property name="path[170]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02335.png"/>
+      <property name="path[406]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03585.png"/>
+      <property name="path[338]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03245.png"/>
+      <property name="path[88]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01805.png"/>
+      <property name="path[302]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03065.png"/>
+      <property name="path[52]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01625.png"/>
+      <property name="path[234]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02655.png"/>
+      <property name="path[166]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02315.png"/>
+      <property name="path[130]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02020.png"/>
+      <property name="path[48]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01605.png"/>
+      <property name="path[12]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00060.png"/>
+      <property name="path[126]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01995.png"/>
+      <property name="path[381]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03460.png"/>
+      <property name="path[377]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03440.png"/>
+      <property name="path[341]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03260.png"/>
+      <property name="path[91]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01820.png"/>
+      <property name="path[273]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02920.png"/>
+      <property name="path[405]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03580.png"/>
+      <property name="path[337]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03240.png"/>
+      <property name="path[87]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01800.png"/>
+      <property name="path[301]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03060.png"/>
+      <property name="path[269]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02900.png"/>
+      <property name="path[51]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01620.png"/>
+      <property name="path[233]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02650.png"/>
+      <property name="path[165]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02310.png"/>
+      <property name="path[47]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01600.png"/>
+      <property name="path[229]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02630.png"/>
+      <property name="path[11]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00055.png"/>
+      <property name="path[125]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01990.png"/>
+      <property name="path[380]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03455.png"/>
+      <property name="path[376]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03435.png"/>
+      <property name="path[340]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03255.png"/>
+      <property name="path[90]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01815.png"/>
+      <property name="path[272]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02915.png"/>
+      <property name="path[404]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03575.png"/>
+      <property name="path[336]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03235.png"/>
+      <property name="path[86]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01795.png"/>
+      <property name="path[300]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03055.png"/>
+      <property name="path[268]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02825.png"/>
+      <property name="path[50]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01615.png"/>
+      <property name="path[232]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02645.png"/>
+      <property name="path[164]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02305.png"/>
+      <property name="path[46]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01595.png"/>
+      <property name="path[228]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02625.png"/>
+      <property name="path[10]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00050.png"/>
+      <property name="path[124]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01985.png"/>
+      <property name="path[375]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03430.png"/>
+      <property name="path[271]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02910.png"/>
+      <property name="path[403]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03570.png"/>
+      <property name="path[335]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03230.png"/>
+      <property name="path[85]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01790.png"/>
+      <property name="path[267]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02820.png"/>
+      <property name="path[199]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02480.png"/>
+      <property name="path[231]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02640.png"/>
+      <property name="path[163]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02300.png"/>
+      <property name="path[45]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01590.png"/>
+      <property name="path[227]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02620.png"/>
+      <property name="path[159]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02280.png"/>
+      <property name="path[123]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01980.png"/>
+      <property name="index" value="2"/>
+      <property name="path[119]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01960.png"/>
+      <property name="path[374]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03425.png"/>
+      <property name="path[270]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02905.png"/>
+      <property name="path[402]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03565.png"/>
+      <property name="path[334]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03225.png"/>
+      <property name="path[84]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01785.png"/>
+      <property name="path[266]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02815.png"/>
+      <property name="path[230]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02635.png"/>
+      <property name="path[198]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02475.png"/>
+      <property name="path[162]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02295.png"/>
+      <property name="path[44]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01585.png"/>
+      <property name="path[226]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02615.png"/>
+      <property name="path[158]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02275.png"/>
+      <property name="path[122]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01975.png"/>
+      <property name="path[118]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01955.png"/>
+      <property name="path[373]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03420.png"/>
+      <property name="path[401]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03560.png"/>
+      <property name="path[369]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03400.png"/>
+      <property name="path[333]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03220.png"/>
+      <property name="path[83]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01780.png"/>
+      <property name="path[265]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02810.png"/>
+      <property name="path[197]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02470.png"/>
+      <property name="path[161]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02290.png"/>
+      <property name="path[329]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03200.png"/>
+      <property name="path[79]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01760.png"/>
+      <property name="path[43]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01580.png"/>
+      <property name="path[225]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02610.png"/>
+      <property name="path[157]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02270.png"/>
+      <property name="path[121]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01970.png"/>
+      <property name="path[39]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01250.png"/>
+      <property name="path[117]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01950.png"/>
+      <property name="path[372]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03415.png"/>
+      <property name="path[400]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03555.png"/>
+      <property name="path[368]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03395.png"/>
+      <property name="path[332]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03215.png"/>
+      <property name="path[82]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01775.png"/>
+      <property name="path[264]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02805.png"/>
+      <property name="path[196]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02465.png"/>
+      <property name="path[160]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02285.png"/>
+      <property name="path[328]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03195.png"/>
+      <property name="path[78]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01755.png"/>
+      <property name="path[42]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01575.png"/>
+      <property name="path[224]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02605.png"/>
+      <property name="path[156]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02265.png"/>
+      <property name="path[120]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01965.png"/>
+      <property name="path[38]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00585.png"/>
+      <property name="path[116]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01945.png"/>
+      <property name="path[371]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03410.png"/>
+      <property name="path[367]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03390.png"/>
+      <property name="path[331]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03210.png"/>
+      <property name="path[299]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03050.png"/>
+      <property name="path[81]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01770.png"/>
+      <property name="path[263]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02800.png"/>
+      <property name="path[195]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02460.png"/>
+      <property name="path[327]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03190.png"/>
+      <property name="path[77]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01750.png"/>
+      <property name="path[259]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02780.png"/>
+      <property name="path[41]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01570.png"/>
+      <property name="path[223]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02600.png"/>
+      <property name="path[155]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02260.png"/>
+      <property name="path[37]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00580.png"/>
+      <property name="path[219]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02580.png"/>
+      <property name="path[115]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01940.png"/>
+      <property name="path[370]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03405.png"/>
+      <property name="path[366]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03385.png"/>
+      <property name="path[330]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03205.png"/>
+      <property name="path[298]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03045.png"/>
+      <property name="path[80]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01765.png"/>
+      <property name="path[262]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02795.png"/>
+      <property name="path[194]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02455.png"/>
+      <property name="path[326]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03185.png"/>
+      <property name="path[76]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01745.png"/>
+      <property name="path[258]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02775.png"/>
+      <property name="path[40]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01560.png"/>
+      <property name="path[222]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02595.png"/>
+      <property name="path[154]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02255.png"/>
+      <property name="path[36]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00575.png"/>
+      <property name="path[218]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02575.png"/>
+      <property name="path[114]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01935.png"/>
+      <property name="path[365]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03380.png"/>
+      <property name="path[297]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03040.png"/>
+      <property name="path[261]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02790.png"/>
+      <property name="path[193]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02450.png"/>
+      <property name="path[325]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03180.png"/>
+      <property name="path[75]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01740.png"/>
+      <property name="path[257]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02770.png"/>
+      <property name="path[189]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02430.png"/>
+      <property name="path[221]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02590.png"/>
+      <property name="path[153]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02250.png"/>
+      <property name="path[35]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00570.png"/>
+      <property name="path[217]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02570.png"/>
+      <property name="path[149]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02230.png"/>
+      <property name="path[113]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01930.png"/>
+      <property name="path[109]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01910.png"/>
+      <property name="path[364]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03375.png"/>
+      <property name="path[296]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03035.png"/>
+      <property name="path[260]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02785.png"/>
+      <property name="path[192]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02445.png"/>
+      <property name="path[324]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_03175.png"/>
+      <property name="path[74]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01735.png"/>
+      <property name="path[256]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02765.png"/>
+      <property name="path[188]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02425.png"/>
+      <property name="path[220]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02585.png"/>
+      <property name="path[152]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02245.png"/>
+      <property name="path[34]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_00550.png"/>
+      <property name="path[216]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02565.png"/>
+      <property name="path[148]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_02225.png"/>
+      <property name="path[112]" value="C:\Users\keith\Desktop\Images Tagged as Valid\data4\img\frame_01925.png"/>
+    </grip:MultiImageFile>
+  </sources>
+  <steps>
+    <grip:Step name="Resize Image">
+      <grip:Input step="0" socket="0"/>
+      <grip:Input step="0" socket="1">
+        <value>160.0</value>
+      </grip:Input>
+      <grip:Input step="0" socket="2">
+        <value>120.0</value>
+      </grip:Input>
+      <grip:Input step="0" socket="3">
+        <value>AREA</value>
+      </grip:Input>
+      <grip:Output step="0" socket="0" previewed="false"/>
+    </grip:Step>
+    <grip:Step name="Resize Image">
+      <grip:Input step="1" socket="0"/>
+      <grip:Input step="1" socket="1">
+        <value>640</value>
+      </grip:Input>
+      <grip:Input step="1" socket="2">
+        <value>480</value>
+      </grip:Input>
+      <grip:Input step="1" socket="3">
+        <value>CUBIC</value>
+      </grip:Input>
+      <grip:Output step="1" socket="0" previewed="false"/>
+    </grip:Step>
+    <grip:Step name="HSL Threshold">
+      <grip:Input step="2" socket="0"/>
+      <grip:Input step="2" socket="1">
+        <value>
+          <double>0.0</double>
+          <double>67.88395904436861</double>
+        </value>
+      </grip:Input>
+      <grip:Input step="2" socket="2">
+        <value>
+          <double>13.758992805755396</double>
+          <double>255.0</double>
+        </value>
+      </grip:Input>
+      <grip:Input step="2" socket="3">
+        <value>
+          <double>0.0</double>
+          <double>255.0</double>
+        </value>
+      </grip:Input>
+      <grip:Output step="2" socket="0" previewed="false"/>
+    </grip:Step>
+    <grip:Step name="Mask">
+      <grip:Input step="3" socket="0"/>
+      <grip:Input step="3" socket="1"/>
+      <grip:Output step="3" socket="0" previewed="false"/>
+    </grip:Step>
+    <grip:Step name="Cascade Classifier">
+      <grip:Input step="4" socket="0"/>
+      <grip:Input step="4" socket="1"/>
+      <grip:Input step="4" socket="2">
+        <value>2.01</value>
+      </grip:Input>
+      <grip:Input step="4" socket="3">
+        <value>3.0</value>
+      </grip:Input>
+      <grip:Input step="4" socket="4"/>
+      <grip:Input step="4" socket="5"/>
+      <grip:Output step="4" socket="0" previewed="true"/>
+    </grip:Step>
+    <grip:Step name="NTPublish RectsReport">
+      <grip:Input step="5" socket="0"/>
+      <grip:Input step="5" socket="1">
+        <value>myRectsReport</value>
+      </grip:Input>
+      <grip:Input step="5" socket="2">
+        <value>true</value>
+      </grip:Input>
+      <grip:Input step="5" socket="3">
+        <value>true</value>
+      </grip:Input>
+      <grip:Input step="5" socket="4">
+        <value>true</value>
+      </grip:Input>
+      <grip:Input step="5" socket="5">
+        <value>true</value>
+      </grip:Input>
+    </grip:Step>
+  </steps>
+  <connections>
+    <grip:Connection>
+      <grip:Output source="3" socket="0" previewed="true"/>
+      <grip:Input step="0" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="0" socket="0" previewed="false"/>
+      <grip:Input step="1" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output source="1" socket="0" previewed="false"/>
+      <grip:Input step="4" socket="1"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="4" socket="0" previewed="true"/>
+      <grip:Input step="5" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="1" socket="0" previewed="false"/>
+      <grip:Input step="3" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="1" socket="0" previewed="false"/>
+      <grip:Input step="2" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="2" socket="0" previewed="false"/>
+      <grip:Input step="3" socket="1"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="3" socket="0" previewed="false"/>
+      <grip:Input step="4" socket="0"/>
+    </grip:Connection>
+  </connections>
+  <settings>
+    <teamNumber>0</teamNumber>
+    <publishAddress>roboRIO-0-FRC.local</publishAddress>
+    <deployAddress>roboRIO-0-FRC.local</deployAddress>
+    <deployDir>/home/lvuser</deployDir>
+    <deployUser>lvuser</deployUser>
+    <deployJavaHome>/usr/local/frc/JRE/</deployJavaHome>
+    <deployJvmOptions>-Xmx50m -XX:-OmitStackTraceInFastThrow -XX:+HeapDumpOnOutOfMemoryError -XX:MaxNewSize=16m</deployJvmOptions>
+  </settings>
+  <codeGenerationSettings>
+    <language>Java</language>
+    <className>GripPipeline</className>
+    <implementWpilibPipeline>false</implementWpilibPipeline>
+    <saveDir>C:\Users\keith\GRIP</saveDir>
+    <packageName></packageName>
+    <moduleName>grip</moduleName>
+  </codeGenerationSettings>
+</grip:Pipeline>
