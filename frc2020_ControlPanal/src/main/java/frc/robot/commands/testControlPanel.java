@@ -8,7 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
+
 import frc.robot.subsystems.ControlPanel;
 
 public class testControlPanel extends CommandBase {
@@ -18,9 +18,6 @@ public class testControlPanel extends CommandBase {
    * Creates a new testControlPanel.
    */
   public testControlPanel() {
-    //controlPanelSubsystem = Robot.panel;
-
-    addRequirements(controlPanelSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -33,7 +30,7 @@ public class testControlPanel extends CommandBase {
   @Override
   public void execute() {
     controlPanelSubsystem.colorCalibration();
-    //controlPanelSubsystem.colorVerification();
+    controlPanelSubsystem.colorVerification();
 
   }
 
