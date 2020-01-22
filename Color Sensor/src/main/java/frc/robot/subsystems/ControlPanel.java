@@ -33,45 +33,36 @@ public class ControlPanel extends SubsystemBase {
   
   final ColorMatch m_colorMatcher = new ColorMatch();
 
-  final Color detectedColor = m_colorSensor.getColor(); 
-    
-  ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
-
-  final double IR = m_colorSensor.getIR();
- 
-  final int proximity = m_colorSensor.getProximity();
-
   final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
   final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
   final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
   final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
    
   
-  String colorString;
+  String colorString = "";
 
-  public ControlPanel() {
-   
-
-  }
-
-  public void colorCalibration() {
-
-    SmartDashboard.putNumber("Red", detectedColor.red);
-    SmartDashboard.putNumber("Green", detectedColor.green);
-    SmartDashboard.putNumber("Blue", detectedColor.blue);
-    SmartDashboard.putNumber("Confidence", match.confidence);
-    SmartDashboard.putString("Detected Color", colorString);
-    SmartDashboard.putNumber("Proximity", proximity);
-    SmartDashboard.putNumber("IR", IR);
-
-  }
-
-  public void colorVerification(){
-
+  public void setColorSensor(){
     m_colorMatcher.addColorMatch(kBlueTarget);
     m_colorMatcher.addColorMatch(kGreenTarget);
     m_colorMatcher.addColorMatch(kRedTarget);
     m_colorMatcher.addColorMatch(kYellowTarget);
+  }
+
+  public ControlPanel() {
+   
+    setColorSensor();
+
+  }
+
+  public void colorCalibration() {
+    
+    final Color detectedColor = m_colorSensor.getColor(); 
+    
+    ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
+
+    final double IR = m_colorSensor.getIR();
+ 
+    final int proximity = m_colorSensor.getProximity();
 
     if (match.color == kBlueTarget) {
       colorString = "Blue";
@@ -88,6 +79,15 @@ public class ControlPanel extends SubsystemBase {
     } else {
       colorString = "Unknown";
     }
+
+    SmartDashboard.putNumber("Red", detectedColor.red);
+    SmartDashboard.putNumber("Green", detectedColor.green);
+    SmartDashboard.putNumber("Blue", detectedColor.blue);
+    SmartDashboard.putNumber("Confidence", match.confidence);
+    SmartDashboard.putString("Detected Color", colorString);
+    SmartDashboard.putNumber("Proximity", proximity);
+    SmartDashboard.putNumber("IR", IR);
+
   }
   
 
@@ -95,7 +95,6 @@ public class ControlPanel extends SubsystemBase {
   public void periodic() {
   
     colorCalibration();
-    colorVerification();
 
   }
 }
