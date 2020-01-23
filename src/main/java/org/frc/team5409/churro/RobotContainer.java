@@ -15,6 +15,7 @@ import org.frc.team5409.churro.uinput.IController;
 import org.frc.team5409.churro.uinput.IController.*;
 
 import org.frc.team5409.churro.subsystems.FeederControl;
+import org.frc.team5409.churro.subsystems.Limelight;
 import org.frc.team5409.churro.subsystems.TurretControl;
 import org.frc.team5409.churro.subsystems.Drivetrain;
 
@@ -33,6 +34,7 @@ public class RobotContainer extends SystemContainer {
         IController controller = ServiceManager.getService("UserInputService", UserInputService.class).getController(Controller.kMainDriver);
 
         addSubsystem("TurretControl", new TurretControl());
+        addSubsystem(    "Limelight", new Limelight());
         addSubsystem("FeederControl", new FeederControl());
         addSubsystem(   "Drivetrain", new Drivetrain()   );
 

@@ -27,7 +27,7 @@ public final class VisionService extends AbstractService {
     @Override
     protected void initialize() {
         m_backend         = new VisionBackend();
-        m_track_data      = new AtomicReference<>();
+        m_track_data      = new AtomicReference<>(new Vec3(0,0,0));
         m_target_data     = new AtomicReference<>(TargetType.NONE);
 
         m_onTargetAquired = new EventEmitter();
@@ -73,8 +73,11 @@ public final class VisionService extends AbstractService {
     private boolean aquireTarget(boolean do_emit) {
         m_err_profile.reset();
         while (m_backend.isTargeted()) {
+            m_err_profile.profile();
             if (m_err_profile.isAcceptable()) {
+                System.out.println("TARGET AQUIRED");
                 TargetType type = m_backend.getTargetType();
+                updateTarget();
                 m_target_data.set(type);
                 if (do_emit)
                     emit(m_onTargetAquired, type, updateTarget());

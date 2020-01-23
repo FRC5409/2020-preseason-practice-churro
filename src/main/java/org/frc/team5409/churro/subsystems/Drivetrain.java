@@ -1,27 +1,31 @@
 package org.frc.team5409.churro.subsystems;
 
-import edu.wpi.first.wpilibj2.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-public class Drivetrain implements Subsystem {
+public class Drivetrain extends SubsystemBase {
     private TalonSRX mo_C01_drive_left;
     private TalonSRX mo_C02_drive_left;
     private TalonSRX mo_C03_drive_right;
-    private TalonSRX mo_CO4_drive_right;
+    private TalonSRX mo_C04_drive_right;
+    //DifferentialDrive
 
     public Drivetrain() {
         mo_C01_drive_left = new TalonSRX(1);
 
-        mo_C02_drive_left = new TalonSRX(2);
+        mo_C02_drive_left = new TalonSRX(3);
             mo_C02_drive_left.follow(mo_C01_drive_left);
 
-        mo_C03_drive_right = new TalonSRX(3);
+        mo_C03_drive_right = new TalonSRX(2);
+            mo_C03_drive_right.setInverted(true);
 
-        mo_CO4_drive_right = new TalonSRX(4);
-            mo_CO4_drive_right.follow(mo_C03_drive_right);
+        mo_C04_drive_right = new TalonSRX(4);
+            mo_C04_drive_right.follow(mo_C03_drive_right);
+            mo_C04_drive_right.setInverted(true);
     }
 
     public void tankDrive(double left_output, double right_output) {
@@ -65,7 +69,7 @@ public class Drivetrain implements Subsystem {
 
     private synchronized void setVelocity(double left_output, double right_output) {
         mo_C01_drive_left.set(ControlMode.PercentOutput, left_output);
-        mo_C03_drive_right.set(ControlMode.PercentOutput, -right_output);
+        mo_C03_drive_right.set(ControlMode.PercentOutput, right_output);
     }
 
     private double limit(double value) {

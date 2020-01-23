@@ -1,6 +1,6 @@
 package org.frc.team5409.churro.subsystems;
 
-import edu.wpi.first.wpilibj2.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.*;
 
@@ -14,7 +14,7 @@ import org.frc.team5409.churro.util.Vec2;
  * of limelight hardware through a software
  * interface.
  */
-public class Limelight implements Subsystem {
+public class Limelight extends SubsystemBase {
     private NetworkTable         m_limelight_data;
 
     private NetworkTableEntry    m_data_entry_tx;

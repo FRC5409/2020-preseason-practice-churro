@@ -1,0 +1,87 @@
+<xml version="1.0">
+<dashboard>
+	<widget field="Turret dist" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="373"/>
+	</widget>
+	<widget field="Turret Velocity Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="352"/>
+	</widget>
+	<widget field="Rotation" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="251" y="14"/>
+	</widget>
+	<widget field="Max Vvvelocity" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="331"/>
+	</widget>
+	<widget field="Velocity D" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="310"/>
+	</widget>
+	<widget field="Velocity I" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="3" y="281"/>
+		<height>20</height>
+	</widget>
+	<widget field="Velocity P" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1" y="254"/>
+	</widget>
+	<widget field="Velocity" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
+		<location x="252" y="211"/>
+		<width>457</width>
+		<height>160</height>
+	</widget>
+	<widget field="Target height" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="715" y="227"/>
+	</widget>
+	<widget field="Robot height" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="723" y="202"/>
+	</widget>
+	<widget field=" Robot 3D" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="710" y="147"/>
+	</widget>
+	<widget field="Target rotation" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="17" y="37"/>
+	</widget>
+	<widget field="limelight_Stream" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="719" y="70"/>
+	</widget>
+	<widget field="Target 2D" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="714" y="123"/>
+	</widget>
+	<widget field="Max Rotation Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="151"/>
+	</widget>
+	<widget field="Turret Rotation Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="177"/>
+	</widget>
+	<widget field="Turret P" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="74"/>
+	</widget>
+	<widget field="limelight_Interface" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="719" y="44"/>
+	</widget>
+	<widget field="Turret D" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="126"/>
+	</widget>
+	<widget field="Camera elevation" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="708" y="253"/>
+	</widget>
+	<widget field="Turret I" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="3" y="98"/>
+	</widget>
+	<widget field="Zero angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="751" y="338"/>
+	</widget>
+	<widget field="limelight_PipelineName" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="722" y="18"/>
+	</widget>
+	<widget field="Target Velocity" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="29" y="216"/>
+	</widget>
+	<widget field="Max Velocity" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="0"/>
+	</widget>
+</dashboard>
+<live-window>
+	<widget field="Limelight" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<location x="310" y="0"/>
+	</widget>
+</live-window>
+</xml>

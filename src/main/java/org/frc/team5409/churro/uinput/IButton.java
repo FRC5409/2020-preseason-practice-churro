@@ -34,6 +34,10 @@ public final class IButton {
         return m_state.get();
     }
 
+    public boolean isToggled() {
+        return m_latch_state.get();
+    }
+
     public EventHandle whenPressed(Command command) {
         return newHandle(m_on_pressed, command);
     }
@@ -66,10 +70,10 @@ public final class IButton {
        boolean last_state = m_state.getAndSet(is_pressed);
 
         if (last_state == false && is_pressed == true) {
-            m_latch_state.set(!m_latch_state.get());
+            boolean latch_state = !m_latch_state.getAndSet(!m_latch_state.get());
 
             double now_press = Timer.getFPGATimestamp();
-            if (now_press-m_last_press < 0.5d) 
+            if (now_press-m_last_press < 0.5d && !latch_state) 
                 m_on_double_pressed.emit();
             else
                 m_on_pressed.emit();

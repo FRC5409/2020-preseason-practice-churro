@@ -25,7 +25,7 @@ public class Drive extends CommandBase {
         
         m_ui_axis_fwd_vel = controller.getTrigger(Hand.kRight);
         m_ui_axis_bwd_vel = controller.getTrigger(Hand.kLeft);
-        m_ui_stck_rot = controller.getJoystick(Hand.kRight);
+        m_ui_stck_rot = controller.getJoystick(Hand.kLeft);
 
         m_drive = Robot.getSubsystem("Drivetrain");
 
@@ -39,16 +39,15 @@ public class Drive extends CommandBase {
 
     @Override
     public void execute() {
-        double axis_v = m_ui_axis_fwd_vel.getValue() - m_ui_axis_bwd_vel.getValue();
+        double axis_v = m_ui_axis_bwd_vel.getValue() - m_ui_axis_fwd_vel.getValue();
         double axis_r = m_ui_stck_rot.getAxis().x;
 
-        m_drive.tankDrive(m_ui_axis_bwd_vel.getValue(), m_ui_axis_fwd_vel.getValue());
-
-        //m_drive.arcadeDrive(axis_v, axis_r);
+       //  m_drive.tankDrive(-m_ui_axis_bwd_vel.getValue(), -m_ui_axis_fwd_vel.getValue());
+        m_drive.arcadeDrive(axis_r, axis_v);
     }
 
     @Override
-    public boolean isFinished() {
+    public boolean isFinished() { 
         return false;
     }
 

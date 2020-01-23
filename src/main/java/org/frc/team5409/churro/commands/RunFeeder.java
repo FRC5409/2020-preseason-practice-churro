@@ -17,7 +17,7 @@ public final class RunFeeder extends CommandBase {
 
     @Override
     public void initialize() {
-        m_feeder.runAt(0.3);
+        m_feeder.runAt(1);
     }
 
     @Override

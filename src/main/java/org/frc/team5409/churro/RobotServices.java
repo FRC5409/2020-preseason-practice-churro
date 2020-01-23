@@ -8,7 +8,7 @@ import org.frc.team5409.churro.services.VisionService;
 
 public final class RobotServices extends ServiceInitiator {
     protected static void register() {
-        addService(VisionService.class);
+        //addService(VisionService.class);
         addService(RobotService.class);
         addService(UserInputService.class);
     }

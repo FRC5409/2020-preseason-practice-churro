@@ -3,28 +3,42 @@ package org.frc.team5409.churro.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+import org.frc.team5409.churro.util.Vec2;
 import org.frc.team5409.churro.util.Vec3;
-
+import org.frc.team5409.churro.services.UserInputService;
 import org.frc.team5409.churro.services.VisionService;
 import org.frc.team5409.churro.control.ServiceManager;
-
+import org.frc.team5409.churro.limelight.LedMode;
 import org.frc.team5409.churro.subsystems.FeederControl;
+import org.frc.team5409.churro.subsystems.Limelight;
 import org.frc.team5409.churro.subsystems.TurretControl;
-
+import org.frc.team5409.churro.uinput.IButton;
+import org.frc.team5409.churro.uinput.IController.*;
 import org.frc.team5409.churro.Robot;
 
 public final class AlignTurret extends CommandBase {
     private VisionService m_vision;
+    private Limelight m_limelight;
     private TurretControl m_turret;
-    private FeederControl m_feeder;
+
+    private IButton       m_trigger;
+    private IButton       m_triggr2;
 
     public AlignTurret() {
-        m_vision = ServiceManager.getService("VisionService");
+        m_trigger = ServiceManager.getService("UserInputService", UserInputService.class)
+                                  .getController(Controller.kMainDriver)
+                                  .getButton(Button.kB);
+        
+        m_triggr2 = ServiceManager.getService("UserInputService", UserInputService.class)
+                                  .getController(Controller.kMainDriver)
+                                  .getButton(Button.kX);
+
+        //m_vision = ServiceManager.getService("VisionService");
 
         m_turret = Robot.getSubsystem("TurretControl");
-        m_feeder = Robot.getSubsystem("FeederControl");
+        m_limelight = Robot.getSubsystem("Limelight");
 
-        addRequirements(m_turret, m_feeder);
+        addRequirements(m_turret, m_limelight);
     }
 
     @Override
@@ -34,43 +48,68 @@ public final class AlignTurret extends CommandBase {
         SmartDashboard.setDefaultNumber("Turret P", 0);
         SmartDashboard.setDefaultNumber("Turret I", 0);
         SmartDashboard.setDefaultNumber("Turret D", 0);
+        SmartDashboard.setDefaultNumber("Velocity P", 0);
+        SmartDashboard.setDefaultNumber("Velocity I", 0);
+        SmartDashboard.setDefaultNumber("Velocity D", 0);
         SmartDashboard.setDefaultNumber("Camera elevation", 0);
         SmartDashboard.setDefaultNumber("Zero angle", 90);
         SmartDashboard.setDefaultNumber("Target rotation", 0);
+        SmartDashboard.setDefaultNumber("Target Velocity", 0);
         SmartDashboard.setDefaultNumber("Max Rotation Speed", 0);
+        SmartDashboard.setDefaultNumber("Max Velocity", 0);
 
         m_turret.zeroRotation();
-        m_feeder.stop();
     }
 
     @Override
     public void execute() {
-        if (m_vision.hasTarget()) {
-            Vec3 tpos = m_vision.getTarget();
-
-            final double a0 = (SmartDashboard.getNumber("Camera elevation", 0) / 180) * Math.PI;
-
-            final double tx = (tpos.x) / 180 * Math.PI;
-            final double ty = tpos.y / 180 * Math.PI;
-
-            final double hd = Math
-                    .abs(SmartDashboard.getNumber("Target height", 0) - SmartDashboard.getNumber("Robot height", 0));
-            final double dt = hd / (Math.sin(ty + a0) * 12);
-
-            Vec3 rpos = new Vec3(dt * (Math.cos(ty) * Math.cos(tx)), dt * (Math.cos(ty) * (-Math.sin(tx))),
-                    dt * Math.sin(ty));
-
-            SmartDashboard.putString("Target 2D", String.format("{%f, %f}", tpos.x, tpos.y));
-            SmartDashboard.putString(" Robot 3D", String.format("{%f, %f, %f}", rpos.x, rpos.y, rpos.z));
+        if (m_trigger.isToggled()) {
             
-            m_turret.setRotation(m_turret.getRotation() + tpos.x);
-        } // else
-          // Robot.turretControl.m_pwm4_turret_rotation.set(0);
+            m_limelight.setLedMode(LedMode.LED_ON);
+            if (m_limelight.hasTarget() && m_trigger.isToggled()) {
+                Vec2 tpos = m_limelight.getTarget();
+                
+                m_limelight.setLedMode(LedMode.LED_ON);
 
-        m_turret.setP(SmartDashboard.getNumber("Turret P", 0));
-        m_turret.setI(SmartDashboard.getNumber("Turret I", 0));
-        m_turret.setD(SmartDashboard.getNumber("Turret D", 0));
+                final double a0 = (SmartDashboard.getNumber("Camera elevation", 0) / 180) * Math.PI;
+
+                final double tx = (tpos.x) / 180 * Math.PI;
+                final double ty = tpos.y / 180 * Math.PI;
+
+                final double hd = Math.abs(SmartDashboard.getNumber("Target height", 0) - SmartDashboard.getNumber("Robot height", 0));
+                final double dt = hd / (Math.sin(ty + a0) * 12);
+
+                Vec3 rpos = new Vec3(dt * (Math.cos(ty) * Math.cos(tx)), dt * (Math.cos(ty) * (-Math.sin(tx))),
+                        dt * Math.sin(ty));
+
+                SmartDashboard.putString("Target 2D", String.format("{%f, %f}", tpos.x, tpos.y));
+                SmartDashboard.putString(" Robot 3D", String.format("{%f, %f, %f}", rpos.x, rpos.y, rpos.z));
+                
+                m_turret.setRotation(m_turret.getRotation() + tpos.x);
+            } else
+                m_turret.setRotation(0);
+        } else {
+            m_limelight.setLedMode(LedMode.LED_OFF);
+            m_turret.setRotation(0);
+        }
+
+        m_turret.setP(SmartDashboard.getNumber("Turret P", 0), true);
+        m_turret.setI(SmartDashboard.getNumber("Turret I", 0), true);
+        m_turret.setD(SmartDashboard.getNumber("Turret D", 0), true);
+        
+        m_turret.setP(SmartDashboard.getNumber("Velocity P", 0), false);
+        m_turret.setI(SmartDashboard.getNumber("Velocity I", 0), false);
+        m_turret.setD(SmartDashboard.getNumber("Velocity D", 0), false);
+
+        //m_turret.setVelocity(SmartDashboard.getNumber("Target Velocity", 0));
+
+        if (m_triggr2.isToggled()) {
+            m_turret.setVelocity(1);
+        } else
+            m_turret.setVelocity(0);
+
         // m_subsystem.setRotation(SmartDashboard.getNumber("Target rotation", 0));
         SmartDashboard.putNumber("Rotation", m_turret.getRotation());
+        SmartDashboard.putNumber("Velocity", m_turret.getVelocity());
     }
 }
