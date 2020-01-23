@@ -63,11 +63,30 @@ public class Limelight extends SubsystemBase implements GlobalProvider<Limelight
 
         m_track_data             = new Vec3(0,0,0);
         m_target_data            = TargetType.NONE;
+
+        m_ev_target_aquired      = new EventEmitter();
+        m_ev_target_lost         = new EventEmitter();
     }
 
     @Override
     public Limelight.Global getGlobal() {
         return m_global;
+    }
+
+    @Override
+    public void periodic() {
+        if (internal_hasTarget()) {
+            if (!hasTarget())
+                internal_emitEvent(m_ev_target_aquired, TargetType.OUTER_PORT);
+            m_target_data = TargetType.OUTER_PORT;
+        } else {
+            if (hasTarget())
+                internal_emitEvent(m_ev_target_lost);
+            m_target_data = TargetType.NONE;
+        }
+
+        if (hasTarget())
+            internal_updateTarget();
     }
 
     /**

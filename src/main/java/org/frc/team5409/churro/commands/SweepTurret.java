@@ -5,28 +5,18 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import org.frc.team5409.churro.Robot;
 
-import org.frc.team5409.churro.uinput.IController.*;
-import org.frc.team5409.churro.uinput.IButton;
-
-import org.frc.team5409.churro.services.UserInputService;
-import org.frc.team5409.churro.control.ServiceManager;
-
 import org.frc.team5409.churro.subsystems.TurretControl;
 import org.frc.team5409.churro.subsystems.Limelight;
 
 import org.frc.team5409.churro.limelight.LedMode;
 
-import org.frc.team5409.churro.util.Vec2;
-import org.frc.team5409.churro.util.Vec3;
-
 public final class AlignTurret extends CommandBase {
     private TurretControl m_turret;
     private Limelight     m_limelight;
 
-    private IButton       m_trigger;
-    private IButton       m_triggr2;
+    private long          m_last_sweep;
 
-    public AlignTurret() {
+    public AlignTurret() 
         m_turret = Robot.getSubsystem("TurretControl");
         m_limelight = Robot.getSubsystem("Limelight");
 
@@ -34,23 +24,8 @@ public final class AlignTurret extends CommandBase {
     }
 
     @Override
-    public void initialize() { //Shooting angle 65
-        SmartDashboard.setDefaultNumber("Target height", 18.0);
-        SmartDashboard.setDefaultNumber("Robot height", 2);
-        SmartDashboard.setDefaultNumber("Turret P", 0.1);
-        SmartDashboard.setDefaultNumber("Turret I", 0.02);
-        SmartDashboard.setDefaultNumber("Turret D", 0.012);
-        SmartDashboard.setDefaultNumber("Velocity P", 0.00005);
-        SmartDashboard.setDefaultNumber("Velocity I", 0.00006);
-        SmartDashboard.setDefaultNumber("Velocity D", 0);
-        SmartDashboard.setDefaultNumber("Camera elevation", 45);
-        SmartDashboard.setDefaultNumber("Zero angle", 90);
-        SmartDashboard.setDefaultNumber("Target rotation", 0);
-        SmartDashboard.setDefaultNumber("Target Velocity", 0);
-        SmartDashboard.setDefaultNumber("Max Rotation Speed", 0.7);
-        SmartDashboard.setDefaultNumber("Max Velocity", 0.8);
-
-        m_turret.zeroRotation();
+    public void initialize() {
+        m_limelight.setLedMode(LedMode.LED_ON);
     }
 
     @Override

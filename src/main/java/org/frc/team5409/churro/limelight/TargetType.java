@@ -1,4 +1,4 @@
-package org.frc.team5409.churro.vision;
+package org.frc.team5409.churro.limelight;
 
 public enum TargetType {
     OUTER_PORT,

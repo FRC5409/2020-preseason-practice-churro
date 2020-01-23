@@ -1,16 +1,42 @@
 package org.frc.team5409.churro.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 
 import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+
+import org.frc.team5409.churro.util.Range;
+
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.Spark;
 
 public final class TurretControl extends SubsystemBase {
+    public enum TurretMode {
+        /** Configures the turret to run with full speed and functionality. */
+        TURRET_FAST(0.8, 0.7),
+
+        /** Configures the turret to run with half speed and no velocity. Ideal for sweeping the turret */
+        TURRET_SWEEP(0.5, 0.0);
+
+        public double getRotationSetting() {
+            return m_rot_setting;
+        }
+
+        public double getVelocitySetting() {
+            return m_vel_setting;
+        }
+        
+        private final double m_rot_setting, m_vel_setting;
+
+        private TurretMode(double rot_setting, double vel_setting) {
+            m_rot_setting = rot_setting;
+            m_vel_setting = vel_setting;
+        }
+    }
+
+    private final Range          m_rotation_range;
+
     private Victor               mo_pwm4_turret_rotation;
     private Encoder              en_qd89_turret_rotation;
 
@@ -20,52 +46,44 @@ public final class TurretControl extends SubsystemBase {
     private PIDController        pid_turret_rotation;
     private PIDController        pid_turret_velocity;
 
+    private TurretMode           m_turret_mode;
+
     public TurretControl() {
+        m_rotation_range = new Range(-20, 90);
+
         mo_pwm4_turret_rotation = new Victor(4);
         
-        // addChild(mo_pwm4_turret_rotation);
-
         en_qd89_turret_rotation = new Encoder(8, 9);
             en_qd89_turret_rotation.setDistancePerPulse(1.0d/2.5d);
             en_qd89_turret_rotation.setReverseDirection(true);
-        
-        // addChild(en_qd89_turret_rotation);
+
+        pid_turret_rotation = new PIDController(0.1, 0.02, 0.01);
 
         mo_pwm67_turret_velocity = new SpeedControllerGroup(
             new Spark(6),
             new Spark(7)
         );
         mo_pwm67_turret_velocity.setInverted(true);
-        
-        // addChild(mo_pwm7_turret_flywheel);
 
         en_qd45_turret_velocity = new Encoder(4, 5);
-            en_qd45_turret_velocity.setDistancePerPulse(1.0d/40.0d);
-            //en_qd45_turret_velocity.setReverseDirection(true);
-        
-        // addChild(en_qd45_turret_flywheel);
+            en_qd45_turret_velocity.setDistancePerPulse(1.0d/(40.0d*12.0d)); //ft per sec
+            en_qd45_turret_velocity.setReverseDirection(true);
 
-        pid_turret_rotation = new PIDController(0, 0, 0);
-        pid_turret_velocity = new PIDController(0, 0, 0);
+        pid_turret_velocity = new PIDController(0.00005, 0.00006, 0);
+
+        m_turret_mode = TurretMode.TURRET_FAST;
     }
 
-    public void zeroRotation() {
-        en_qd89_turret_rotation.reset();
-        synchronized(pid_turret_rotation) {
-            pid_turret_rotation.reset();
-        }
+    public void setMode(TurretMode mode) {
+        m_turret_mode = mode;
     }
 
-    public synchronized void setRotation(double target) {
-        synchronized(pid_turret_rotation) {
-            pid_turret_rotation.setSetpoint(clamp(0, target, 90));
-        }
+    public void setRotation(double target) {
+        pid_turret_rotation.setSetpoint(m_rotation_range.clamp(target));
     }
 
     public void setVelocity(double target) {
-        synchronized(pid_turret_velocity) {
-            pid_turret_velocity.setSetpoint(clamp(0, target, 90));
-        };
+        pid_turret_velocity.setSetpoint(target);
     }
 
     public double getVelocity() {
@@ -77,52 +95,37 @@ public final class TurretControl extends SubsystemBase {
     }
 
     public void setP(double P, boolean is_rotation) {
-        PIDController controller = (is_rotation) ? pid_turret_rotation : pid_turret_velocity; 
-        synchronized(controller) {
-            controller.setP(P);
-        }
+        PIDController controller = (is_rotation) ? pid_turret_rotation : pid_turret_velocity;
+        controller.setP(P);
     }
 
     public void setI(double I, boolean is_rotation) {
         PIDController controller = (is_rotation) ? pid_turret_rotation : pid_turret_velocity;
-        synchronized(controller) {
-            controller.setI(I);
-        }
+        controller.setI(I);
     }
 
     public void setD(double D, boolean is_rotation) {
         PIDController controller = (is_rotation) ? pid_turret_rotation : pid_turret_velocity;
-        synchronized(controller) {
-            controller.setD(D);
-        }
+        controller.setD(D);
     }
 
     @Override
     public void periodic() {
-        double r_speed, v_speed;
-        synchronized(pid_turret_rotation) {
-            r_speed = pid_turret_rotation.calculate(getRotation());
-        }
+        mo_pwm4_turret_rotation.set(
+            Range.clamp(
+                -m_turret_mode.getRotationSetting(),
+                pid_turret_rotation.calculate(getRotation()),
+                m_turret_mode.getRotationSetting()
+            )
+        );
 
-        synchronized(pid_turret_velocity) {
-            v_speed = pid_turret_velocity.calculate(getVelocity());
-        }
-
-        SmartDashboard.putNumber("Turret Rotation Speed", r_speed);
-        SmartDashboard.putNumber("Turret Velocity Speed", v_speed);
-        SmartDashboard.putNumber("Turret dist", en_qd45_turret_velocity.getDistance());
-        double max = SmartDashboard.getNumber("Max Rotation Speed", 0);
-        double vv_max = SmartDashboard.getNumber("Max Velocity", 0);
-        mo_pwm4_turret_rotation.set(clamp(-max, r_speed, max));
-        mo_pwm67_turret_velocity.set(clamp(-vv_max, pid_turret_velocity.getSetpoint(), vv_max));
-    }
-
-    private double clamp(double mn, double v, double mx) {
-        if (v > mx)
-            return mx;
-        else if (v < mn)
-            return mn;
-        return v;
+        mo_pwm67_turret_velocity.set(
+            Range.clamp(
+                -m_turret_mode.getRotationSetting(),
+                mo_pwm67_turret_velocity.get() + pid_turret_velocity.calculate(getVelocity()),
+                m_turret_mode.getRotationSetting()
+            )
+        );
     }
 
 }
