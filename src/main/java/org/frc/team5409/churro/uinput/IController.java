@@ -159,8 +159,8 @@ public final class IController {
             rumble_lft = m_rumble_lft;
             rumble_rht = m_rumble_rht;
 
-            m_rumble_lft -= query_now_t - m_last_query; //Time drop-off (1rmbl / sec)
-            m_rumble_rht -= query_now_t - m_last_query;
+            m_rumble_lft = Math.max(0, m_rumble_lft - query_now_t + m_last_query); //Time drop-off (1rmbl / sec)
+            m_rumble_rht = Math.max(0, m_rumble_rht - query_now_t + m_last_query) ;
         }
 
         HAL.setJoystickOutputs((byte) m_controller.getPort(), 0,  (short) (rumble_lft * 65535), (short) (rumble_rht * 65535));
