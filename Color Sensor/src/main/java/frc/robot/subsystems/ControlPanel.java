@@ -7,7 +7,9 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 //import edu.wpi.first.wpilibj.GenericHID;
 //import edu.wpi.first.wpilibj.XboxController;
 //import edu.wpi.first.wpilibj2.command.Command;
@@ -21,37 +23,57 @@ import com.revrobotics.ColorSensorV3;
 //import com.revrobotics.ColorSensorV3.RawColor;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 
 public class ControlPanel extends SubsystemBase {
   /**
    * Creates a new ControlPanal.
    */
-  final I2C.Port i2cPort = I2C.Port.kOnboard;
+  public I2C.Port i2cPort = I2C.Port.kOnboard;
 
-  final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
+  public ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   
-  final ColorMatch m_colorMatcher = new ColorMatch();
+  public ColorMatch m_colorMatcher = new ColorMatch();
 
-  final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
-  final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
-  final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
-  final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+  public Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
+  public Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
+  public Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
+  public Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+  
+  public String colorString = "";
+
+  private CANSparkMax NEO550;
+
+  public ControlPanel() {
    
-  
-  String colorString = "";
+    setColorSensor();
+    spinningMotor();
+
+  }
+
+  public void spinningMotor() {
+
+    NEO550 = new CANSparkMax (Constants.NEO550_ID, MotorType.kBrushless);
+   
+    NEO550.restoreFactoryDefaults();
+
+   }
+
+   public void wheelSpinning(){
+    NEO550.set(0.5);
+   }
+
+   public void wheelNotSpinning(){
+    NEO550.set(0);
+   }
 
   public void setColorSensor(){
     m_colorMatcher.addColorMatch(kBlueTarget);
     m_colorMatcher.addColorMatch(kGreenTarget);
     m_colorMatcher.addColorMatch(kRedTarget);
     m_colorMatcher.addColorMatch(kYellowTarget);
-  }
-
-  public ControlPanel() {
-   
-    setColorSensor();
-
   }
 
   public void colorCalibration() {
