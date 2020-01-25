@@ -15,22 +15,6 @@ public class Robot extends TimedRobot {
         m_period = 1.0d / 200.0d;
     }
 
-	public static <T extends Subsystem> T getSubsystem(String name) {
-		return m_container.getSubsystem(name);
-    }
-    
-    public static <T extends Subsystem> T getSubsystem(String name, Class<T> type) {
-		return getSubsystem(name);
-	}
-
-    public static <T extends Command> T getCommand(String name) {
-		return m_container.getCommand(name);
-    }
-    
-    public static <T extends Command> T getCommand(String name, Class<T> type) {
-		return getCommand(name);
-	}
-
     @Override
     public void robotInit() {
     }
@@ -59,7 +43,7 @@ public class Robot extends TimedRobot {
     public void teleopInit() {
         ServiceManager.getInstance().startServices();
 
-        getCommand("AlignTurret").schedule();
+        //getCommand("AlignTurret").schedule();
         getCommand("Drive").schedule();
     }
 
