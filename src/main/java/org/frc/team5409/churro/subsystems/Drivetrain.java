@@ -20,8 +20,8 @@ public class Drivetrain extends SubsystemBase {
     private TalonSRX              mo_C03_drive_right;
     private TalonSRX              mo_C04_drive_right;
 
-    private Encoder               en_qd89_drive_left;
-    private Encoder               en_qd89_drive_right;
+    private Encoder               en_qd01_drive_left;
+    private Encoder               en_qd23_drive_right;
 
     public Drivetrain() {
         m_fkt_drive = new ForwardKinematicTrack(2 /*TODO CONSTANT*/);
@@ -38,9 +38,9 @@ public class Drivetrain extends SubsystemBase {
             mo_C04_drive_right.follow(mo_C03_drive_right);
             mo_C04_drive_right.setInverted(true);
         
-        en_qd89_drive_left = new Encoder(8, 9);
+        en_qd01_drive_left = new Encoder(0, 1);
 
-        en_qd89_drive_right = new Encoder(8, 9);
+        en_qd23_drive_right = new Encoder(2, 3);
         
     }
 
@@ -51,8 +51,8 @@ public class Drivetrain extends SubsystemBase {
     public void arcadeDrive(double speed_x, double rot_z) {
         double left_output, right_output;
 
-        speed_x = Range.clamp(0, speed_x, 1);
-        rot_z = Range.clamp(0, rot_z, 1);
+        speed_x = Range.clamp(-1, speed_x, 1);
+        rot_z = Range.clamp(-1, rot_z, 1);
 
         //Might have to flip these for some reason
         speed_x = Math.copySign(speed_x * speed_x, speed_x);
@@ -81,6 +81,9 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public void reset() {
+        en_qd01_drive_left.reset();
+        en_qd23_drive_right.reset();
+
         internal_setVelocity(0, 0);
     }
 
@@ -112,22 +115,22 @@ public class Drivetrain extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Left distance",  en_qd89_drive_left.getDistance());
-        SmartDashboard.putNumber("Right distance",  en_qd89_drive_right.getDistance());
+        SmartDashboard.putNumber("Left distance",  en_qd01_drive_left.getDistance());
+        SmartDashboard.putNumber("Right distance",  en_qd23_drive_right.getDistance());
 
         double[] velocities = getVelocity();
         m_fkt_drive.feed(velocities[0], velocities[1]);
     }
 
     private void internal_setVelocity(double left_output, double right_output) {
-        mo_C01_drive_left.set(ControlMode.PercentOutput,Range.clamp(-1, left_output, 1));
+        mo_C01_drive_left.set(ControlMode.PercentOutput, Range.clamp(-1, left_output, 1));
         mo_C03_drive_right.set(ControlMode.PercentOutput, Range.clamp(-1, right_output, 1));
     }
 
     private double[] internal_getVelocity() {
         double[] velocities = new double[2];
-            velocities[0] = en_qd89_drive_left.getRate();
-            velocities[1] = en_qd89_drive_right.getRate();
+            velocities[0] = en_qd01_drive_left.getRate();
+            velocities[1] = en_qd23_drive_right.getRate();
         return velocities;
     }
 }

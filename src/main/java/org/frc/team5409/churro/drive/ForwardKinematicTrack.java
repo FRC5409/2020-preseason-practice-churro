@@ -13,6 +13,10 @@ public final class ForwardKinematicTrack {
     private       double m_fkt_last_feed;
 
     public ForwardKinematicTrack(double fkt_wheel_dist) {
+        m_fkt_position = new Vec2(0,0);
+        m_fkt_direction = new Vec2(0,0);
+        m_fkt_theta = 0;
+
         m_fkt_wheel_dist = fkt_wheel_dist;
         m_fkt_last_feed = Timer.getFPGATimestamp();
     }

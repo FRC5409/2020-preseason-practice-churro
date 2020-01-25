@@ -8,12 +8,15 @@
 package org.frc.team5409.churro;
 import edu.wpi.first.wpilibj.Joystick;
 
+
+import edu.wpi.first.wpilibj2.command.Command;
+
 import org.frc.team5409.churro.subsystems.FeederControl;
 import org.frc.team5409.churro.subsystems.Limelight;
-import org.frc.team5409.churro.subsystems.TurretControl;
+//import org.frc.team5409.churro.subsystems.TurretControl;
 import org.frc.team5409.churro.subsystems.Drivetrain;
 
-import org.frc.team5409.churro.commands.AlignTurret;
+//import org.frc.team5409.churro.commands.AlignTurret;
 import org.frc.team5409.churro.commands.Drive;
 import org.frc.team5409.churro.commands.RunFeeder;
 
@@ -31,7 +34,7 @@ public class RobotContainer {
 
 //==========================================================================
 //  Subsystems
-    private TurretControl sTurretControl;
+    //private TurretControl sTurretControl;
     private FeederControl sFeederControl;
     private Limelight     sLimelight;
     private Drivetrain    sDrivetrain;
@@ -39,21 +42,21 @@ public class RobotContainer {
 //==========================================================================
 //  Commands
 
-    private AlignTurret   cAlignTurret;
-    private Drive         cDrive;
+    //private AlignTurret   cAlignTurret;
+    protected Drive         cDrive;
     private RunFeeder     cRunFeeder;
 
     protected void initialize() {
-        jMainDriver = new Joystick(0);
-        jSecondaryDriver = new Joystick(1);
+        //jMainDriver = new Joystick(0);
+        //jSecondaryDriver = new Joystick(1);
 
-        sTurretControl = new TurretControl();
+        //sTurretControl = new TurretControl();
         sFeederControl = new FeederControl();
         sLimelight = new Limelight();
         sDrivetrain = new Drivetrain();
 
-        cAlignTurret = new AlignTurret();
+        //cAlignTurret = new AlignTurret();
         cDrive = new Drive(sDrivetrain);
-        cRunFeeder = new RunFeeder();
+        cRunFeeder = new RunFeeder(sFeederControl);
     }
 }

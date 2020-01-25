@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public final class RunFeeder extends CommandBase {
     private FeederControl m_feeder;
 
-    public RunFeeder() {
-        m_feeder = Robot.getSubsystem("FeederControl");
+    public RunFeeder(FeederControl sys_feeder) {
+        m_feeder = sys_feeder;
 
         addRequirements(m_feeder);
     }
