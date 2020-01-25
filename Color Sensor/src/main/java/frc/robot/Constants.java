@@ -16,7 +16,7 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static int NEO550_ID = 0;
+    public static int NEO550_ID = 11;
     public static double kP = 5e-5;
     public static double kI = 1e-6;
     public static double kD = 0; 

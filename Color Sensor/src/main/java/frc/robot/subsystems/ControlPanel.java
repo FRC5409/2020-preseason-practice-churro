@@ -82,7 +82,7 @@ public class ControlPanel extends SubsystemBase {
    }
 
    public void wheelSpinning(){
-    NEO550.set(0);
+    NEO550.set(0.5);
    }
 
    public void wheelNotSpinning(){
@@ -127,14 +127,14 @@ public class ControlPanel extends SubsystemBase {
     SmartDashboard.putNumber("position of the encoder", m_encoder.getPosition());
   }
  
-   //  public double distanceCalculation(){
+    public double distanceCalculation(){
     
     
     
     
-  //   return 0;
+    return 0;
 
-  //  }
+   }
 
    //color sensor
 

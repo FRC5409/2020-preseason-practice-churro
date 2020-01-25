@@ -25,8 +25,8 @@ public class testControlPanel extends CommandBase {
   @Override
   public void initialize() {
     controlPanelSubsystem.setColorSensor();
-    //controlPanelSubsystem.setMotor();
-    //controlPanelSubsystem.wheelSpinning();
+    controlPanelSubsystem.setMotor();
+    controlPanelSubsystem.wheelSpinning();
     
   }
 
@@ -42,7 +42,7 @@ public class testControlPanel extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {  
-    //controlPanelSubsystem.wheelNotSpinning();
+    controlPanelSubsystem.wheelNotSpinning();
 
   }
 
