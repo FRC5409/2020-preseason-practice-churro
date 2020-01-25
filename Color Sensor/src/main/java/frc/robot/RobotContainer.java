@@ -40,13 +40,12 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
 
-    controlStick = new Joystick(1);
-    joystickButton1 = new JoystickButton(controlStick, 1);
-    joystickButton1.whenPressed(new testControlPanel());
-    joystickButton1.whenHeld(command)
-    getcontrolStick();
+    // controlStick = new Joystick(1);
+    // joystickButton1 = new JoystickButton(controlStick, 1);
+    // joystickButton1.whenPressed(new testControlPanel());
+    // getcontrolStick();
 
-    SmartDashboard.putData("Control Panel Command", new testControlPanel());
+    // SmartDashboard.putData("Control Panel Command", new testControlPanel());
 
     configureButtonBindings();
   }

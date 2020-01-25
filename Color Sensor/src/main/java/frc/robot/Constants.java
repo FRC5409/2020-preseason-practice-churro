@@ -17,4 +17,13 @@ package frc.robot;
  */
 public final class Constants {
     public static int NEO550_ID = 0;
+    public static double kP = 5e-5;
+    public static double kI = 1e-6;
+    public static double kD = 0; 
+    public static double kIz = 0; 
+    public static double kFF = 0;
+    public static double kMaxOutput = 1; 
+    public static double kMinOutput = -1; 
+    public static double maxRPM = 5700;
+    public static double distancePerRotation = 5;
 }

@@ -23,8 +23,11 @@ import com.revrobotics.ColorSensorV3;
 //import com.revrobotics.ColorSensorV3.RawColor;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
+//import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
 
 
 public class ControlPanel extends SubsystemBase {
@@ -45,29 +48,95 @@ public class ControlPanel extends SubsystemBase {
   public String colorString = "";
 
   private CANSparkMax NEO550;
+  private CANEncoder m_encoder;
+  private CANPIDController m_pidcontroller;
 
   public ControlPanel() {
    
     setColorSensor();
-    spinningMotor();
-
+    setMotor();
   }
 
-  public void spinningMotor() {
+  //motor 
+
+  public void setMotor() {
 
     NEO550 = new CANSparkMax (Constants.NEO550_ID, MotorType.kBrushless);
    
     NEO550.restoreFactoryDefaults();
 
+    NEO550.setSmartCurrentLimit(25);
+
+    m_encoder = NEO550.getEncoder();
+    
+    m_pidcontroller = NEO550.getPIDController();
+
+    m_pidcontroller.setP(Constants.kP);
+    m_pidcontroller.setI(Constants.kI);
+    m_pidcontroller.setD(Constants.kD);
+    m_pidcontroller.setIZone(Constants.kIz);
+    m_pidcontroller.setFF(Constants.kFF);
+    m_pidcontroller.setOutputRange(Constants.kMinOutput, Constants.kMaxOutput);
+
+    
    }
 
    public void wheelSpinning(){
-    NEO550.set(0.5);
+    NEO550.set(0);
    }
 
    public void wheelNotSpinning(){
     NEO550.set(0);
    }
+
+   public void pidValues(){
+    SmartDashboard.putNumber("ExSM: P Gain", Constants.kP);
+    SmartDashboard.putNumber("ExSM: I Gain", Constants.kI);
+    SmartDashboard.putNumber("ExSM: D Gain", Constants.kD);
+    SmartDashboard.putNumber("ExSM: I Zone", Constants.kIz);
+    SmartDashboard.putNumber("ExSM: Feed Forward", Constants.kFF);
+    SmartDashboard.putNumber("ExSM: Max Output", Constants.kMaxOutput);
+    SmartDashboard.putNumber("ExSM: Min Output", Constants.kMinOutput);
+
+    double p = SmartDashboard.getNumber("ExSM: P Gain", 0);
+    double i = SmartDashboard.getNumber("ExSM: I Gain", 0);
+    double d = SmartDashboard.getNumber("ExSM: D Gain", 0);
+    double iz = SmartDashboard.getNumber("ExSM: I Zone", 0);
+    double ff = SmartDashboard.getNumber("ExSM: Feed Forward", 0);
+    double max = SmartDashboard.getNumber("ExSM: Max Output", 0);
+    double min = SmartDashboard.getNumber("ExSM: Min Output", 0);
+    double rotation = SmartDashboard.getNumber("set rotation", 0);
+
+    if((p != Constants.kP)) {
+       m_pidcontroller.setP(p); Constants.kP = p; }
+    if((i != Constants.kI)) { 
+      m_pidcontroller.setI(i); Constants.kI = i; }
+    if((d != Constants.kD)) { 
+      m_pidcontroller.setD(d); Constants.kD = d; }
+    if((iz != Constants.kIz)) { 
+      m_pidcontroller.setIZone(iz); Constants.kIz = iz; }
+    if((ff != Constants.kFF)) {
+      m_pidcontroller.setFF(ff); Constants.kFF = ff; }
+    if((max != Constants.kMaxOutput) || (min != Constants.kMinOutput)) { 
+      m_pidcontroller.setOutputRange(min, max); 
+      Constants.kMinOutput = min; Constants.kMaxOutput = max; }
+
+   }
+
+  public void test(){
+    SmartDashboard.putNumber("position of the encoder", m_encoder.getPosition());
+  }
+ 
+   //  public double distanceCalculation(){
+    
+    
+    
+    
+  //   return 0;
+
+  //  }
+
+   //color sensor
 
   public void setColorSensor(){
     m_colorMatcher.addColorMatch(kBlueTarget);
@@ -100,7 +169,7 @@ public class ControlPanel extends SubsystemBase {
  
     } else {
       colorString = "Unknown";
-    }
+    } 
 
     SmartDashboard.putNumber("Red", detectedColor.red);
     SmartDashboard.putNumber("Green", detectedColor.green);
@@ -117,6 +186,9 @@ public class ControlPanel extends SubsystemBase {
   public void periodic() {
   
     colorCalibration();
+    pidValues();
+    test();
+
 
   }
 }

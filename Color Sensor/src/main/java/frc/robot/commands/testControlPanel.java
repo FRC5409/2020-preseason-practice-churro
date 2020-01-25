@@ -8,9 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.ControlPanel;
-import frc.robot.RobotContainer;
 
 public class testControlPanel extends CommandBase {
 
@@ -27,6 +25,9 @@ public class testControlPanel extends CommandBase {
   @Override
   public void initialize() {
     controlPanelSubsystem.setColorSensor();
+    //controlPanelSubsystem.setMotor();
+    //controlPanelSubsystem.wheelSpinning();
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -34,14 +35,15 @@ public class testControlPanel extends CommandBase {
   public void execute() {
     
     controlPanelSubsystem.colorCalibration();
-    
+
     
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    
+  public void end(boolean interrupted) {  
+    //controlPanelSubsystem.wheelNotSpinning();
+
   }
 
   // Returns true when the command should end.
