@@ -47,6 +47,17 @@ public class Vec2 {
     }
 
     /**
+     * Returns normalization of this vector.
+     * A'
+     * 
+     * @return Magnitude of this vector
+     */
+    public Vec2 normalize() {
+        final double mag = magnitude();
+        return new Vec2(x/mag, y/mag);
+    }
+
+    /**
      * X Coordinate
      */
     public double x;

@@ -6,13 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 package org.frc.team5409.churro;
-
-import org.frc.team5409.churro.system.SystemContainer;
-
-import org.frc.team5409.churro.control.ServiceManager;
-import org.frc.team5409.churro.services.UserInputService;
-import org.frc.team5409.churro.uinput.IController;
-import org.frc.team5409.churro.uinput.IController.*;
+import edu.wpi.first.wpilibj.Joystick;
 
 import org.frc.team5409.churro.subsystems.FeederControl;
 import org.frc.team5409.churro.subsystems.Limelight;
@@ -29,18 +23,37 @@ import org.frc.team5409.churro.commands.RunFeeder;
  * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
  * (including subsystems, commands, and button mappings) should be declared here.
  */
-public class RobotContainer extends SystemContainer {
+public class RobotContainer {
+//==========================================================================
+//  Joysticks
+    private Joystick      jMainDriver;
+    private Joystick      jSecondaryDriver;
+
+//==========================================================================
+//  Subsystems
+    private TurretControl sTurretControl;
+    private FeederControl sFeederControl;
+    private Limelight     sLimelight;
+    private Drivetrain    sDrivetrain;
+
+//==========================================================================
+//  Commands
+
+    private AlignTurret   cAlignTurret;
+    private Drive         cDrive;
+    private RunFeeder     cRunFeeder;
+
     protected void initialize() {
-        IController controller = ServiceManager.getService("UserInputService", UserInputService.class).getController(Controller.kMainDriver);
+        jMainDriver = new Joystick(0);
+        jSecondaryDriver = new Joystick(1);
 
-        addSubsystem("TurretControl", new TurretControl());
-        addSubsystem(    "Limelight", new Limelight());
-        addSubsystem("FeederControl", new FeederControl());
-        addSubsystem(   "Drivetrain", new Drivetrain()   );
+        sTurretControl = new TurretControl();
+        sFeederControl = new FeederControl();
+        sLimelight = new Limelight();
+        sDrivetrain = new Drivetrain();
 
-        addCommand(    "AlignTurret", new AlignTurret());
-        addCommand(          "Drive", new Drive()      );
-        addCommand(      "RunFeeder", new RunFeeder()  );
-            controller.getButton(Button.kA).whilePressedLatch(getCommand("RunFeeder"));
+        cAlignTurret = new AlignTurret();
+        cDrive = new Drive(sDrivetrain);
+        cRunFeeder = new RunFeeder();
     }
 }
