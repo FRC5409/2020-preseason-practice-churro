@@ -26,4 +26,7 @@ public final class Constants {
     public static double kMinOutput = -1; 
     public static double maxRPM = 5700;
     public static double distancePerRotation = 5;
+    public static double gearRatio = 27;
+    public static double ratioBigWheel = 64;
+
 }

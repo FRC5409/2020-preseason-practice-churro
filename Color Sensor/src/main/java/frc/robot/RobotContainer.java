@@ -32,7 +32,7 @@ public class RobotContainer {
   private final testControlPanel m_testControlPanel = new testControlPanel();
   
   public JoystickButton joystickButton1;
-  public Joystick controlStick;
+  public XboxController operatorStick;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -40,8 +40,8 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
 
-    controlStick = new Joystick(1);
-    joystickButton1 = new JoystickButton(controlStick, 1);
+    operatorStick = new XboxController(1);
+    joystickButton1 = new JoystickButton(operatorStick, 1);
     joystickButton1.whenPressed(new testControlPanel());
     getcontrolStick();
 
@@ -50,8 +50,8 @@ public class RobotContainer {
     configureButtonBindings();
   }
 
-  public Joystick getcontrolStick() {
-    return controlStick;
+  public XboxController getcontrolStick() {
+    return operatorStick;
 }
   
 

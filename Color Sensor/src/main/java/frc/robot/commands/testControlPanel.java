@@ -27,7 +27,7 @@ public class testControlPanel extends CommandBase {
     controlPanelSubsystem.setColorSensor();
     controlPanelSubsystem.setMotor();
     controlPanelSubsystem.wheelSpinning();
-    
+ 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,13 +42,16 @@ public class testControlPanel extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {  
-    controlPanelSubsystem.wheelNotSpinning();
 
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if (ControlPanel.distanceCalculation() >= 3.5 ){
+      controlPanelSubsystem.wheelNotSpinning();
+      return true;
+    }
     return false;
   }
 }

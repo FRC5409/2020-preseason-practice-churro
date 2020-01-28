@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 //import edu.wpi.first.wpilibj.GenericHID;
 //import edu.wpi.first.wpilibj.XboxController;
-//import edu.wpi.first.wpilibj2.command.Command;
 //import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -47,28 +46,30 @@ public class ControlPanel extends SubsystemBase {
   
   public String colorString = "";
 
-  private CANSparkMax NEO550;
-  private CANEncoder m_encoder;
+  private static CANSparkMax NEO550;
+  private static CANEncoder m_encoder;
   private CANPIDController m_pidcontroller;
 
   public ControlPanel() {
-   
+
     setColorSensor();
     setMotor();
   }
 
-  //motor 
+  // motor
 
   public void setMotor() {
 
-    NEO550 = new CANSparkMax (Constants.NEO550_ID, MotorType.kBrushless);
-   
+    NEO550 = new CANSparkMax(Constants.NEO550_ID, MotorType.kBrushless);
+
     NEO550.restoreFactoryDefaults();
 
     NEO550.setSmartCurrentLimit(25);
 
     m_encoder = NEO550.getEncoder();
-    
+
+    m_encoder.setPosition(0);
+
     m_pidcontroller = NEO550.getPIDController();
 
     m_pidcontroller.setP(Constants.kP);
@@ -78,18 +79,19 @@ public class ControlPanel extends SubsystemBase {
     m_pidcontroller.setFF(Constants.kFF);
     m_pidcontroller.setOutputRange(Constants.kMinOutput, Constants.kMaxOutput);
 
-    
-   }
+  }
 
-   public void wheelSpinning(){
+  public void wheelSpinning() {
     NEO550.set(0.5);
-   }
+  }
 
-   public void wheelNotSpinning(){
+  public void wheelNotSpinning() {
     NEO550.set(0);
-   }
+  }
 
-   public void pidValues(){
+  // PIDcontroller
+
+  public void pidValues() {
     SmartDashboard.putNumber("ExSM: P Gain", Constants.kP);
     SmartDashboard.putNumber("ExSM: I Gain", Constants.kI);
     SmartDashboard.putNumber("ExSM: D Gain", Constants.kD);
@@ -107,34 +109,52 @@ public class ControlPanel extends SubsystemBase {
     double min = SmartDashboard.getNumber("ExSM: Min Output", 0);
     double rotation = SmartDashboard.getNumber("set rotation", 0);
 
-    if((p != Constants.kP)) {
-       m_pidcontroller.setP(p); Constants.kP = p; }
-    if((i != Constants.kI)) { 
-      m_pidcontroller.setI(i); Constants.kI = i; }
-    if((d != Constants.kD)) { 
-      m_pidcontroller.setD(d); Constants.kD = d; }
-    if((iz != Constants.kIz)) { 
-      m_pidcontroller.setIZone(iz); Constants.kIz = iz; }
-    if((ff != Constants.kFF)) {
-      m_pidcontroller.setFF(ff); Constants.kFF = ff; }
-    if((max != Constants.kMaxOutput) || (min != Constants.kMinOutput)) { 
-      m_pidcontroller.setOutputRange(min, max); 
-      Constants.kMinOutput = min; Constants.kMaxOutput = max; }
+    if ((p != Constants.kP)) {
+      m_pidcontroller.setP(p);
+      Constants.kP = p;
+    }
+    if ((i != Constants.kI)) {
+      m_pidcontroller.setI(i);
+      Constants.kI = i;
+    }
+    if ((d != Constants.kD)) {
+      m_pidcontroller.setD(d);
+      Constants.kD = d;
+    }
+    if ((iz != Constants.kIz)) {
+      m_pidcontroller.setIZone(iz);
+      Constants.kIz = iz;
+    }
+    if ((ff != Constants.kFF)) {
+      m_pidcontroller.setFF(ff);
+      Constants.kFF = ff;
+    }
+    if ((max != Constants.kMaxOutput) || (min != Constants.kMinOutput)) {
+      m_pidcontroller.setOutputRange(min, max);
+      Constants.kMinOutput = min;
+      Constants.kMaxOutput = max;
+    }
 
-   }
-
-  public void test(){
-    SmartDashboard.putNumber("position of the encoder", m_encoder.getPosition());
   }
- 
-    public double distanceCalculation(){
+
+  public static double distanceCalculation() {
+
+    m_encoder = NEO550.getEncoder();
+      
+      double motorPosition = m_encoder.getPosition();
+
+      double loopSpinning = motorPosition / Constants.gearRatio;
+
+      double loopWheel = loopSpinning / Constants.ratioBigWheel;
+      
+      SmartDashboard.putNumber("position of the encoder", motorPosition);
+      SmartDashboard.putNumber("number of loops", loopSpinning);
+      SmartDashboard.putNumber("number of loops of the control panel spinning", loopWheel);
     
-    
-    
-    
-    return 0;
+    return loopWheel;
 
    }
+
 
    //color sensor
 
@@ -187,7 +207,7 @@ public class ControlPanel extends SubsystemBase {
   
     colorCalibration();
     pidValues();
-    test();
+    
 
 
   }
