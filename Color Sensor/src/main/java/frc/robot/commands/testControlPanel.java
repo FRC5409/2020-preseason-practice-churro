@@ -10,23 +10,25 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ControlPanel;
 
-public class testControlPanel extends CommandBase {
+public class TestControlPanel extends CommandBase {
 
-  private ControlPanel controlPanelSubsystem;
+  private ControlPanel m_ControlPanel;
 
   /**
    * Creates a new testColorSensor.
    */
-  public testControlPanel() {
+  public TestControlPanel(ControlPanel subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
+    m_ControlPanel = subsystem;
+    addRequirements(m_ControlPanel);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    controlPanelSubsystem.setColorSensor();
-    controlPanelSubsystem.setMotor();
-    controlPanelSubsystem.wheelSpinning();
+    m_ControlPanel.setColorSensor();
+    m_ControlPanel.setMotor();
+    m_ControlPanel.wheelSpinning();
  
   }
 
@@ -34,7 +36,7 @@ public class testControlPanel extends CommandBase {
   @Override
   public void execute() {
     
-    controlPanelSubsystem.colorCalibration();
+    m_ControlPanel.colorCalibration();
 
     
   }
@@ -48,8 +50,8 @@ public class testControlPanel extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (ControlPanel.distanceCalculation() >= 3.5 ){
-      controlPanelSubsystem.wheelNotSpinning();
+    if (m_ControlPanel.distanceCalculation() >= 3.5 ){
+      m_ControlPanel.wheelNotSpinning();
       return true;
     }
     return false;

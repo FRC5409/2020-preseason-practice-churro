@@ -9,12 +9,13 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.testControlPanel;
+
+import frc.robot.commands.TestControlPanel;
 import frc.robot.subsystems.ControlPanel;
-import edu.wpi.first.wpilibj.Joystick;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -29,7 +30,7 @@ public class RobotContainer {
   //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   private final ControlPanel m_controlPanel = new ControlPanel();
-  private final testControlPanel m_testControlPanel = new testControlPanel();
+  private final TestControlPanel m_testControlPanel = new TestControlPanel(m_controlPanel);
   
   public JoystickButton joystickButton1;
   public XboxController operatorStick;
@@ -40,12 +41,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
 
-    operatorStick = new XboxController(1);
-    joystickButton1 = new JoystickButton(operatorStick, 1);
-    joystickButton1.whenPressed(new testControlPanel());
-    getcontrolStick();
-
-    SmartDashboard.putData("Control Panel Command", new testControlPanel());
+    SmartDashboard.putData("Control Panel Command", new TestControlPanel(m_controlPanel));
 
     configureButtonBindings();
   }
@@ -53,15 +49,21 @@ public class RobotContainer {
   public XboxController getcontrolStick() {
     return operatorStick;
 }
-  
-
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
+
   private void configureButtonBindings() {
+
+    operatorStick = new XboxController(0);
+    //Setting up joystick
+
+    joystickButton1 = new JoystickButton(operatorStick, Button.kA.value);
+    joystickButton1.whenPressed(new TestControlPanel(m_controlPanel));
+
   }
 
 
