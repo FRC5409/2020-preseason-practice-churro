@@ -9,8 +9,6 @@ package frc.robot;
 
 import java.util.List;
 
-import javax.swing.JButton;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -24,13 +22,13 @@ import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.RobotDrive;
+import frc.robot.commands.Drive;
 import frc.robot.subsystems.DriveTrain2;
-import frc.robot.subsystems.ExampleSubsystem;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -41,9 +39,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  private final Drivetrain2 m_robotDrive = new DriveTrain2();
+
+  private final DriveTrain2 m_robotDrive = new DriveTrain2();
 
 
 
@@ -52,7 +50,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
     // Configure the button bindings
-
+    m_robotDrive.setDefaultCommand(new Drive(m_robotDrive));
     configureButtonBindings();
   }
 
@@ -62,16 +60,16 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  public Joystick joystick;
-    public JButton joystickbutton1;
-    public JButton joystickbutton2;
-    public JButton joystickbutton3;
-  private void configureButtonBindings() {
-joystick= new Joystick (0);
+  public static XboxController driverJoystick; 
+  public static XboxController controlStick;
 
-    joystickbutton1 =new JButton();
-    joystickbutton2= new JButton();
-    joystickbutton3= new JButton();
+  public JoystickButton joystickbutton1;
+  
+  private void configureButtonBindings() {
+  driverJoystick = new XboxController(0);
+  controlStick = new XboxController(1);
+
+  joystickbutton1 = new JoystickButton(driverJoystick, 1);
 
   }
 
@@ -118,24 +116,23 @@ joystick= new Joystick (0);
 
  RamseteCommand ramseteCommand = new RamseteCommand(
      Trajectory,
-     DriveTrain2::getPose,
+     m_robotDrive::getPose,
      new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
      new SimpleMotorFeedforward(Constants.ksVolts,
                                 Constants.kvVoltSecondsPerMeter,
                                 Constants.kaVoltSecondsSquaredPerMeter),
      Constants.kDriveKinematics,
-     RobotDrive::getWheelSpeeds,
+     m_robotDrive::getWheelSpeeds,
      new PIDController(Constants.kPDriveVel, 0, 0),
      new PIDController(Constants.kPDriveVel, 0, 0),
      // RamseteCommand passes volts to the callback
-     DriveTrain2::tankDriveVolts,
-     DriveTrain2
+     m_robotDrive::tankDriveVolts,
+     m_robotDrive
  );
 
  // Run path following command, then stop at the end.
- return ramseteCommand.andThen(() -> DriveTrain2.tankDriveVolts(0, 0));
+ return ramseteCommand.andThen(() -> m_robotDrive.tankDriveVolts(0, 0));
   }
-
 
 
 }
