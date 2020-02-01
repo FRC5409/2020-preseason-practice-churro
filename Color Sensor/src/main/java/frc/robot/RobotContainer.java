@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
-import frc.robot.commands.TestControlPanel;
+import frc.robot.commands.RotationControlPanel;
+import frc.robot.commands.PositionControlPanel;
 import frc.robot.subsystems.ControlPanel;
 
 /**
@@ -30,9 +30,10 @@ public class RobotContainer {
   //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   private final ControlPanel m_controlPanel = new ControlPanel();
-  private final TestControlPanel m_TestControlPanel = new TestControlPanel(m_controlPanel);
+  private final RotationControlPanel m_RotationControlPanel = new RotationControlPanel(m_controlPanel);
   
   public JoystickButton joystickButton1;
+  public JoystickButton joystickButton2;
   public XboxController operatorStick;
 
   /**
@@ -41,7 +42,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
 
-    SmartDashboard.putData( "Control Panel Command", new TestControlPanel(m_controlPanel));
+    SmartDashboard.putData( "Control Panel Command", new RotationControlPanel(m_controlPanel));
 
     configureButtonBindings();
   }
@@ -62,7 +63,9 @@ public class RobotContainer {
     //Setting up joystick
 
     joystickButton1 = new JoystickButton(operatorStick, Button.kA.value);
-    joystickButton1.whenPressed(new TestControlPanel(m_controlPanel));
+    joystickButton2 = new JoystickButton(operatorStick, Button.kB.value);
+    joystickButton1.whenPressed(new RotationControlPanel(m_controlPanel));
+    joystickButton2.whenPressed(new PositionControlPanel(m_controlPanel));
 
   }
 

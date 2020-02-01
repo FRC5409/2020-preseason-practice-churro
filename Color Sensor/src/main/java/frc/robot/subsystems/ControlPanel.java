@@ -7,7 +7,6 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 //import edu.wpi.first.wpilibj.GenericHID;
@@ -45,7 +44,8 @@ public class ControlPanel extends SubsystemBase {
   public Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
   public Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
   
-  public String colorString = "";
+  public static String colorString = "";
+  public static String FMScolor = "";
 
   public static CANSparkMax NEO550;
   public static CANEncoder m_encoder;
@@ -82,11 +82,7 @@ public class ControlPanel extends SubsystemBase {
 
   }
 
-  public void wheelSpinning() {
-    NEO550.set(0.5);
-  }
-
-  public void wheelNotSpinning() {
+  public void wheelStopSpinning(){
     NEO550.set(0);
   }
 
@@ -175,6 +171,11 @@ public class ControlPanel extends SubsystemBase {
     PIDadjust();
    }
 
+   // get FMS color value
+   public String getFMS(){
+    
+    return FMScolor;
+   }
 
    //color sensor
 
@@ -185,7 +186,7 @@ public class ControlPanel extends SubsystemBase {
     m_colorMatcher.addColorMatch(kYellowTarget);
   }
 
-  public void colorCalibration() {
+  public String colorCalibration() {
     
     final Color detectedColor = m_colorSensor.getColor(); 
     
@@ -219,8 +220,10 @@ public class ControlPanel extends SubsystemBase {
     SmartDashboard.putNumber("Proximity", proximity);
     SmartDashboard.putNumber("IR", IR);
 
+    return colorString;
+
   }
-  
+
 
   @Override
   public void periodic() {

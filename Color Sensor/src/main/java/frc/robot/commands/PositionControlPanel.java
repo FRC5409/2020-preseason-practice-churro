@@ -9,16 +9,16 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ControlPanel;
-import frc.robot.Constants;
+//import frc.robot.Constants;
 
-public class TestControlPanel extends CommandBase {
+public class PositionControlPanel extends CommandBase {
 
   private ControlPanel m_ControlPanel;
 
   /**
-   * Creates a new testColorSensor.
+   * Creates a new PositionControlPanel.
    */
-  public TestControlPanel(ControlPanel subsystem) {
+  public PositionControlPanel(ControlPanel subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_ControlPanel = subsystem;
     addRequirements(m_ControlPanel);
@@ -29,35 +29,28 @@ public class TestControlPanel extends CommandBase {
   public void initialize() {
     m_ControlPanel.setColorSensor();
     m_ControlPanel.setMotor();
-    m_ControlPanel.wheelSpinning();
-    m_ControlPanel.rotatePanel();
- 
+    m_ControlPanel.getFMS();
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
     m_ControlPanel.colorCalibration();
-
     
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {  
-
+  public void end(boolean interrupted) {
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (m_ControlPanel.distanceCalculation() >= Constants.rotationBigWheel ){
-      m_ControlPanel.wheelNotSpinning();
+    if (ControlPanel.colorString == ControlPanel.FMScolor){
       return true;
-    }
-    else{ 
-    return false;
-    }
+    } else {
+    return false;}
   }
 }
