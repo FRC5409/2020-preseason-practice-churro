@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.util.Color;
 //import java.nio.ByteBuffer;
 //import java.nio.ByteOrder;
 import com.revrobotics.ColorSensorV3;
+import com.revrobotics.ControlType;
 //import com.revrobotics.ColorSensorV3.RawColor;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
@@ -46,9 +47,9 @@ public class ControlPanel extends SubsystemBase {
   
   public String colorString = "";
 
-  private static CANSparkMax NEO550;
-  private static CANEncoder m_encoder;
-  private CANPIDController m_pidcontroller;
+  public static CANSparkMax NEO550;
+  public static CANEncoder m_encoder;
+  public static CANPIDController m_pidcontroller;
 
   public ControlPanel() {
 
@@ -100,59 +101,58 @@ public class ControlPanel extends SubsystemBase {
     SmartDashboard.putNumber("ExSM: Max Output", Constants.kMaxOutput);
     SmartDashboard.putNumber("ExSM: Min Output", Constants.kMinOutput);
 
-    double p = SmartDashboard.getNumber("ExSM: P Gain", 0);
-    double i = SmartDashboard.getNumber("ExSM: I Gain", 0);
-    double d = SmartDashboard.getNumber("ExSM: D Gain", 0);
-    double iz = SmartDashboard.getNumber("ExSM: I Zone", 0);
-    double ff = SmartDashboard.getNumber("ExSM: Feed Forward", 0);
-    double max = SmartDashboard.getNumber("ExSM: Max Output", 0);
-    double min = SmartDashboard.getNumber("ExSM: Min Output", 0);
-    double rotation = SmartDashboard.getNumber("set rotation", 0);
+    // double p = SmartDashboard.getNumber("ExSM: P Gain", 0);
+    // double i = SmartDashboard.getNumber("ExSM: I Gain", 0);
+    // double d = SmartDashboard.getNumber("ExSM: D Gain", 0);
+    // double iz = SmartDashboard.getNumber("ExSM: I Zone", 0);
+    // double ff = SmartDashboard.getNumber("ExSM: Feed Forward", 0);
+    // double max = SmartDashboard.getNumber("ExSM: Max Output", 0);
+    // double min = SmartDashboard.getNumber("ExSM: Min Output", 0);
+    // double rotation = SmartDashboard.getNumber("set rotation", 0);
 
-    if ((p != Constants.kP)) {
-      m_pidcontroller.setP(p);
-      Constants.kP = p;
-    }
-    if ((i != Constants.kI)) {
-      m_pidcontroller.setI(i);
-      Constants.kI = i;
-    }
-    if ((d != Constants.kD)) {
-      m_pidcontroller.setD(d);
-      Constants.kD = d;
-    }
-    if ((iz != Constants.kIz)) {
-      m_pidcontroller.setIZone(iz);
-      Constants.kIz = iz;
-    }
-    if ((ff != Constants.kFF)) {
-      m_pidcontroller.setFF(ff);
-      Constants.kFF = ff;
-    }
-    if ((max != Constants.kMaxOutput) || (min != Constants.kMinOutput)) {
-      m_pidcontroller.setOutputRange(min, max);
-      Constants.kMinOutput = min;
-      Constants.kMaxOutput = max;
-    }
+    // if ((p != Constants.kP)) {
+    // m_pidcontroller.setP(p);
+    // Constants.kP = p;
+    // }
+    // if ((i != Constants.kI)) {
+    // m_pidcontroller.setI(i);
+    // Constants.kI = i;
+    // }
+    // if ((d != Constants.kD)) {
+    // m_pidcontroller.setD(d);
+    // Constants.kD = d;
+    // }
+    // if ((iz != Constants.kIz)) {
+    // m_pidcontroller.setIZone(iz);
+    // Constants.kIz = iz;
+    // }
+    // if ((ff != Constants.kFF)) {
+    // m_pidcontroller.setFF(ff);
+    // Constants.kFF = ff;
+    // }
+    // if ((max != Constants.kMaxOutput) || (min != Constants.kMinOutput)) {
+    // m_pidcontroller.setOutputRange(min, max);
+    // Constants.kMinOutput = min;
+    // Constants.kMaxOutput = max;
+    // }
 
   }
 
-  public static double distanceCalculation() {
+   private static void PIDadjust(){
+   
+    m_pidcontroller = NEO550.getPIDController();
 
     m_encoder = NEO550.getEncoder();
-      
-      double motorPosition = m_encoder.getPosition();
 
-      double loopSpinning = motorPosition / Constants.gearRatio;
-
-      double loopWheel = loopSpinning / Constants.ratioBigWheel;
-      
-      SmartDashboard.putNumber("position of the encoder", motorPosition);
-      SmartDashboard.putNumber("number of loops", loopSpinning);
-      SmartDashboard.putNumber("number of loops of the control panel spinning", loopWheel);
+    m_pidcontroller.setReference(Constants.numberMotorSpinning, ControlType.kPosition);
     
-    return loopWheel;
+    SmartDashboard.putNumber("SetPoint", Constants.numberMotorSpinning);
+    
+    SmartDashboard.putNumber("ProcessVariable", m_encoder.getPosition());
+   }
 
+   public void rotatePanel(){
+    PIDadjust();
    }
 
 

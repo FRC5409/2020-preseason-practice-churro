@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
@@ -17,6 +18,7 @@ package frc.robot;
  */
 public final class Constants {
     public static int NEO550_ID = 11;
+    //need to be changed
     public static double kP = 5e-5;
     public static double kI = 1e-6;
     public static double kD = 0; 
@@ -24,9 +26,14 @@ public final class Constants {
     public static double kFF = 0;
     public static double kMaxOutput = 1; 
     public static double kMinOutput = -1; 
-    public static double maxRPM = 5700;
+    public static double maxRPM = 11000;
     public static double distancePerRotation = 5;
-    public static double gearRatio = 27;
-    public static double ratioBigWheel = 64;
+  
+    public static double gearRatio = 12;
+    public static double radiusSmallWheel = 1;
+    public static double radiusBigWheel = 16;
+    public static double rotationBigWheel = 3.1;
+    public static double numberMotorSpinning = rotationBigWheel * gearRatio * radiusBigWheel / radiusSmallWheel;
+   
 
 }

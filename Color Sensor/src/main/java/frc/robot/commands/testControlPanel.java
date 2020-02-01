@@ -29,6 +29,7 @@ public class TestControlPanel extends CommandBase {
     m_ControlPanel.setColorSensor();
     m_ControlPanel.setMotor();
     m_ControlPanel.wheelSpinning();
+    m_ControlPanel.rotatePanel();
  
   }
 
@@ -50,10 +51,10 @@ public class TestControlPanel extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (m_ControlPanel.distanceCalculation() >= 3.5 ){
-      m_ControlPanel.wheelNotSpinning();
-      return true;
-    }
+    // if (m_ControlPanel.distanceCalculation() >= 3 ){
+    //   m_ControlPanel.wheelNotSpinning();
+    //   return true;
+    // }
     return false;
   }
 }

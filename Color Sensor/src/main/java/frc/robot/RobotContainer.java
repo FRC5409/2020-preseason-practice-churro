@@ -30,7 +30,7 @@ public class RobotContainer {
   //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   private final ControlPanel m_controlPanel = new ControlPanel();
-  private final TestControlPanel m_testControlPanel = new TestControlPanel(m_controlPanel);
+  private final TestControlPanel m_TestControlPanel = new TestControlPanel(m_controlPanel);
   
   public JoystickButton joystickButton1;
   public XboxController operatorStick;
