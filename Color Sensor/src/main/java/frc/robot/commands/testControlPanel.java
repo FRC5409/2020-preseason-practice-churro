@@ -56,6 +56,8 @@ public class TestControlPanel extends CommandBase {
       m_ControlPanel.wheelNotSpinning();
       return true;
     }
+    else{ 
     return false;
+    }
   }
 }

@@ -41,7 +41,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
 
-    SmartDashboard.putData("Control Panel Command", new TestControlPanel(m_controlPanel));
+    SmartDashboard.putData( "Control Panel Command", new TestControlPanel(m_controlPanel));
 
     configureButtonBindings();
   }

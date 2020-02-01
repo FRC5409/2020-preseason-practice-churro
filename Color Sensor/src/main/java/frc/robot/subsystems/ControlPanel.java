@@ -162,6 +162,8 @@ public class ControlPanel extends SubsystemBase {
 
     m_encoder = NEO550.getEncoder();
 
+    m_encoder.setPosition(0);
+
     m_pidcontroller.setReference(Constants.numberMotorSpinning, ControlType.kPosition);
     
     SmartDashboard.putNumber("SetPoint", Constants.numberMotorSpinning);
@@ -225,8 +227,5 @@ public class ControlPanel extends SubsystemBase {
   
     colorCalibration();
     pidValues();
-    
-
-
   }
 }
