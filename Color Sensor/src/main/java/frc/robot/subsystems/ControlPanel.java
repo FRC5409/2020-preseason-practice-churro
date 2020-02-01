@@ -138,6 +138,24 @@ public class ControlPanel extends SubsystemBase {
 
   }
 
+  public double distanceCalculation() {
+
+    m_encoder = NEO550.getEncoder();
+
+      double motorPosition = m_encoder.getPosition();
+
+      double loopSpinning = motorPosition / Constants.gearRatio;
+
+      double loopWheel = loopSpinning / Constants.radiusBigWheel * Constants.radiusSmallWheel;
+
+      SmartDashboard.putNumber("position of the encoder", motorPosition);
+      SmartDashboard.putNumber("number of loops", loopSpinning);
+      SmartDashboard.putNumber("number of loops of the control panel spinning", loopWheel);
+
+    return loopWheel;
+
+   }
+
    private static void PIDadjust(){
    
     m_pidcontroller = NEO550.getPIDController();

@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ControlPanel;
+import frc.robot.Constants;
 
 public class TestControlPanel extends CommandBase {
 
@@ -51,10 +52,10 @@ public class TestControlPanel extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // if (m_ControlPanel.distanceCalculation() >= 3 ){
-    //   m_ControlPanel.wheelNotSpinning();
-    //   return true;
-    // }
+    if (m_ControlPanel.distanceCalculation() >= Constants.rotationBigWheel ){
+      m_ControlPanel.wheelNotSpinning();
+      return true;
+    }
     return false;
   }
 }
