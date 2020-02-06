@@ -14,7 +14,8 @@ import frc.robot.subsystems.ControlPanel;
 public class PositionControlPanel extends CommandBase {
 
   private ControlPanel m_ControlPanel;
-
+  boolean colorFound;
+  String searchColor;
   /**
    * Creates a new PositionControlPanel.
    */
@@ -22,6 +23,7 @@ public class PositionControlPanel extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     m_ControlPanel = subsystem;
     addRequirements(m_ControlPanel);
+    
   }
 
   // Called when the command is initially scheduled.
@@ -29,14 +31,22 @@ public class PositionControlPanel extends CommandBase {
   public void initialize() {
     m_ControlPanel.setColorSensor();
     m_ControlPanel.setMotor();
-    m_ControlPanel.getFMS();
+    searchColor = m_ControlPanel.getFMS();
+
     
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_ControlPanel.colorCalibration();
+    if (m_ControlPanel.getColorString() == searchColor) {
+      m_ControlPanel.wheelStopSpinning();
+      colorFound = true;
+    } else {
+      colorFound = false;
+      m_ControlPanel.pidVelocityControl();
+    }
+
     
   }
 
@@ -48,7 +58,7 @@ public class PositionControlPanel extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (ControlPanel.colorString == ControlPanel.FMScolor){
+    if (colorFound = true){
       return true;
     } else {
     return false;}

@@ -34,6 +34,9 @@ public final class Constants {
     public static double radiusBigWheel = 16;
     public static double rotationBigWheel = 3.1;
     public static double numberMotorSpinning = rotationBigWheel * gearRatio * radiusBigWheel / radiusSmallWheel;
+
+    public static double Velocity = 2;      // 2" / sec around the circumference
+    public static double motorPositionRPM = Velocity * 60 / (radiusBigWheel*2*3.14) * (radiusBigWheel / radiusSmallWheel) * gearRatio; //RPM of motor spinning for constant velocity
    
 
 }

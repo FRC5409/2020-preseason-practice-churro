@@ -33,7 +33,7 @@ public class RobotContainer {
   private final RotationControlPanel m_RotationControlPanel = new RotationControlPanel(m_controlPanel);
   
   public JoystickButton joystickButton1;
-  public JoystickButton joystickButton2;
+  public static JoystickButton joystickButton2;
   public XboxController operatorStick;
 
   /**
