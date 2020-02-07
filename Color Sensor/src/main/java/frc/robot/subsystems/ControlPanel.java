@@ -41,7 +41,11 @@ public class ControlPanel extends SubsystemBase {
 
   public ColorMatch m_colorMatcher = new ColorMatch();
 
-  public Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
+  //public Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);//blue
+  //public Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
+  //public Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
+  //public Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+  public Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);//blue
   public Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
   public Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
   public Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
@@ -227,10 +231,14 @@ public class ControlPanel extends SubsystemBase {
   // color sensor
 
   public void setColorSensor() {
-    m_colorMatcher.addColorMatch(kBlueTarget);
-    m_colorMatcher.addColorMatch(kGreenTarget);
-    m_colorMatcher.addColorMatch(kRedTarget);
-    m_colorMatcher.addColorMatch(kYellowTarget);
+    //m_colorMatcher.addColorMatch(kBlueTarget);
+    //m_colorMatcher.addColorMatch(kGreenTarget);
+    //m_colorMatcher.addColorMatch(kRedTarget);
+    //m_colorMatcher.addColorMatch(kYellowTarget);
+    m_colorMatcher.addColorMatch(Color.kAqua);
+    m_colorMatcher.addColorMatch(Color.kLime);
+    m_colorMatcher.addColorMatch(Color.kRed);
+    m_colorMatcher.addColorMatch(Color.kYellow);
   }
 
   public void colorCalibration() {
@@ -243,16 +251,16 @@ public class ControlPanel extends SubsystemBase {
 
     final int proximity = m_colorSensor.getProximity();
 
-    if (match.color == kBlueTarget) {
+    if (match.color == Color.kAqua) {
       colorString = "B";
 
-    } else if (match.color == kRedTarget) {
+    } else if (match.color == Color.kRed) {
       colorString = "R";
 
-    } else if (match.color == kGreenTarget) {
+    } else if (match.color == Color.kLime) {
       colorString = "G";
 
-    } else if (match.color == kYellowTarget) {
+    } else if (match.color == Color.kYellow) {
       colorString = "Y";
 
     } else {
