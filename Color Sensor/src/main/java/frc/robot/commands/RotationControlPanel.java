@@ -27,7 +27,6 @@ public class RotationControlPanel extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_ControlPanel.setColorSensor();
     m_ControlPanel.setMotor();
     m_ControlPanel.rotatePanel();
  
@@ -36,8 +35,6 @@ public class RotationControlPanel extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    m_ControlPanel.colorCalibration();
 
     
   }

@@ -39,7 +39,7 @@ public class PositionControlPanel extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_ControlPanel.getColorString() == searchColor) {
+    if (m_ControlPanel.getColorString().compareTo(searchColor) == 0) {
       m_ControlPanel.wheelStopSpinning();
       colorFound = true;
     } else {
@@ -58,7 +58,7 @@ public class PositionControlPanel extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (colorFound = true){
+    if (colorFound == true){
       return true;
     } else {
     return false;}

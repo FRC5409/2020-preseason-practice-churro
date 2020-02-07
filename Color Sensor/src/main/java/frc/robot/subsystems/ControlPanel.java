@@ -47,7 +47,7 @@ public class ControlPanel extends SubsystemBase {
   public Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
   private static String colorString = "";
-  private static String FMScolor = "Red";
+  private static String FMScolor = "G";
 
   public static CANSparkMax NEO550;
   public static CANEncoder m_encoder;
