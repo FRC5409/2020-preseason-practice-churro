@@ -51,8 +51,8 @@ public class ControlPanel extends SubsystemBase {
   public Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);//red
   public Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);//yellow
 
-  private static String colorString = "";
-  private static String FMScolor = "";
+  private static char colorString;
+  private static char FMScolor;
 
   public static CANSparkMax NEO550;
   public static CANEncoder m_encoder;
@@ -217,7 +217,7 @@ public class ControlPanel extends SubsystemBase {
    * @return
    */
 
-  public String getFMS() {
+  public char getFMS() {
     String gameData;
     gameData = DriverStation.getInstance().getGameSpecificMessage();
     if(gameData.length() > 0)
@@ -225,19 +225,19 @@ public class ControlPanel extends SubsystemBase {
       switch (gameData.charAt(0))
       {
         case 'B' :
-        FMScolor = "B";
+        FMScolor = 'R';
           //Blue case code
           break;
         case 'G' :
-        FMScolor = "G";
+        FMScolor = 'Y';
           //Green case code
           break;
         case 'R' :
-        FMScolor = "R";
+        FMScolor = 'B';
           //Red case code
           break;
         case 'Y' :
-        FMScolor = "Y";
+        FMScolor = 'G';
           //Yellow case code
           break;
         default :
@@ -278,26 +278,26 @@ public class ControlPanel extends SubsystemBase {
     final int proximity = m_colorSensor.getProximity();
 
     if (match.color == Color.kAqua) {
-      colorString = "B";
+      colorString = 'B';
 
     } else if (match.color == Color.kRed) {
-      colorString = "R";
+      colorString = 'R';
 
     } else if (match.color == Color.kLime) {
-      colorString = "G";
+      colorString = 'G';
 
     } else if (match.color == Color.kYellow) {
-      colorString = "Y";
+      colorString = 'Y';
 
     } else {
-      colorString = "Unknown";
+      colorString = 'U';
     }
 
-    SmartDashboard.putNumber("Red", detectedColor.red);
-    SmartDashboard.putNumber("Green", detectedColor.green);
-    SmartDashboard.putNumber("Blue", detectedColor.blue);
+    SmartDashboard.putNumber("Red", m_colorSensor.getRed());
+    SmartDashboard.putNumber("Green", m_colorSensor.getGreen());
+    SmartDashboard.putNumber("Blue", m_colorSensor.getBlue());
     SmartDashboard.putNumber("Confidence", match.confidence);
-    SmartDashboard.putString("Detected Color", colorString);
+    SmartDashboard.putString("Detected Color", String.valueOf(colorString));
     SmartDashboard.putNumber("Proximity", proximity);
     SmartDashboard.putNumber("IR", IR);
 
@@ -308,7 +308,7 @@ public class ControlPanel extends SubsystemBase {
    * @return
    */
 
-  public String getColorString(){
+  public char getColorString(){
     
     return colorString;
   }

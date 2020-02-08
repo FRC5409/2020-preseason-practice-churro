@@ -15,7 +15,7 @@ public class PositionControlPanel extends CommandBase {
 
   private ControlPanel m_ControlPanel;
   boolean colorFound;
-  String searchColor;
+  char searchColor;
   /**
    * Creates a new PositionControlPanel.
    */
@@ -39,7 +39,8 @@ public class PositionControlPanel extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_ControlPanel.getColorString().compareTo(searchColor) == 0) {
+    //compare the color detected to the color from FMS
+    if (m_ControlPanel.getColorString() == searchColor) {
       m_ControlPanel.wheelStopSpinning();
       colorFound = true;
     } else {
