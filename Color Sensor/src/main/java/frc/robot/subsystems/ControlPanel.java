@@ -45,13 +45,14 @@ public class ControlPanel extends SubsystemBase {
   //public Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
   //public Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
   //public Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+
   public Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);//blue
-  public Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
-  public Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
-  public Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+  public Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);//green
+  public Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);//red
+  public Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);//yellow
 
   private static String colorString = "";
-  private static String FMScolor = "G";
+  private static String FMScolor = "";
 
   public static CANSparkMax NEO550;
   public static CANEncoder m_encoder;
@@ -63,7 +64,9 @@ public class ControlPanel extends SubsystemBase {
     setMotor();
   }
 
-  // motor
+  /**
+   * Set the motor and PID values
+   */
 
   public void setMotor() {
 
@@ -88,11 +91,15 @@ public class ControlPanel extends SubsystemBase {
 
   }
 
+  //
+
   public void wheelStopSpinning() {
     NEO550.set(0);
   }
 
-  // PIDcontroller
+  /**
+   * Put PID values on to smartdashboard
+   */
 
   public void pidValues() {
     SmartDashboard.putNumber("ExSM: P Gain", Constants.kP);
@@ -140,6 +147,11 @@ public class ControlPanel extends SubsystemBase {
 
   }
 
+  /**
+   * Calculate the number of rotations that the control panel spin for stage 1 (rotation)
+   * @return
+   */
+
   public double distanceCalculation() {
 
     m_encoder = NEO550.getEncoder();
@@ -158,8 +170,10 @@ public class ControlPanel extends SubsystemBase {
 
   }
 
-  // motor pid position control for stage 1 spinning (rotation)
-  
+  /**
+   * Motor PID position control for stage 1 spinning (rotation)
+   */
+
   private static void PIDadjust() {
 
     m_pidcontroller = NEO550.getPIDController();
@@ -174,8 +188,10 @@ public class ControlPanel extends SubsystemBase {
 
     SmartDashboard.putNumber("ProcessVariable", m_encoder.getPosition());
   }
-  
-  // motor pid velocity control for stage 2 spinning (color matching)
+
+  /**
+   * Motor PID velocity control for stage 2 spinning (color matching)
+   */
   
   public void pidVelocityControl() {
   
@@ -196,7 +212,11 @@ public class ControlPanel extends SubsystemBase {
     PIDadjust();
   }
 
-  // get FMS color value
+  /**
+   * Get FMS color value
+   * @return
+   */
+
   public String getFMS() {
     String gameData;
     gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -228,7 +248,9 @@ public class ControlPanel extends SubsystemBase {
     return FMScolor;
   }
 
-  // color sensor
+  /**
+   * Set color sensor
+   */
 
   public void setColorSensor() {
     //m_colorMatcher.addColorMatch(kBlueTarget);
@@ -240,6 +262,10 @@ public class ControlPanel extends SubsystemBase {
     m_colorMatcher.addColorMatch(Color.kRed);
     m_colorMatcher.addColorMatch(Color.kYellow);
   }
+
+  /**
+   * Match the color value from the color sensor
+   */
 
   public void colorCalibration() {
 
@@ -276,6 +302,11 @@ public class ControlPanel extends SubsystemBase {
     SmartDashboard.putNumber("IR", IR);
 
   }
+
+  /**
+   * Get colorString from colorCalibration()
+   * @return
+   */
 
   public String getColorString(){
     
