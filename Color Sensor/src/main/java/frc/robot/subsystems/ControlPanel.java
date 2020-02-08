@@ -253,14 +253,11 @@ public class ControlPanel extends SubsystemBase {
    */
 
   public void setColorSensor() {
-    //m_colorMatcher.addColorMatch(kBlueTarget);
-    //m_colorMatcher.addColorMatch(kGreenTarget);
-    //m_colorMatcher.addColorMatch(kRedTarget);
-    //m_colorMatcher.addColorMatch(kYellowTarget);
-    m_colorMatcher.addColorMatch(Color.kAqua);
-    m_colorMatcher.addColorMatch(Color.kLime);
-    m_colorMatcher.addColorMatch(Color.kRed);
-    m_colorMatcher.addColorMatch(Color.kYellow);
+    m_colorMatcher.addColorMatch(kBlueTarget);
+    m_colorMatcher.addColorMatch(kGreenTarget);
+    m_colorMatcher.addColorMatch(kRedTarget);
+    m_colorMatcher.addColorMatch(kYellowTarget);
+   
   }
 
   /**
