@@ -315,7 +315,7 @@ public class ControlPanel extends SubsystemBase {
   @Override
   public void periodic() {
 
-    colorCalibration();
+    //colorCalibration();
     pidValues();
   }
 }
