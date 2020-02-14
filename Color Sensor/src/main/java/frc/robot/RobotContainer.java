@@ -32,9 +32,11 @@ public class RobotContainer {
 
   private final ControlPanel m_controlPanel = new ControlPanel();
   private final RotationControlPanel m_RotationControlPanel = new RotationControlPanel(m_controlPanel);
+  private final PositionControlPanel m_PositioinControlPanel = new PositionControlPanel(m_controlPanel);
+  private final TuningTesting m_TuningTesting = new TuningTesting(m_controlPanel);
   
-  // public static JoystickButton joystickButton1;
-  // public static JoystickButton joystickButton2;
+  public static JoystickButton joystickButton1;
+  public static JoystickButton joystickButton2;
   public static JoystickButton joystickButton3;
   public XboxController operatorStick;
 
@@ -64,11 +66,11 @@ public class RobotContainer {
     operatorStick = new XboxController(0);
     //Setting up joystick
 
-    // joystickButton1 = new JoystickButton(operatorStick, Button.kA.value);
-    // joystickButton2 = new JoystickButton(operatorStick, Button.kB.value);
+    joystickButton1 = new JoystickButton(operatorStick, Button.kA.value);
+    joystickButton2 = new JoystickButton(operatorStick, Button.kB.value);
     joystickButton3 = new JoystickButton(operatorStick, Button.kX.value);
-    // joystickButton1.whenPressed(new RotationControlPanel(m_controlPanel));
-    // joystickButton2.whenPressed(new PositionControlPanel(m_controlPanel));
+    joystickButton1.whenPressed(new RotationControlPanel(m_controlPanel));
+    joystickButton2.whenPressed(new PositionControlPanel(m_controlPanel));
     joystickButton3.whenPressed(new TuningTesting(m_controlPanel));
 
   }

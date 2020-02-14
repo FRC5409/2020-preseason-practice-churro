@@ -17,8 +17,13 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    
+    //color sensor
     public static int NEO550_ID = 11;
-    //need to be changed
+    //motor
+    public static double maxRPM = 11000;
+    
+    //need to be changed (PID Values)
     public static double kP = 5e-5;
     public static double kI = 1e-6;
     public static double kD = 0; 
@@ -26,15 +31,15 @@ public final class Constants {
     public static double kFF = 0;
     public static double kMaxOutput = 1; 
     public static double kMinOutput = -1; 
-    public static double maxRPM = 11000;
-    public static double distancePerRotation = 5;
   
+    //PID position control (Rotation)
     public static double gearRatio = 12;
     public static double radiusSmallWheel = 1;
     public static double radiusBigWheel = 16;
     public static double rotationBigWheel = 3.1;
     public static double numberMotorSpinning = rotationBigWheel * gearRatio * radiusBigWheel / radiusSmallWheel;
 
+    //PID velocity control (Position)
     public static double Velocity = 10;      // 10" / sec around the circumference
     public static double motorPositionRPM = Velocity * 60 / (radiusBigWheel*2*3.14) * (radiusBigWheel / radiusSmallWheel) * gearRatio; //RPM of motor spinning for constant velocity
    

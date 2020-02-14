@@ -53,6 +53,7 @@ public class ControlPanel extends SubsystemBase {
 
   private static char colorString;
   private static char FMScolor;
+  private static char colorTesting;
 
   public static CANSparkMax NEO550;
   public static CANEncoder m_encoder;
@@ -300,9 +301,44 @@ public class ControlPanel extends SubsystemBase {
 
   }
 
+  public void colorTuning(){
+    final Color detectedColor = m_colorSensor.getColor();
+
+    ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
+
+    final double IR = m_colorSensor.getIR();
+
+    final int proximity = m_colorSensor.getProximity();
+
+    if (match.color == Color.kAqua) {
+      colorTesting = 'B';
+
+    } else if (match.color == Color.kRed) {
+      colorTesting = 'R';
+
+    } else if (match.color == Color.kLime) {
+      colorTesting = 'G';
+
+    } else if (match.color == Color.kYellow) {
+      colorTesting = 'Y';
+
+    } else {
+      colorTesting = 'U';
+    }
+
+    SmartDashboard.putNumber("Instataneous Red", m_colorSensor.getRed());
+    SmartDashboard.putNumber("Instataneous Green", m_colorSensor.getGreen());
+    SmartDashboard.putNumber("Instataneous Blue", m_colorSensor.getBlue());
+    SmartDashboard.putNumber("Instataneous Confidence", match.confidence);
+    SmartDashboard.putString("Instataneous Detected Color", String.valueOf(colorTesting));
+    SmartDashboard.putNumber("Instataneous Proximity", proximity);
+    SmartDashboard.putNumber("Instataneous IR", IR);
+
+  }
+
   /**
    * Get colorString from colorCalibration()
-   * @return
+   * @return 
    */
 
   public char getColorString(){
@@ -315,7 +351,7 @@ public class ControlPanel extends SubsystemBase {
   @Override
   public void periodic() {
 
-    //colorCalibration();
+    colorCalibration();
     pidValues();
   }
 }

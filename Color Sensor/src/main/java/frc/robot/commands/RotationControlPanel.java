@@ -49,7 +49,7 @@ public class RotationControlPanel extends CommandBase {
   @Override
   public boolean isFinished() {
     if (m_ControlPanel.distanceCalculation() >= Constants.rotationBigWheel ){
-      m_ControlPanel.wheelStopSpinning();
+      m_ControlPanel.wheelStopSpinning(); //might not be needed (need to test)
       return true;
     }
     else{ 
