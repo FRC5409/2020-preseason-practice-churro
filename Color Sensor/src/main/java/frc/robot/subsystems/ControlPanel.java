@@ -275,16 +275,16 @@ public class ControlPanel extends SubsystemBase {
 
     final int proximity = m_colorSensor.getProximity();
 
-    if (match.color == Color.kAqua) {
+    if (match.color == kBlueTarget) {
       colorString = 'B';
 
-    } else if (match.color == Color.kRed) {
+    } else if (match.color == kRedTarget) {
       colorString = 'R';
 
-    } else if (match.color == Color.kLime) {
+    } else if (match.color == kGreenTarget) {
       colorString = 'G';
 
-    } else if (match.color == Color.kYellow) {
+    } else if (match.color == kYellowTarget) {
       colorString = 'Y';
 
     } else {
@@ -310,16 +310,16 @@ public class ControlPanel extends SubsystemBase {
 
     final int proximity = m_colorSensor.getProximity();
 
-    if (match.color == Color.kAqua) {
+    if (match.color == kBlueTarget) {
       colorTesting = 'B';
 
-    } else if (match.color == Color.kRed) {
+    } else if (match.color == kRedTarget ) {
       colorTesting = 'R';
 
-    } else if (match.color == Color.kLime) {
+    } else if (match.color == kGreenTarget) {
       colorTesting = 'G';
 
-    } else if (match.color == Color.kYellow) {
+    } else if (match.color == kYellowTarget) {
       colorTesting = 'Y';
 
     } else {
